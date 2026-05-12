@@ -21,17 +21,15 @@
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--white);
       font-family: 'Inter', -apple-system, sans-serif;
       overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
 
-    /* ── ANNOUNCE BAR ─────────────────────────────── */
+    /* ── ANNOUNCE BAR ─── */
     .bar {
       height: 34px;
       background: #080808;
@@ -55,38 +53,25 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* ── HEADER ───────────────────────────────────── */
+    /* ── HEADER ─── */
     header {
       position: sticky; top: 0; z-index: 99;
       height: 66px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 56px;
-      background: rgba(11,11,11,0.92);
+      background: rgba(11,11,11,0.93);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
-
     .logo {
       display: flex; align-items: center; gap: 10px;
       font-size: 15px; font-weight: 800; letter-spacing: 0.02em;
     }
-    .logo-icon {
-      color: var(--gold);
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: -4px;
-      line-height: 1;
-    }
-
+    .logo-icon { color: var(--gold); font-size: 22px; font-weight: 900; letter-spacing: -4px; line-height: 1; }
     nav { display: flex; gap: 40px; }
-    nav a {
-      font-size: 13.5px; font-weight: 500;
-      color: var(--muted);
-      transition: color .2s;
-    }
+    nav a { font-size: 13.5px; font-weight: 500; color: var(--muted); transition: color .2s; }
     nav a:hover { color: var(--white); }
-
     .btn-nav {
       height: 38px; padding: 0 22px;
       background: var(--white); color: #000;
@@ -97,7 +82,7 @@
     }
     .btn-nav:hover { opacity: .88; }
 
-    /* ── HERO ─────────────────────────────────────── */
+    /* ── HERO ─── */
     .hero {
       min-height: 88vh;
       display: flex; flex-direction: column;
@@ -109,11 +94,9 @@
     .hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 30%,
-        rgba(232,101,26,.08) 0%, transparent 65%);
+      background: radial-gradient(ellipse 70% 50% at 50% 30%, rgba(232,101,26,.08) 0%, transparent 65%);
       pointer-events: none;
     }
-
     .pill {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 9px 22px;
@@ -122,20 +105,16 @@
       font-size: 13px; font-weight: 500;
       color: var(--white);
       margin-bottom: 42px;
-      letter-spacing: 0.01em;
     }
     .pill svg { color: var(--gold); flex-shrink: 0; }
-
     .hero h1 {
       font-size: clamp(42px, 6.5vw, 84px);
       font-weight: 800;
       line-height: 1.06;
       letter-spacing: -0.04em;
       max-width: 860px;
-      margin-bottom: 0;
     }
     .hero h1 .orange { color: var(--orange); }
-
     .hero-sub {
       font-size: clamp(15px, 1.6vw, 18px);
       color: var(--muted);
@@ -144,12 +123,7 @@
       margin-top: 24px;
       margin-bottom: 48px;
     }
-
-    .hero-cta {
-      display: flex; gap: 20px; align-items: center;
-      flex-wrap: wrap; justify-content: center;
-    }
-
+    .hero-cta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; justify-content: center; }
     .btn-orange {
       height: 50px; padding: 0 36px;
       background: var(--orange); color: var(--white);
@@ -159,52 +133,26 @@
       transition: opacity .2s;
     }
     .btn-orange:hover { opacity: .9; }
-
-    .btn-text {
-      font-size: 14px; font-weight: 500;
-      color: var(--muted);
-      transition: color .2s;
-    }
+    .btn-text { font-size: 14px; font-weight: 500; color: var(--muted); transition: color .2s; }
     .btn-text:hover { color: var(--white); }
 
-    /* ── DIVIDER ──────────────────────────────────── */
+    /* ── DIVIDER ─── */
     .divider {
       border-top: 1px solid var(--border);
       padding: 18px 56px;
       background: #0d0d0d;
     }
-    .divider code {
-      font-family: 'Menlo', 'SF Mono', monospace;
-      font-size: 12px;
-      color: var(--dim);
-    }
+    .divider code { font-family: 'Menlo', 'SF Mono', monospace; font-size: 12px; color: var(--dim); }
     .divider code .k { color: #a78bfa; }
     .divider code .s { color: #6ee7b7; }
 
-    /* ── PORTFOLIO ────────────────────────────────── */
-    .portfolio {
-      padding: 96px 56px;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
+    /* ── PORTFOLIO ─── */
+    .portfolio { padding: 96px 56px; max-width: 1280px; margin: 0 auto; }
     .port-header { margin-bottom: 52px; }
-    .port-tag {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 14px;
-    }
-    .port-title {
-      font-size: clamp(28px, 3.5vw, 44px);
-      font-weight: 800; letter-spacing: -0.03em;
-      line-height: 1.1;
-    }
+    .port-tag { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+    .port-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
     .card {
       background: var(--bg-2);
@@ -221,12 +169,18 @@
       box-shadow: 0 16px 48px -16px rgba(232,101,26,.22);
     }
 
-    .card-img {
+    /* card thumbnail */
+    .card-thumb {
       height: 200px;
       display: flex; align-items: center; justify-content: center;
       position: relative;
-      font-size: 60px;
     }
+    .card-icon {
+      width: 72px; height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 20px;
+    }
+    .card-icon svg { width: 38px; height: 38px; }
 
     .card-status {
       position: absolute; top: 14px; left: 14px;
@@ -234,43 +188,19 @@
       letter-spacing: .07em; text-transform: uppercase;
       padding: 4px 11px; border-radius: 100px;
     }
-    .status-live {
-      border: 1px solid var(--orange);
-      background: rgba(232,101,26,.1);
-      color: var(--orange);
-    }
-    .status-soon {
-      border: 1px solid var(--dim);
-      background: transparent;
-      color: var(--dim);
-    }
+    .status-live { border: 1px solid var(--orange); background: rgba(232,101,26,.1); color: var(--orange); }
+    .status-soon { border: 1px solid var(--dim); background: transparent; color: var(--dim); }
 
     .card-body { padding: 24px 26px 26px; }
-
-    .card-niche {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 8px;
-    }
-    .card-name {
-      font-size: 19px; font-weight: 800;
-      letter-spacing: -0.02em; margin-bottom: 10px;
-    }
-    .card-desc {
-      font-size: 13.5px; color: var(--muted);
-      line-height: 1.6; margin-bottom: 22px;
-    }
-    .card-link {
-      font-size: 13px; font-weight: 700;
-      color: var(--orange);
-      display: flex; align-items: center; gap: 5px;
-    }
+    .card-niche { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .card-name { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .card-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 22px; }
+    .card-link { font-size: 13px; font-weight: 700; color: var(--orange); display: flex; align-items: center; gap: 5px; }
     .card-link svg { transition: transform .2s; }
     .card:hover .card-link svg { transform: translateX(3px); }
-
     .card-soon { opacity: .3; pointer-events: none; }
 
-    /* ── GRID DECO ────────────────────────────────── */
+    /* ── GRID DECO ─── */
     .grid-deco {
       height: 64px;
       background-image:
@@ -279,46 +209,21 @@
       background-size: 40px 40px;
     }
 
-    /* ── CONTACT ──────────────────────────────────── */
-    .contact {
-      text-align: center;
-      padding: 100px 56px;
-      border-top: 1px solid var(--border);
-    }
+    /* ── CONTACT ─── */
+    .contact { text-align: center; padding: 100px 56px; border-top: 1px solid var(--border); }
     .contact .port-tag { margin-bottom: 24px; }
-    .contact h2 {
-      font-size: clamp(30px, 4.5vw, 58px);
-      font-weight: 800; letter-spacing: -0.04em; line-height: 1.08;
-      margin-bottom: 20px;
-    }
+    .contact h2 { font-size: clamp(30px, 4.5vw, 58px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 20px; }
     .contact h2 .orange { color: var(--orange); }
-    .contact p {
-      font-size: 17px; color: var(--muted);
-      max-width: 380px; margin: 0 auto 40px;
-      line-height: 1.7;
-    }
-    .contact-note {
-      margin-top: 22px;
-      font-size: 12px; color: var(--dim);
-    }
+    .contact p { font-size: 17px; color: var(--muted); max-width: 380px; margin: 0 auto 40px; line-height: 1.7; }
+    .contact-note { margin-top: 22px; font-size: 12px; color: var(--dim); }
 
-    /* ── FOOTER ───────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 56px;
-      display: flex; align-items: center;
-      justify-content: space-between;
-    }
+    /* ── FOOTER ─── */
+    footer { border-top: 1px solid var(--border); padding: 28px 56px; display: flex; align-items: center; justify-content: space-between; }
     footer p { font-size: 13px; color: var(--dim); }
-    .foot-logo {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 14px; font-weight: 800;
-    }
+    .foot-logo { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 800; }
 
-    /* ── RESPONSIVE ───────────────────────────────── */
-    @media (max-width: 960px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    /* ── RESPONSIVE ─── */
+    @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) {
       header { padding: 0 20px; }
       nav { display: none; }
@@ -334,11 +239,11 @@
 <!-- BAR -->
 <div class="bar">
   <div class="bar-track">
-    <span>Portfólio de landing pages — <em>cada nicho, uma LP.</em></span>
-    <span>Do zero, sem template — <em>design e copy integrados.</em></span>
+    <span>Portfólio de landing pages — <em>cada segmento, uma página.</em></span>
+    <span>Feita do zero, sem reaproveitamento — <em>design pensado para vender.</em></span>
     <span>Clique, veja, escolha — <em>simples assim.</em></span>
-    <span>Portfólio de landing pages — <em>cada nicho, uma LP.</em></span>
-    <span>Do zero, sem template — <em>design e copy integrados.</em></span>
+    <span>Portfólio de landing pages — <em>cada segmento, uma página.</em></span>
+    <span>Feita do zero, sem reaproveitamento — <em>design pensado para vender.</em></span>
     <span>Clique, veja, escolha — <em>simples assim.</em></span>
   </div>
 </div>
@@ -350,48 +255,46 @@
     CREAT
   </a>
   <nav>
-    <a href="#portfolio">Portfólio</a>
+    <a href="#portfolio">Páginas</a>
     <a href="#contato">Contato</a>
   </nav>
-  <a href="#portfolio" class="btn-nav">Ver as LPs</a>
+  <a href="#portfolio" class="btn-nav">Ver as páginas</a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
   <div class="pill">
-    <svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor">
-      <polygon points="0,0 10,5.5 0,11"/>
-    </svg>
+    <svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>
     Portfólio de landing pages_
   </div>
   <h1>
-    LPs que vendem.<br>
-    <span class="orange">Escolha o nicho e abra.</span>
+    Landing pages<br>
+    <span class="orange">feitas para vender.</span>
   </h1>
   <p class="hero-sub">
-    Cada página criada do zero para um segmento. Sem template. Só clicar e ver.
+    Cada página criada do zero para um tipo de negócio diferente. Só clicar e ver.
   </p>
   <div class="hero-cta">
     <a href="#portfolio" class="btn-orange">
-      Ver as LPs
+      Ver as páginas
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
-    <a href="#contato" class="btn-text">Quero uma LP assim →</a>
+    <a href="#contato" class="btn-text">Quero uma assim →</a>
   </div>
 </section>
 
 <!-- DIVIDER -->
 <div class="divider">
   <code>
-    <span class="k">const</span> lps = <span class="k">await</span> fetch(<span class="s">"creat.studio/portfolio"</span>);
-    <span style="color:#252525">// escolha um nicho abaixo_</span>
+    <span class="k">const</span> paginas = <span class="k">await</span> fetch(<span class="s">"creat.studio/portfolio"</span>);
+    <span style="color:#252525">// escolha um segmento abaixo_</span>
   </code>
 </div>
 
 <!-- PORTFOLIO -->
 <div class="portfolio" id="portfolio">
   <div class="port-header">
-    <p class="port-tag">Portfólio // CREAT</p>
+    <p class="port-tag">Páginas // CREAT</p>
     <h2 class="port-title">Veja. Clique. Abre.</h2>
   </div>
 
@@ -399,16 +302,22 @@
 
     <!-- DENTISTA -->
     <a href="dentista/index.html" target="_blank" class="card">
-      <div class="card-img" style="background:linear-gradient(135deg,#071418,#060f0c);">
-        <span class="card-status status-live">Ativo</span>
-        🦷
+      <div class="card-thumb" style="background:linear-gradient(135deg,#071418,#060f0c);">
+        <span class="card-status status-live">No ar</span>
+        <div class="card-icon" style="background:rgba(6,182,212,0.12);">
+          <!-- dente -->
+          <svg viewBox="0 0 38 38" fill="none" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 8C7 8 5 11 5 14c0 2.5 1 5 2 8l2 11h4l2-8h8l2 8h4l2-11c1-3 2-5.5 2-8 0-3-2-6-5-6-1.5 0-3 .7-5 2-2-1.3-3.5-2-5-2z"/>
+            <path d="M14 14c1.5 1 3 1.5 5 1.5s3.5-.5 5-1.5" stroke-width="1.3"/>
+          </svg>
+        </div>
       </div>
       <div class="card-body">
         <p class="card-niche">Saúde</p>
-        <h3 class="card-name">Clínica Odontológica</h3>
-        <p class="card-desc">Para dentistas e clínicas. Foco em agendamento e confiança.</p>
+        <h3 class="card-name">Dentista</h3>
+        <p class="card-desc">Para consultórios e clínicas. Foco em agendamento e confiança.</p>
         <span class="card-link">
-          Abrir LP
+          Abrir página
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
       </div>
@@ -416,16 +325,24 @@
 
     <!-- SALÃO -->
     <a href="salao/index.html" target="_blank" class="card">
-      <div class="card-img" style="background:linear-gradient(135deg,#120a14,#0d0710);">
-        <span class="card-status status-live">Ativo</span>
-        💇
+      <div class="card-thumb" style="background:linear-gradient(135deg,#120a14,#0d0710);">
+        <span class="card-status status-live">No ar</span>
+        <div class="card-icon" style="background:rgba(168,85,247,0.12);">
+          <!-- tesoura -->
+          <svg viewBox="0 0 38 38" fill="none" stroke="#a855f7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="4"/>
+            <circle cx="11" cy="27" r="4"/>
+            <line x1="14.5" y1="13.5" x2="30" y2="29"/>
+            <line x1="14.5" y1="24.5" x2="30" y2="9"/>
+          </svg>
+        </div>
       </div>
       <div class="card-body">
         <p class="card-niche">Beleza</p>
         <h3 class="card-name">Salão de Beleza</h3>
-        <p class="card-desc">Para salões e studios. Design premium e agendamento direto.</p>
+        <p class="card-desc">Para salões e profissionais. Design que atrai e converte agendamentos.</p>
         <span class="card-link">
-          Abrir LP
+          Abrir página
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
       </div>
@@ -433,54 +350,95 @@
 
     <!-- ADVOGADO -->
     <a href="advogado/index.html" target="_blank" class="card">
-      <div class="card-img" style="background:linear-gradient(135deg,#130f00,#0c0900);">
-        <span class="card-status status-live">Ativo</span>
-        ⚖️
+      <div class="card-thumb" style="background:linear-gradient(135deg,#130f00,#0c0900);">
+        <span class="card-status status-live">No ar</span>
+        <div class="card-icon" style="background:rgba(234,179,8,0.12);">
+          <!-- balança -->
+          <svg viewBox="0 0 38 38" fill="none" stroke="#eab308" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="4" x2="19" y2="34"/>
+            <line x1="10" y1="34" x2="28" y2="34"/>
+            <line x1="8" y1="10" x2="30" y2="10"/>
+            <path d="M8 10 L4 18 Q8 22 12 18 Z"/>
+            <path d="M30 10 L26 18 Q30 22 34 18 Z"/>
+          </svg>
+        </div>
       </div>
       <div class="card-body">
         <p class="card-niche">Advocacia</p>
-        <h3 class="card-name">Escritório de Advocacia</h3>
-        <p class="card-desc">Para advogados. Autoridade e captação de clientes qualificados.</p>
+        <h3 class="card-name">Advogado</h3>
+        <p class="card-desc">Para advogados e escritórios. Autoridade e captação de clientes.</p>
         <span class="card-link">
-          Abrir LP
+          Abrir página
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
       </div>
     </a>
 
-    <!-- EM BREVE -->
+    <!-- EM BREVE: MENTORIA -->
     <div class="card card-soon">
-      <div class="card-img" style="background:#0d0d0d;border-bottom:1px solid var(--border);">
-        <span class="card-status status-soon">Em breve</span>🚀
+      <div class="card-thumb" style="background:#0d0d0d;border-bottom:1px solid var(--border);">
+        <span class="card-status status-soon">Em breve</span>
+        <div class="card-icon" style="background:rgba(249,115,22,0.08);">
+          <!-- diamante -->
+          <svg viewBox="0 0 38 38" fill="none" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="19,4 34,15 28,34 10,34 4,15"/>
+            <polyline points="4,15 19,20 34,15"/>
+            <line x1="19" y1="4" x2="19" y2="20"/>
+            <line x1="10" y1="34" x2="19" y2="20"/>
+            <line x1="28" y1="34" x2="19" y2="20"/>
+          </svg>
+        </div>
       </div>
       <div class="card-body">
         <p class="card-niche">Alto Valor</p>
-        <h3 class="card-name">High Ticket</h3>
-        <p class="card-desc">Para mentorias e programas de alto valor.</p>
+        <h3 class="card-name">Mentoria</h3>
+        <p class="card-desc">Para mentorias e programas com valor elevado.</p>
         <span class="card-link" style="color:var(--dim);">Em breve</span>
       </div>
     </div>
 
+    <!-- EM BREVE: LOJA ONLINE -->
     <div class="card card-soon">
-      <div class="card-img" style="background:#0d0d0d;border-bottom:1px solid var(--border);">
-        <span class="card-status status-soon">Em breve</span>🛒
+      <div class="card-thumb" style="background:#0d0d0d;border-bottom:1px solid var(--border);">
+        <span class="card-status status-soon">Em breve</span>
+        <div class="card-icon" style="background:rgba(99,102,241,0.08);">
+          <!-- sacola -->
+          <svg viewBox="0 0 38 38" fill="none" stroke="#6366f1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 10h26l-3 20H9Z"/>
+            <path d="M14 10V8a5 5 0 0110 0v2"/>
+            <circle cx="15" cy="19" r="1.5" fill="#6366f1"/>
+            <circle cx="23" cy="19" r="1.5" fill="#6366f1"/>
+          </svg>
+        </div>
       </div>
       <div class="card-body">
-        <p class="card-niche">E-commerce</p>
-        <h3 class="card-name">Produto Físico</h3>
-        <p class="card-desc">Para lojas com foco em conversão direta.</p>
+        <p class="card-niche">Compras</p>
+        <h3 class="card-name">Loja Online</h3>
+        <p class="card-desc">Para lojas que vendem pela internet.</p>
         <span class="card-link" style="color:var(--dim);">Em breve</span>
       </div>
     </div>
 
+    <!-- EM BREVE: NEGÓCIO DE BAIRRO -->
     <div class="card card-soon">
-      <div class="card-img" style="background:#0d0d0d;border-bottom:1px solid var(--border);">
-        <span class="card-status status-soon">Em breve</span>📱
+      <div class="card-thumb" style="background:#0d0d0d;border-bottom:1px solid var(--border);">
+        <span class="card-status status-soon">Em breve</span>
+        <div class="card-icon" style="background:rgba(34,197,94,0.08);">
+          <!-- loja/prédio -->
+          <svg viewBox="0 0 38 38" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="16" width="26" height="18" rx="1"/>
+            <path d="M6 16l4-10h18l4 10"/>
+            <rect x="15" y="24" width="8" height="10" rx="1"/>
+            <rect x="9" y="20" width="5" height="5" rx="1"/>
+            <rect x="24" y="20" width="5" height="5" rx="1"/>
+            <line x1="6" y1="16" x2="32" y2="16"/>
+          </svg>
+        </div>
       </div>
       <div class="card-body">
         <p class="card-niche">Local</p>
-        <h3 class="card-name">Negócio Local</h3>
-        <p class="card-desc">Para restaurantes, academias e negócios de bairro.</p>
+        <h3 class="card-name">Negócio de Bairro</h3>
+        <p class="card-desc">Para restaurantes, academias e comércios locais.</p>
         <span class="card-link" style="color:var(--dim);">Em breve</span>
       </div>
     </div>
@@ -494,7 +452,7 @@
 <!-- CONTACT -->
 <section class="contact" id="contato">
   <p class="port-tag">Contato_</p>
-  <h2>Quer uma LP<br><span class="orange">assim para você?</span></h2>
+  <h2>Quer uma página<br><span class="orange">assim para você?</span></h2>
   <p>Fale direto. Sem formulário longo, sem reunião de 1 hora.</p>
   <a href="https://wa.me/5511999999999" class="btn-orange" style="display:inline-flex;margin:0 auto;">
     Falar no WhatsApp
