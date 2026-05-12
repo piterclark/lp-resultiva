@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Studio Bella | Salão de Beleza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* ══ DESIGN SYSTEM — SALÃO DE BELEZA ══
+       Paleta: Branco puro + Rosa profundo + Dourado + Bordô
+       Tipografia: Cormorant Garamond (elegante serif) + DM Sans
+       Tom: Feminino, luxuoso, acolhedor, premium
+    ════════════════════════════════════════ */
+    :root {
+      --bg:      #FFFFFF;
+      --bg2:     #FFF5F8;
+      --bg3:     #FDE8F0;
+      --rose:    #BE185D;
+      --rose-d:  #9D174D;
+      --pink:    #EC4899;
+      --gold:    #B45309;
+      --gold-l:  #FDE68A;
+      --text:    #1F2937;
+      --muted:   #6B7280;
+      --border:  #FCE7F3;
+      --serif:   'Cormorant Garamond', serif;
+      --sans:    'DM Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    /* NAV */
+    nav {
+      position:sticky; top:0; z-index:100;
+      background:rgba(255,255,255,.95); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+      padding:0 60px; height:68px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .logo { font-family:var(--serif); font-size:24px; font-weight:700; color:var(--rose); text-decoration:none; letter-spacing:.02em; }
+    .logo span { color:var(--gold); font-style:italic; }
+    .nav-cta {
+      background:var(--rose); color:#fff;
+      padding:10px 22px; border-radius:50px;
+      font-weight:700; font-size:14px; text-decoration:none;
+      transition:opacity .2s, transform .2s;
+      box-shadow:0 4px 16px rgba(190,24,93,.25);
+    }
+    .nav-cta:hover { opacity:.88; transform:translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height:94vh;
+      display:grid; grid-template-columns:1fr 1fr; align-items:center;
+      gap:60px; padding:100px 60px 80px;
+      max-width:1200px; margin:0 auto;
+    }
+    .offer-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--gold-l); border:1px solid #FCD34D;
+      color:var(--gold); padding:7px 18px; border-radius:100px;
+      font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+      margin-bottom:28px;
+    }
+    .hero h1 {
+      font-family:var(--serif);
+      font-size:clamp(42px,5.5vw,72px); font-weight:700;
+      line-height:1.08; letter-spacing:.01em; margin-bottom:20px;
+      color:var(--text);
+    }
+    .hero h1 em { font-style:italic; color:var(--rose); }
+    .hero-sub { font-size:17px; color:var(--muted); line-height:1.7; max-width:440px; margin-bottom:36px; }
+
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px; }
+    .btn-rose {
+      background:var(--rose); color:#fff;
+      padding:16px 34px; border-radius:50px;
+      font-weight:700; font-size:15px; text-decoration:none;
+      box-shadow:0 8px 28px rgba(190,24,93,.3);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn-rose:hover { transform:translateY(-2px); box-shadow:0 12px 36px rgba(190,24,93,.4); }
+    .btn-outline {
+      border:1px solid var(--border); color:var(--rose);
+      padding:16px 34px; border-radius:50px;
+      font-weight:700; font-size:15px; text-decoration:none;
+      transition:background .2s;
+    }
+    .btn-outline:hover { background:var(--bg2); }
+
+    .hero-note { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+    .hero-note::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--rose); display:inline-block; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .visual-card {
+      width:360px; height:420px;
+      background:linear-gradient(145deg,var(--bg2),var(--bg3));
+      border-radius:32px; border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+    }
+    .visual-card::before {
+      content:''; position:absolute;
+      width:300px; height:300px; border-radius:50%;
+      background:radial-gradient(circle,rgba(190,24,93,.12),transparent 70%);
+      top:-50px; right:-50px;
+    }
+    .visual-card::after {
+      content:''; position:absolute;
+      width:200px; height:200px; border-radius:50%;
+      background:radial-gradient(circle,rgba(180,83,9,.1),transparent 70%);
+      bottom:-30px; left:-30px;
+    }
+    .card-inner { position:relative; z-index:1; text-align:center; }
+    .card-inner svg { opacity:.85; }
+
+    .v-badge {
+      position:absolute; background:#fff;
+      border:1px solid var(--border); border-radius:14px;
+      padding:12px 18px; box-shadow:0 8px 24px rgba(0,0,0,.08);
+      font-size:13px; font-weight:700; white-space:nowrap;
+    }
+    .v-badge-1 { top:30px; right:-30px; }
+    .v-badge-2 { bottom:50px; left:-30px; }
+    .v-badge-n { font-size:20px; font-weight:900; color:var(--rose); }
+    .v-badge-l { font-size:11px; color:var(--muted); font-weight:500; margin-top:2px; }
+
+    /* SERVIÇOS */
+    .sec { padding:96px 60px; max-width:1200px; margin:0 auto; }
+    .sec-label { font-size:11px; font-weight:700; color:var(--rose); letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; display:block; }
+    .sec-h { font-family:var(--serif); font-size:clamp(30px,4vw,52px); font-weight:700; line-height:1.1; margin-bottom:14px; }
+    .sec-h em { font-style:italic; color:var(--rose); }
+    .sec-sub { color:var(--muted); font-size:17px; line-height:1.65; max-width:480px; margin-bottom:56px; }
+
+    .svcs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .svc {
+      border:1px solid var(--border); border-radius:20px; padding:30px 24px;
+      text-align:center; background:var(--bg);
+      transition:border-color .3s, transform .3s, background .3s;
+    }
+    .svc:hover { border-color:var(--pink); transform:translateY(-4px); background:var(--bg2); }
+    .svc-ico {
+      width:56px; height:56px; border-radius:50%;
+      background:linear-gradient(135deg,var(--bg2),var(--bg3));
+      border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 16px;
+    }
+    .svc h3 { font-family:var(--serif); font-size:20px; font-weight:700; margin-bottom:8px; }
+    .svc p { color:var(--muted); font-size:14px; line-height:1.55; }
+
+    /* OFERTA */
+    .offer-sec {
+      background:linear-gradient(135deg,var(--rose-d),var(--rose));
+      padding:80px 60px; text-align:center;
+    }
+    .offer-sec h2 {
+      font-family:var(--serif); font-size:clamp(28px,4vw,52px);
+      font-weight:700; color:#fff; line-height:1.1; margin-bottom:14px;
+    }
+    .offer-sec h2 em { font-style:italic; color:var(--gold-l); }
+    .offer-sec p { color:rgba(255,255,255,.8); font-size:17px; margin-bottom:36px; }
+    .offer-btn {
+      background:#fff; color:var(--rose);
+      padding:16px 40px; border-radius:50px;
+      font-weight:800; font-size:16px; text-decoration:none;
+      display:inline-block; transition:transform .2s;
+      box-shadow:0 8px 28px rgba(0,0,0,.15);
+    }
+    .offer-btn:hover { transform:translateY(-2px); }
+
+    /* DEPOIMENTOS */
+    .testis { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .testi {
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:20px; padding:28px; position:relative;
+    }
+    .testi::before { content:'"'; position:absolute; top:16px; right:20px; font-family:var(--serif); font-size:72px; color:rgba(190,24,93,.1); line-height:1; }
+    .stars { color:var(--rose); font-size:13px; margin-bottom:12px; }
+    .testi-text { color:var(--text); font-size:15px; line-height:1.65; margin-bottom:16px; }
+    .testi-author { display:flex; align-items:center; gap:12px; }
+    .testi-avatar {
+      width:40px; height:40px; border-radius:50%;
+      background:linear-gradient(135deg,var(--pink),var(--rose));
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-weight:800; font-size:14px; flex-shrink:0;
+    }
+    .testi-name { font-size:14px; font-weight:700; }
+    .testi-role { font-size:12px; color:var(--muted); }
+
+    /* CTA FINAL */
+    .cta-final { padding:100px 60px; text-align:center; background:var(--bg2); }
+    .cta-final h2 { font-family:var(--serif); font-size:clamp(30px,4.5vw,58px); font-weight:700; line-height:1.1; margin-bottom:16px; }
+    .cta-final h2 em { font-style:italic; color:var(--rose); }
+    .cta-final p { color:var(--muted); font-size:17px; margin-bottom:40px; max-width:400px; margin-left:auto; margin-right:auto; }
+
+    hr { border:none; border-top:1px solid var(--border); margin:0 60px; }
+
+    footer { padding:24px 60px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); }
+    footer p { color:var(--muted); font-size:13px; }
+    .footer-brand { font-size:12px; color:var(--muted); text-decoration:none; }
+    .footer-brand b { color:var(--rose); }
+
+    @media(max-width:900px){
+      nav,hr { padding:0 24px; }
+      .hero { grid-template-columns:1fr; padding:100px 24px 60px; }
+      .hero-visual { display:none; }
+      .sec { padding:72px 24px; }
+      .svcs-grid { grid-template-columns:repeat(2,1fr); }
+      .testis { grid-template-columns:1fr; }
+      .cta-final,.offer-sec { padding:72px 24px; }
+      footer { padding:20px 24px; flex-direction:column; gap:12px; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Studio <span>Bella</span></a>
+  <a href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20Studio%20Bella." class="nav-cta">Agendar horário →</a>
+</nav>
+
+<!-- HERO -->
+<section style="background:linear-gradient(180deg,#fff 0%,var(--bg2) 100%)">
+  <div class="hero">
+    <div>
+      <div class="offer-badge">✦ Primeira visita com 20% OFF</div>
+      <h1>Você merece se sentir <em>linda</em> todos os dias.</h1>
+      <p class="hero-sub">Serviços premium de beleza e bem-estar com agendamento fácil e rápido pelo WhatsApp.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20agendar%20com%2020%25%20OFF%20na%20primeira%20visita!" class="btn-rose">Agendar com 20% OFF →</a>
+        <a href="#servicos" class="btn-outline">Ver serviços</a>
+      </div>
+      <p class="hero-note">Atendimento de segunda à sábado · Horários flexíveis</p>
+    </div>
+    <div class="hero-visual">
+      <div class="visual-card">
+        <div class="card-inner">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="45" r="28" stroke="#BE185D" stroke-width="2.5"/>
+            <path d="M32 95c0-15.5 12.5-28 28-28s28 12.5 28 28" stroke="#BE185D" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M50 38l4 5 10-10" stroke="#EC4899" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="v-badge v-badge-1">
+          <div class="v-badge-n">★ 4.9</div>
+          <div class="v-badge-l">500+ avaliações</div>
+        </div>
+        <div class="v-badge v-badge-2">
+          <div class="v-badge-n">20% OFF</div>
+          <div class="v-badge-l">1ª visita</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr/>
+
+<!-- SERVIÇOS -->
+<div class="sec" id="servicos">
+  <span class="sec-label">✦ Nossos serviços</span>
+  <h2 class="sec-h">Tudo que você precisa<br>em um só <em>lugar.</em></h2>
+  <p class="sec-sub">Do corte ao cuidado completo, oferecemos serviços de alta qualidade para realçar sua beleza.</p>
+
+  <div class="svcs-grid">
+    <div class="svc">
+      <div class="svc-ico">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <circle cx="8" cy="20" r="4" stroke="#BE185D" stroke-width="1.8"/>
+          <circle cx="18" cy="20" r="4" stroke="#BE185D" stroke-width="1.8"/>
+          <path d="M11 17L13 4M15 17L13 4M13 4l0-3" stroke="#BE185D" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Corte</h3>
+      <p>Cortes modernos e personalizados para cada tipo de rosto e estilo.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-ico">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <path d="M4 22c3-6 8-10 9-10s6 4 9 10" stroke="#BE185D" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="13" cy="8" r="5" stroke="#BE185D" stroke-width="1.8"/>
+          <path d="M8 8c1-3 8-3 10 0" stroke="#EC4899" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+      </div>
+      <h3>Coloração</h3>
+      <p>Loiros, mechas, balayage e coloração completa com produtos premium.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-ico">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <rect x="5" y="3" width="7" height="12" rx="3.5" stroke="#BE185D" stroke-width="1.8"/>
+          <rect x="14" y="3" width="7" height="12" rx="3.5" stroke="#BE185D" stroke-width="1.8"/>
+          <path d="M5 22h16" stroke="#BE185D" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M8.5 15v5M17.5 15v5" stroke="#BE185D" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Manicure & Pedicure</h3>
+      <p>Unhas impecáveis com acabamento perfeito e produtos de qualidade.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-ico">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <path d="M13 3C8 3 4 7 4 12s4 9 9 9 9-4 9-9-4-9-9-9z" stroke="#BE185D" stroke-width="1.8"/>
+          <path d="M9 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4" stroke="#EC4899" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+          <circle cx="13" cy="12" r="2" fill="#BE185D"/>
+        </svg>
+      </div>
+      <h3>Estética Facial</h3>
+      <p>Limpeza, hidratação e tratamentos para uma pele radiante e saudável.</p>
+    </div>
+  </div>
+</div>
+
+<!-- OFERTA -->
+<section class="offer-sec">
+  <h2>Primeira visita com <em>20% de desconto.</em></h2>
+  <p>Venha nos conhecer e descubra por que somos o salão favorito da região.</p>
+  <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20aproveitar%20o%2020%25%20OFF%20na%20primeira%20visita!" class="offer-btn">Quero meu desconto →</a>
+</section>
+
+<hr/>
+
+<!-- DEPOIMENTOS -->
+<div class="sec">
+  <span class="sec-label">✦ O que dizem nossas clientes</span>
+  <h2 class="sec-h" style="margin-bottom:56px">Beleza que<br><em>transforma.</em></h2>
+  <div class="testis">
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Melhor salão que já fui! Fiz o balayage e ficou lindo. A equipe é super atenciosa e o ambiente é muito agradável.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">PS</div>
+        <div><div class="testi-name">Patrícia Santos</div><div class="testi-role">Coloração</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Sou cliente há 2 anos e nunca vou em outro lugar. Fazem o corte exatamente do jeito que peço. Perfeito!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">LC</div>
+        <div><div class="testi-name">Luciana Costa</div><div class="testi-role">Corte e escova</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">A manicure do Studio Bella é incrível! Sempre saio de lá apaixonada. Produtos ótimos e profissionais dedicadas.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AM</div>
+        <div><div class="testi-name">Amanda Melo</div><div class="testi-role">Manicure & Pedicure</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Pronta para se sentir<br><em>incrível?</em></h2>
+  <p>Agende agora e aproveite o desconto especial na primeira visita.</p>
+  <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20agendar%20um%20horário%20no%20Studio%20Bella." class="btn-rose" style="font-size:16px;padding:18px 44px">Agendar pelo WhatsApp →</a>
+</section>
+
+<footer>
+  <p>© 2026 Studio Bella. Todos os direitos reservados.</p>
+  <a href="https://piterclark.github.io/lp-resultiva/" class="footer-brand" target="_blank">Página criada por <b>Resultiva↗</b></a>
+</footer>
+
+</body>
+</html>
