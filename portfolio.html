@@ -575,6 +575,8 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
 
     // Mesmo font-size no glow
     glowEl.style.fontSize=fs+'px';
+    // Definir largura do SVG = largura do texto → justify-content:center centraliza
+    svgEl.setAttribute('width', aW+4);
 
     const DUR=4000;
     function ease(t){return t<.5?2*t*t*t:1-Math.pow(-2*t+2,3)/2}
