@@ -61,6 +61,74 @@ header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color
   content:"";position:absolute;inset:0;
   background:linear-gradient(to bottom,rgba(6,8,15,.2) 0%,rgba(6,8,15,.55) 60%,rgba(6,8,15,1) 100%);
 }
+/* ── HERO LIFE ANIMATIONS ──────────────────── */
+
+/* Glow da tela do notebook */
+.hero-screen-glow{
+  position:absolute;z-index:1;pointer-events:none;
+  left:14%;top:16%;
+  width:clamp(180px,28vw,310px);
+  height:clamp(110px,18vw,195px);
+  background:radial-gradient(ellipse at 50% 60%,
+    rgba(91,141,239,.18) 0%,
+    rgba(91,141,239,.09) 45%,
+    transparent 72%);
+  border-radius:8px;
+  animation:sgPulse 5s ease-in-out infinite;
+}
+@keyframes sgPulse{
+  0%,100%{opacity:.5;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.04)}
+}
+/* Linha de scan sutil na tela */
+.hero-screen-glow::after{
+  content:"";position:absolute;left:5%;right:5%;
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(91,141,239,.35),transparent);
+  animation:scanLine 3.5s ease-in-out infinite;
+}
+@keyframes scanLine{
+  0%{top:15%;opacity:0}10%{opacity:1}90%{opacity:.4}100%{top:85%;opacity:0}
+}
+
+/* Vapor do café */
+.hero-steam{
+  position:absolute;z-index:1;pointer-events:none;
+  left:64%;bottom:36%;
+}
+.hs{
+  position:absolute;
+  border-radius:40% 60% 60% 40%;
+  filter:blur(5px);
+  animation:hsSteam 3.2s ease-in-out infinite;
+}
+.hs1{width:7px;height:48px;left:0;   background:linear-gradient(to top,rgba(255,255,255,.28),transparent);animation-delay:0s}
+.hs2{width:5px;height:36px;left:10px;background:linear-gradient(to top,rgba(255,255,255,.22),transparent);animation-delay:1.1s}
+.hs3{width:8px;height:42px;left:-8px;background:linear-gradient(to top,rgba(255,255,255,.25),transparent);animation-delay:2.1s}
+.hs4{width:4px;height:28px;left:5px; background:linear-gradient(to top,rgba(255,255,255,.18),transparent);animation-delay:1.7s}
+@keyframes hsSteam{
+  0%  {transform:translateY(0)   translateX(0)  scaleX(1);   opacity:0}
+  12% {opacity:.9}
+  40% {transform:translateY(-18px) translateX(3px)  scaleX(1.3);opacity:.55}
+  70% {transform:translateY(-38px) translateX(-2px) scaleX(1.6);opacity:.25}
+  100%{transform:translateY(-58px) translateX(5px)  scaleX(2);  opacity:0}
+}
+
+/* Bokeh — pontos de luz flutuantes */
+.hero-bokeh{position:absolute;inset:0;z-index:1;pointer-events:none}
+.hb{position:absolute;border-radius:50%;filter:blur(12px);animation:hbFloat 10s ease-in-out infinite}
+.hb1{width:72px;height:72px;left:7%;  top:28%;background:rgba(255,255,255,.07);animation-delay:0s}
+.hb2{width:44px;height:44px;left:80%; top:14%;background:rgba(255,255,255,.06);animation-delay:3.5s}
+.hb3{width:95px;height:95px;left:50%; top:52%;background:rgba(249,115,22,.05);animation-delay:7s}
+.hb4{width:32px;height:32px;left:90%; top:42%;background:rgba(255,255,255,.08);animation-delay:1.8s}
+.hb5{width:58px;height:58px;left:22%; top:70%;background:rgba(91,141,239,.06);animation-delay:5s}
+.hb6{width:26px;height:26px;left:46%; top:20%;background:rgba(255,255,255,.05);animation-delay:2.5s}
+@keyframes hbFloat{
+  0%,100%{transform:translate(0,0)    scale(1);   opacity:.35}
+  33%    {transform:translate(10px,-14px) scale(1.1);opacity:.65}
+  66%    {transform:translate(-7px,8px)  scale(.94);opacity:.3}
+}
+
 /* ambient orange glow */
 .hero::before{
   content:"";position:absolute;bottom:20%;left:0;
@@ -393,6 +461,28 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+
+  <!-- Glow da tela do notebook -->
+  <div class="hero-screen-glow"></div>
+
+  <!-- Vapor do café -->
+  <div class="hero-steam">
+    <div class="hs hs1"></div>
+    <div class="hs hs2"></div>
+    <div class="hs hs3"></div>
+    <div class="hs hs4"></div>
+  </div>
+
+  <!-- Bokeh — pontos de luz ambiente -->
+  <div class="hero-bokeh">
+    <div class="hb hb1"></div>
+    <div class="hb hb2"></div>
+    <div class="hb hb3"></div>
+    <div class="hb hb4"></div>
+    <div class="hb hb5"></div>
+    <div class="hb hb6"></div>
+  </div>
+
   <div class="hero-content">
     <div class="hero-label" id="hlabel">Portf&#243;lio de landing pages</div>
     <h1>
