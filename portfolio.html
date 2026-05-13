@@ -35,7 +35,7 @@ header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color
 .logo-svg{display:block;width:100%;height:80px;overflow:visible}
 /* Fallback vw para o caso de medição JS falhar */
 #logoT,#lgT{font-size:clamp(36px,15.5vw,100px)}
-#logoCr{transition:width .19s cubic-bezier(.4,0,.2,1)}
+/* #logoCr sem transition — rAF controla frame a frame */
 #lR,#lA{transition:fill 1.1s ease}
 
 /* Footer logo static */
@@ -497,12 +497,8 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo — escrita letra a letra, chama laranja na frente, R=laranja / a=azul no final
+// Logo — animação 60fps contínua com rAF, sem degraus
 (function(){
-  const WORD  = 'Resultiva';
-  const DELAY = 270; // ms entre letras — rápido mas acompanhável
-  const GW    = 72;  // largura da janela laranja (chama)
-
   function init(){
     const svgEl  = document.getElementById('logoSvg');
     const textEl = document.getElementById('logoT');
@@ -513,89 +509,55 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const lA     = document.getElementById('lA');
     if(!textEl || !svgEl) return;
 
-    // Largura disponível no header
-    const hdr    = document.getElementById('hdr');
-    const cs     = getComputedStyle(hdr);
-    const pad    = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const availW = hdr.clientWidth - pad;
-    const maxH   = hdr.clientHeight;
+    // Largura disponível
+    const hdr  = document.getElementById('hdr');
+    const cs   = getComputedStyle(hdr);
+    const pad  = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const aW   = Math.max(hdr.clientWidth - pad, 280); // availableWidth
 
-    // Passo 1: aplicar font-size inicial pelo CSS (clamp vw já está aplicado)
-    let fs = parseFloat(getComputedStyle(textEl).fontSize) || 72;
-
-    // Passo 2: medir largura real com getBBox (mais confiável que getComputedTextLength)
-    let naturalW = 0;
-    try { naturalW = textEl.getBBox().width; } catch(e){}
-    if(naturalW < 20){ try { naturalW = textEl.getComputedTextLength(); } catch(e){} }
-
-    // Passo 3: se medição funcionou, escalar font para aproximar da largura certa
-    if(naturalW > 20){
-      const newFS = Math.min(
-        Math.round(fs * availW / naturalW),
-        Math.floor(maxH * 0.84)
-      );
-      textEl.style.fontSize = newFS + 'px';
-      glowEl.style.fontSize = newFS + 'px';
-      fs = newFS;
-    }
-
-    // Passo 4: GARANTIA — textLength força o texto a preencher exatamente availW
-    // (funciona independente de getBBox ter medido certo ou não)
-    textEl.setAttribute('textLength', availW);
+    // textLength garante preenchimento total independente de medição
+    textEl.setAttribute('textLength', aW);
     textEl.setAttribute('lengthAdjust', 'spacingAndGlyphs');
-    glowEl.setAttribute('textLength', availW);
+    glowEl.setAttribute('textLength', aW);
     glowEl.setAttribute('lengthAdjust', 'spacingAndGlyphs');
 
-    // Ajustar altura SVG e baseline
-    const svgH = Math.ceil(fs * 1.26);
-    const yPos = Math.round(fs * 0.96);
+    // Altura do SVG baseada no font-size CSS
+    const fs   = parseFloat(getComputedStyle(textEl).fontSize) || 66;
+    const svgH = Math.ceil(fs * 1.28);
+    const yPos = Math.round(fs * 0.97);
     svgEl.setAttribute('height', svgH);
     textEl.setAttribute('y', yPos);
     glowEl.setAttribute('y', yPos);
-    mainCr.setAttribute('height', svgH + 24);
-    glowCr.setAttribute('height', svgH + 24);
+    mainCr.setAttribute('height', svgH + 28);
+    glowCr.setAttribute('height', svgH + 28);
 
-    // Posições reais de cada letra
-    const rights = [];
-    for(let j = 0; j < WORD.length; j++){
-      try {
-        const ext = textEl.getExtentOfChar(j);
-        rights.push(ext.x + ext.width + 5);
-      } catch(e) {
-        rights.push((j + 1) / WORD.length * (availW - 4));
-      }
-    }
-    const totalW = rights[rights.length - 1] + 16;
+    // Animação contínua 60fps — sem degraus, sem setTimeout por letra
+    const DUR = 1050; // duração total em ms
+    const GW  = 58;   // largura da chama laranja
 
-    let i = 0;
-    function step(){
-      if(i < rights.length){
-        const w = rights[i];
-        // Clip branco expande (com CSS transition suave)
-        mainCr.setAttribute('width', w);
-        // Chama laranja salta para frente da letra atual (snap = instantâneo)
-        glowCr.setAttribute('x', w - 6);
-        i++;
-        setTimeout(step, DELAY);
+    function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t } // ease in-out
+
+    const t0 = performance.now();
+    function frame(now){
+      const t = Math.min((now - t0) / DUR, 1);
+      const w = ease(t) * aW;
+
+      mainCr.setAttribute('width', w);
+      glowCr.setAttribute('x', w - 8); // chama corre na frente
+
+      if(t < 1){
+        requestAnimationFrame(frame);
       } else {
-        // Palavra completa
-        mainCr.setAttribute('width', totalW);
-        glowCr.setAttribute('x', totalW + 30); // empurra para fora
-
-        // Fade out da chama
-        setTimeout(()=>{
-          glowEl.style.transition = 'opacity .55s ease';
-          glowEl.style.opacity = '0';
-          // Settle de cores: R → laranja, a → azul
-          setTimeout(()=>{
-            lR.style.fill = '#F97316';
-            lA.style.fill = '#5B8DEF';
-          }, 300);
-        }, 160);
+        // Concluído — empurrar glow para fora e fazer settle de cores
+        mainCr.setAttribute('width', aW + 4);
+        glowCr.setAttribute('x', aW + 40);
+        glowEl.style.transition = 'opacity .4s ease';
+        glowEl.style.opacity = '0';
+        setTimeout(()=>{ lR.style.fill='#F97316'; lA.style.fill='#5B8DEF'; }, 350);
       }
     }
 
-    setTimeout(step, 280);
+    setTimeout(()=>requestAnimationFrame(frame), 200);
   }
 
   if(document.fonts && document.fonts.ready){
