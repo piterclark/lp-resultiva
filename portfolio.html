@@ -427,31 +427,6 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
           font-family="'Great Vibes',cursive" x="0" y="78"
           fill="var(--orange)" opacity="0.58">Resultiva</text>
 
-    <!-- Apple Pencil 2 — elegante, maior, ar de arte -->
-    <g id="pencil" opacity="0">
-      <!-- Halo suave externo (brilho de arte) -->
-      <ellipse cx="0" cy="0" rx="22" ry="9"  fill="rgba(249,115,22,0.07)" transform="rotate(-8)"/>
-      <!-- Glow médio -->
-      <ellipse cx="0" cy="0" rx="13" ry="5.5" fill="rgba(249,115,22,0.18)" transform="rotate(-8)"/>
-      <!-- Contato preciso com a tela -->
-      <ellipse cx="0" cy="0" rx="6"  ry="2.5" fill="rgba(249,115,22,0.55)" transform="rotate(-8)"/>
-      <!-- Nib (ponta de escrita em 0,0) -->
-      <polygon points="0,0 -3.5,-7 3.5,-7"           fill="#989898"/>
-      <polygon points="-3.5,-7 3.5,-7 5,-18 -5,-18"  fill="#c8c8c8"/>
-      <!-- Anel metálico -->
-      <rect x="-7" y="-27" width="14" height="9.5" rx="3"    fill="#a4a4a4"/>
-      <line x1="-7" y1="-22.5" x2="7" y2="-22.5" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
-      <!-- Corpo branco principal (165px comprimento elegante) -->
-      <rect x="-6" y="-192" width="12" height="165" rx="6"   fill="#f2f2f4"/>
-      <!-- Lado plano de carregamento — Apple Pencil 2 -->
-      <rect x="4"  y="-192" width="2"  height="165"           fill="rgba(175,175,175,0.25)"/>
-      <!-- Reflexo brilhante lateral -->
-      <rect x="-4.5" y="-190" width="3.5" height="161" rx="1.75" fill="rgba(255,255,255,0.58)"/>
-      <!-- Linha de detalhe superior -->
-      <line x1="-6" y1="-165" x2="6" y2="-165" stroke="rgba(148,148,148,0.35)" stroke-width="1"/>
-      <!-- Tampa arredondada -->
-      <ellipse cx="0" cy="-192" rx="6" ry="4" fill="#dcdcde"/>
-    </g>
   </svg>
 </header>
 
@@ -648,7 +623,6 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const glowCr=document.getElementById('lgCr');
     const lR    =document.getElementById('lR');
     const lA    =document.getElementById('lA');
-    const pencil=document.getElementById('pencil');
     if(!textEl||!svgEl)return;
 
     // Font-size: CSS define, JS lê — sem textLength, tamanho natural
@@ -686,24 +660,11 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
       const w=et*aW;
       mainCr.setAttribute('width',w);
       glowCr.setAttribute('x',w-TRAIL);
-      if(pencil){
-        const yn=penY(et);
-        const pY=yTop+yn*yRange;
-        const D=0.010;
-        const dy=(penY(Math.min(1,et+D))-penY(Math.max(0,et-D)))*yRange;
-        const dx=D*aW*2;
-        const ang=-52+Math.atan2(dy,dx)*180/Math.PI*0.45;
-        pencil.setAttribute('transform',`translate(${w},${pY}) rotate(${ang.toFixed(1)})`);
-        const fi=Math.min(t*8,1);
-        const fo=t>.90?1-(t-.90)/.10:1;
-        pencil.setAttribute('opacity',(fi*fo).toFixed(3));
-      }
       if(t<1){
         requestAnimationFrame(frame);
       }else{
         mainCr.setAttribute('width',aW+4);
         glowCr.setAttribute('x',aW+60);
-        if(pencil)pencil.setAttribute('opacity','0');
         glowEl.style.transition='opacity .6s ease';
         glowEl.style.opacity='0';
         // Cores limpas — sem textLength, sem risco de encolhimento
