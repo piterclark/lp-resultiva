@@ -28,32 +28,16 @@ body::before{
 }
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:60px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
-header.solid{background:rgba(6,8,15,.9);backdrop-filter:blur(24px);border-color:var(--border)}
-.nav-cta{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s}
-.nav-cta:hover{color:var(--white)}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 32px;height:96px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color:var(--border)}
 
-/* LOGO RESULTIVA — SVG WRITE ANIMATION */
-.logo-svg{display:block;height:42px;width:auto;overflow:visible;flex-shrink:0}
-.logo-text{
-  font-family:'Great Vibes',cursive;
-  font-size:52px;
-  fill:transparent;
-  stroke:var(--white);
-  stroke-width:0.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:3200;
-  stroke-dashoffset:3200;
-  animation:
-    logoWrite 1.6s cubic-bezier(.45,0,.22,1) 0.1s forwards,
-    logoFill  .5s ease 1.8s forwards;
-}
-@keyframes logoWrite{to{stroke-dashoffset:0}}
-@keyframes logoFill{to{fill:var(--white);stroke-width:.25}}
+/* LOGO RESULTIVA */
+.logo-svg{display:block;height:80px;width:auto;max-width:calc(100% - 0px);overflow:visible}
+.logo-text{fill:var(--white)}
+#logoCr{transition:width .38s cubic-bezier(.4,0,.18,1)}
 
 /* Footer logo static */
-.f-logo{font-family:'Great Vibes',cursive;font-size:32px;color:var(--white);line-height:1.2}
+.f-logo{font-family:'Great Vibes',cursive;font-size:34px;color:var(--white);line-height:1.2}
 
 /* ── HERO ────────────────────────────────── */
 .hero{
@@ -307,8 +291,8 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 /* Mobile */
 @media(max-width:640px){
   /* Header */
-  header{padding:0 20px;height:54px}
-  .nav-cta{display:none}
+  header{padding:0 16px;height:72px;justify-content:center}
+  .logo-svg{height:58px}
 
   /* Hero */
   .hero{padding:0 20px 60px}
@@ -364,10 +348,15 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 <body>
 
 <header id="hdr">
-  <svg class="logo-svg" viewBox="0 0 310 72" xmlns="http://www.w3.org/2000/svg" aria-label="Resultiva">
-    <text class="logo-text" x="8" y="56">Resultiva</text>
+  <svg class="logo-svg" viewBox="0 0 520 92" xmlns="http://www.w3.org/2000/svg" aria-label="Resultiva">
+    <defs>
+      <clipPath id="logoCp">
+        <rect id="logoCr" x="-12" y="-14" width="0" height="120"/>
+      </clipPath>
+    </defs>
+    <text class="logo-text" id="logoT" clip-path="url(#logoCp)"
+          font-family="'Great Vibes',cursive" font-size="82" x="10" y="76">Resultiva</text>
   </svg>
-  <a href="#cta" class="nav-cta">Falar agora</a>
 </header>
 
 <!-- HERO -->
@@ -500,6 +489,46 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 <script>
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
+
+// Logo — letra por letra usando getExtentOfChar para posições reais
+(function(){
+  const WORD = 'Resultiva';
+  const DELAY = 440; // ms entre letras
+
+  function startLogoAnim(){
+    const textEl = document.getElementById('logoT');
+    const clipRect = document.getElementById('logoCr');
+    if(!textEl || !clipRect) return;
+
+    // Coleta a borda direita de cada caractere
+    const rights = [];
+    for(let j = 0; j < WORD.length; j++){
+      try{
+        const ext = textEl.getExtentOfChar(j);
+        rights.push(ext.x + ext.width - 10 + 20); // ajuste ao x="10" do text
+      } catch(e){
+        rights.push((j + 1) / WORD.length * 490);  // fallback linear
+      }
+    }
+
+    let i = 0;
+    function next(){
+      if(i < rights.length){
+        clipRect.setAttribute('width', rights[i]);
+        i++;
+        setTimeout(next, DELAY);
+      }
+    }
+    setTimeout(next, 260); // pequeno delay inicial
+  }
+
+  // Aguarda fonte carregar antes de medir
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(startLogoAnim);
+  } else {
+    window.addEventListener('load', startLogoAnim);
+  }
+})();
 
 // Hero entrance
 window.addEventListener('load',()=>{
