@@ -31,10 +31,12 @@ body::before{
 header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 32px;height:96px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
 header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color:var(--border)}
 
-/* LOGO RESULTIVA */
-.logo-svg{display:block;height:80px;width:auto;max-width:calc(100% - 0px);overflow:visible}
-.logo-text{fill:var(--white)}
-#logoCr{transition:width .38s cubic-bezier(.4,0,.18,1)}
+/* LOGO RESULTIVA — full width + cor */
+.logo-svg{display:block;width:100%;height:80px;overflow:visible}
+/* Fallback vw para o caso de medição JS falhar */
+#logoT,#lgT{font-size:clamp(36px,15.5vw,100px)}
+#logoCr{transition:width .19s cubic-bezier(.4,0,.2,1)}
+#lR,#lA{transition:fill 1.1s ease}
 
 /* Footer logo static */
 .f-logo{font-family:'Great Vibes',cursive;font-size:34px;color:var(--white);line-height:1.2}
@@ -291,8 +293,7 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 /* Mobile */
 @media(max-width:640px){
   /* Header */
-  header{padding:0 16px;height:72px;justify-content:center}
-  .logo-svg{height:58px}
+  header{padding:0 16px;height:72px}
 
   /* Hero */
   .hero{padding:0 20px 60px}
@@ -348,14 +349,20 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 <body>
 
 <header id="hdr">
-  <svg class="logo-svg" viewBox="0 0 520 92" xmlns="http://www.w3.org/2000/svg" aria-label="Resultiva">
+  <svg class="logo-svg" id="logoSvg" xmlns="http://www.w3.org/2000/svg" aria-label="Resultiva">
     <defs>
-      <clipPath id="logoCp">
-        <rect id="logoCr" x="-12" y="-14" width="0" height="120"/>
-      </clipPath>
+      <clipPath id="logoCp"><rect id="logoCr" x="-8" y="-22" width="0" height="140"/></clipPath>
+      <clipPath id="lgCp"><rect id="lgCr" x="9999" y="-22" width="72" height="140"/></clipPath>
     </defs>
-    <text class="logo-text" id="logoT" clip-path="url(#logoCp)"
-          font-family="'Great Vibes',cursive" font-size="82" x="10" y="76">Resultiva</text>
+    <!-- Texto branco revelado letra a letra -->
+    <text id="logoT" clip-path="url(#logoCp)"
+          font-family="'Great Vibes',cursive" font-size="82" x="0" y="78" fill="var(--white)">
+      <tspan id="lR">R</tspan><tspan id="lM">esultiv</tspan><tspan id="lA">a</tspan>
+    </text>
+    <!-- Chama laranja que corre na frente da escrita -->
+    <text id="lgT" clip-path="url(#lgCp)"
+          font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
+          fill="var(--orange)" opacity="0.85">Resultiva</text>
   </svg>
 </header>
 
@@ -490,43 +497,100 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo — letra por letra usando getExtentOfChar para posições reais
+// Logo — escrita letra a letra, chama laranja na frente, R=laranja / a=azul no final
 (function(){
-  const WORD = 'Resultiva';
-  const DELAY = 440; // ms entre letras
+  const WORD  = 'Resultiva';
+  const DELAY = 270; // ms entre letras — rápido mas acompanhável
+  const GW    = 72;  // largura da janela laranja (chama)
 
-  function startLogoAnim(){
+  function init(){
+    const svgEl  = document.getElementById('logoSvg');
     const textEl = document.getElementById('logoT');
-    const clipRect = document.getElementById('logoCr');
-    if(!textEl || !clipRect) return;
+    const glowEl = document.getElementById('lgT');
+    const mainCr = document.getElementById('logoCr');
+    const glowCr = document.getElementById('lgCr');
+    const lR     = document.getElementById('lR');
+    const lA     = document.getElementById('lA');
+    if(!textEl || !svgEl) return;
 
-    // Coleta a borda direita de cada caractere
+    // Largura disponível no header
+    const hdr    = document.getElementById('hdr');
+    const cs     = getComputedStyle(hdr);
+    const pad    = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const availW = hdr.clientWidth - pad;
+    const maxH   = hdr.clientHeight;
+
+    // Escalar font para preencher largura (limitado pela altura do header)
+    let fs = 82;
+    textEl.setAttribute('font-size', fs);
+    glowEl.setAttribute('font-size', fs);
+    const tw = textEl.getComputedTextLength();
+    if(tw > 80){
+      // Medição funcionou — escalar precisamente
+      fs = Math.min(Math.round(fs * availW / tw), Math.floor(maxH * 0.86));
+      textEl.setAttribute('font-size', fs);
+      glowEl.setAttribute('font-size', fs);
+    } else {
+      // Fallback — usar o font-size calculado pelo CSS (clamp vw)
+      fs = parseFloat(getComputedStyle(textEl).fontSize) || 70;
+    }
+
+    // Ajustar altura SVG e baseline
+    const svgH = Math.ceil(fs * 1.24);
+    const yPos = Math.round(fs * 0.95);
+    svgEl.setAttribute('height', svgH);
+    textEl.setAttribute('y', yPos);
+    glowEl.setAttribute('y', yPos);
+    mainCr.setAttribute('height', svgH + 24);
+    glowCr.setAttribute('height', svgH + 24);
+
+    // Posições reais de cada letra
     const rights = [];
     for(let j = 0; j < WORD.length; j++){
-      try{
+      try {
         const ext = textEl.getExtentOfChar(j);
-        rights.push(ext.x + ext.width - 10 + 20); // ajuste ao x="10" do text
-      } catch(e){
-        rights.push((j + 1) / WORD.length * 490);  // fallback linear
+        rights.push(ext.x + ext.width + 5);
+      } catch(e) {
+        rights.push((j + 1) / WORD.length * (availW - 4));
       }
     }
+    const totalW = rights[rights.length - 1] + 16;
 
     let i = 0;
-    function next(){
+    function step(){
       if(i < rights.length){
-        clipRect.setAttribute('width', rights[i]);
+        const w = rights[i];
+        // Clip branco expande (com CSS transition suave)
+        mainCr.setAttribute('width', w);
+        // Chama laranja salta para frente da letra atual (snap = instantâneo)
+        glowCr.setAttribute('x', w - 6);
         i++;
-        setTimeout(next, DELAY);
+        setTimeout(step, DELAY);
+      } else {
+        // Palavra completa
+        mainCr.setAttribute('width', totalW);
+        glowCr.setAttribute('x', totalW + 30); // empurra para fora
+
+        // Fade out da chama
+        setTimeout(()=>{
+          glowEl.style.transition = 'opacity .55s ease';
+          glowEl.style.opacity = '0';
+          // Settle de cores: R → laranja, a → azul
+          setTimeout(()=>{
+            lR.style.fill = '#F97316';
+            lA.style.fill = '#5B8DEF';
+          }, 300);
+        }, 160);
       }
     }
-    setTimeout(next, 260); // pequeno delay inicial
+
+    setTimeout(step, 280);
   }
 
-  // Aguarda fonte carregar antes de medir
   if(document.fonts && document.fonts.ready){
-    document.fonts.ready.then(startLogoAnim);
+    document.fonts.ready.then(init);
   } else {
-    window.addEventListener('load', startLogoAnim);
+    window.addEventListener('load', init);
   }
 })();
 
