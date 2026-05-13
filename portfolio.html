@@ -28,7 +28,7 @@ body::before{
 }
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 32px;height:72px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 28px;height:58px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
 header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color:var(--border)}
 
 /* LOGO RESULTIVA — full width + cor */
@@ -293,7 +293,7 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 /* Mobile */
 @media(max-width:640px){
   /* Header */
-  header{padding:0 16px;height:56px}
+  header{padding:0 14px;height:46px}
 
   /* Hero */
   .hero{padding:0 20px 60px}
@@ -353,17 +353,8 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
     <defs>
       <clipPath id="logoCp"><rect id="logoCr" x="-8" y="-22" width="0" height="140"/></clipPath>
       <clipPath id="lgCp"><rect id="lgCr" x="9999" y="-22" width="95" height="140"/></clipPath>
-      <!-- Gradiente final: R=laranja, meio=branco, a=azul -->
-      <linearGradient id="lgr" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="480" y2="0">
-        <stop offset="0%"   stop-color="#F97316"/>
-        <stop offset="12%"  stop-color="#F97316"/>
-        <stop offset="16%"  stop-color="#f0ede8"/>
-        <stop offset="79%"  stop-color="#f0ede8"/>
-        <stop offset="84%"  stop-color="#5B8DEF"/>
-        <stop offset="100%" stop-color="#5B8DEF"/>
-      </linearGradient>
     </defs>
-    <!-- Texto branco — revelado durante animação, NUNCA alterado -->
+    <!-- Texto branco — revelado durante animação, nunca alterado -->
     <text id="logoT" clip-path="url(#logoCp)"
           font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
           fill="var(--white)">Resultiva</text>
@@ -371,9 +362,14 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
     <text id="lgT" clip-path="url(#lgCp)"
           font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
           fill="var(--orange)" opacity="0.58">Resultiva</text>
-    <!-- Texto final colorido — faz fade-in DEPOIS da animação (mesma posição/tamanho) -->
-    <text id="logoTc" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
-          fill="url(#lgr)" opacity="0" style="transition:opacity .9s ease">Resultiva</text>
+    <!-- Overlay R laranja: só o R visível, resto transparente -->
+    <text id="logoOR" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
+          fill="#F97316" opacity="0" style="transition:opacity .9s ease"
+          >R<tspan fill="transparent">esultiva</tspan></text>
+    <!-- Overlay a azul: Resultiv transparente, só o a visível -->
+    <text id="logoOA" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
+          fill="#5B8DEF" opacity="0" style="transition:opacity .9s ease"
+          ><tspan fill="transparent">Resultiv</tspan>a</text>
 
     <!-- Apple Pencil 2 — elegante, maior, ar de arte -->
     <g id="pencil" opacity="0">
@@ -579,11 +575,11 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const svgEl  = document.getElementById('logoSvg');
     const textEl = document.getElementById('logoT');
     const glowEl = document.getElementById('lgT');
-    const mainCr  = document.getElementById('logoCr');
-    const glowCr  = document.getElementById('lgCr');
-    const logoTc  = document.getElementById('logoTc');
-    const gradEl  = document.getElementById('lgr');
-    const pencil  = document.getElementById('pencil');
+    const mainCr = document.getElementById('logoCr');
+    const glowCr = document.getElementById('lgCr');
+    const logoOR = document.getElementById('logoOR');
+    const logoOA = document.getElementById('logoOA');
+    const pencil = document.getElementById('pencil');
     if(!textEl||!svgEl) return;
 
     const hdr = document.getElementById('hdr');
@@ -591,8 +587,8 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const pad = parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
     const aW  = Math.max(hdr.clientWidth-pad, 280);
 
-    // Todos os textos com o mesmo textLength — garantia de largura idêntica
-    [textEl, glowEl, logoTc].forEach(el=>{
+    // Todos os textos com o mesmo textLength — posicionamento idêntico
+    [textEl, glowEl, logoOR, logoOA].forEach(el=>{
       el.setAttribute('textLength', aW);
       el.setAttribute('lengthAdjust','spacingAndGlyphs');
     });
@@ -602,11 +598,9 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const yBase= Math.round(fs*0.97);
     const yTop = yBase - fs*0.92;
     svgEl.setAttribute('height', svgH);
-    [textEl, glowEl, logoTc].forEach(el=>el.setAttribute('y', yBase));
+    [textEl, glowEl, logoOR, logoOA].forEach(el=>el.setAttribute('y', yBase));
     mainCr.setAttribute('height', svgH+28);
     glowCr.setAttribute('height', svgH+28);
-    // Gradiente usa coordenadas do espaço do usuário — x2 = largura do texto
-    gradEl.setAttribute('x2', aW);
 
     const DUR = 4000; // ms — ritmo de arte, deliberado
     // Ease: começa muito devagar (como artista compondo), flui no meio, desacelera elegante
@@ -653,8 +647,11 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
         if(pencil) pencil.setAttribute('opacity', '0');
         glowEl.style.transition = 'opacity .7s ease';
         glowEl.style.opacity = '0';
-        // Fade-in do texto colorido — mesmo textLength, sem alterar logoT
-        setTimeout(()=>{ if(logoTc) logoTc.style.opacity='1'; }, 400);
+        // Fade-in dos overlays: R laranja + a azul
+        setTimeout(()=>{
+          if(logoOR) logoOR.style.opacity='1';
+          if(logoOA) logoOA.style.opacity='1';
+        }, 400);
       }
     }
     setTimeout(()=>requestAnimationFrame(frame), 300);
