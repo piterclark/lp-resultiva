@@ -519,8 +519,47 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo — animação 60fps contínua com rAF, sem degraus
+// Logo — lápis segue os traços reais da cursiva (waypoints por letra)
 (function(){
+
+  // Trajetória vertical do lápis para "Resultiva"
+  // [progresso_0_a_1, y_normalizado] — y=0 topo das ascendentes, y=1 linha de base
+  const Y = [
+    // R: traço longo para cima, laço, perna
+    [0.00,0.82],[0.02,0.05],[0.05,0.08],[0.07,0.38],[0.10,0.88],[0.12,0.52],
+    // e: pequeno laço
+    [0.15,0.65],[0.18,0.28],[0.21,0.78],[0.23,0.58],
+    // s: curva em S
+    [0.25,0.28],[0.27,0.18],[0.29,0.52],[0.31,0.78],[0.33,0.88],
+    // u: duas bacias
+    [0.35,0.88],[0.37,0.94],[0.39,0.58],[0.41,0.94],[0.43,0.50],
+    // l: traço alto
+    [0.45,0.04],[0.48,0.88],[0.50,0.55],
+    // t: traço alto + travessão
+    [0.52,0.12],[0.55,0.88],[0.57,0.32],[0.59,0.32],
+    // i: traço curto + ponto
+    [0.61,0.45],[0.63,0.88],[0.65,0.04],
+    // v: descida e subida em V
+    [0.67,0.62],[0.70,0.94],[0.73,0.40],
+    // a: laço oval + cauda
+    [0.75,0.22],[0.79,0.82],[0.82,0.88],[0.84,0.28],[0.87,0.78],
+    [0.91,0.68],[0.95,0.82],[1.00,0.88]
+  ];
+
+  // Interpolação Catmull-Rom — curva suave que passa pelos pontos
+  function cr(t, p0, p1, p2, p3){
+    return .5*(2*p1+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t);
+  }
+  function penY(t){
+    if(t<=Y[0][0]) return Y[0][1];
+    if(t>=Y[Y.length-1][0]) return Y[Y.length-1][1];
+    let i=0; while(i<Y.length-2 && Y[i+1][0]<t) i++;
+    const st=(t-Y[i][0])/(Y[i+1][0]-Y[i][0]);
+    return Math.max(-0.05, Math.min(1.05,
+      cr(st, Y[Math.max(0,i-1)][1], Y[i][1], Y[i+1][1], Y[Math.min(Y.length-1,i+2)][1])
+    ));
+  }
+
   function init(){
     const svgEl  = document.getElementById('logoSvg');
     const textEl = document.getElementById('logoT');
@@ -529,73 +568,76 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const glowCr = document.getElementById('lgCr');
     const lR     = document.getElementById('lR');
     const lA     = document.getElementById('lA');
-    if(!textEl || !svgEl) return;
-
-    // Largura disponível
-    const hdr  = document.getElementById('hdr');
-    const cs   = getComputedStyle(hdr);
-    const pad  = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const aW   = Math.max(hdr.clientWidth - pad, 280); // availableWidth
-
-    // textLength garante preenchimento total independente de medição
-    textEl.setAttribute('textLength', aW);
-    textEl.setAttribute('lengthAdjust', 'spacingAndGlyphs');
-    glowEl.setAttribute('textLength', aW);
-    glowEl.setAttribute('lengthAdjust', 'spacingAndGlyphs');
-
-    // Altura do SVG baseada no font-size CSS
-    const fs   = parseFloat(getComputedStyle(textEl).fontSize) || 66;
-    const svgH = Math.ceil(fs * 1.28);
-    const yPos = Math.round(fs * 0.97);
-    svgEl.setAttribute('height', svgH);
-    textEl.setAttribute('y', yPos);
-    glowEl.setAttribute('y', yPos);
-    mainCr.setAttribute('height', svgH + 28);
-    glowCr.setAttribute('height', svgH + 28);
-
-    // Animação 60fps contínua — velocidade natural de escrita
-    const DUR    = 2200; // ms — como escrever à mão
     const pencil = document.getElementById('pencil');
+    if(!textEl||!svgEl) return;
 
-    function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t }
+    const hdr = document.getElementById('hdr');
+    const cs  = getComputedStyle(hdr);
+    const pad = parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+    const aW  = Math.max(hdr.clientWidth-pad, 280);
+
+    textEl.setAttribute('textLength', aW);
+    textEl.setAttribute('lengthAdjust','spacingAndGlyphs');
+    glowEl.setAttribute('textLength', aW);
+    glowEl.setAttribute('lengthAdjust','spacingAndGlyphs');
+
+    const fs   = parseFloat(getComputedStyle(textEl).fontSize)||66;
+    const svgH = Math.ceil(fs*1.28);
+    const yBase= Math.round(fs*0.97);         // linha de base em px
+    const yTop = yBase - fs*0.92;             // topo das ascendentes
+    svgEl.setAttribute('height', svgH);
+    textEl.setAttribute('y', yBase);
+    glowEl.setAttribute('y', yBase);
+    mainCr.setAttribute('height', svgH+28);
+    glowCr.setAttribute('height', svgH+28);
+
+    const DUR = 2400; // ms — ritmo de escrita natural
+    function ease(t){ return t<.5?2*t*t:-1+(4-2*t)*t }
 
     const t0 = performance.now();
     function frame(now){
-      const t = Math.min((now - t0) / DUR, 1);
-      const w = ease(t) * aW;
+      const t  = Math.min((now-t0)/DUR, 1);
+      const et = ease(t);
+      const w  = et*aW;
 
-      // Expandir clip principal
       mainCr.setAttribute('width', w);
-      // Chama laranja 8px à frente da ponta
-      glowCr.setAttribute('x', w - 8);
+      glowCr.setAttribute('x', w-8);
 
-      // Mover Apple Pencil — ponta em (w, yPos) com ângulo de escrita natural
       if(pencil){
-        pencil.setAttribute('transform', `translate(${w},${yPos - 4}) rotate(-52)`);
-        const fi = Math.min(t * 12, 1);                     // fade-in rápido no início
-        const fo = t > 0.88 ? 1 - (t - 0.88) / 0.12 : 1;  // fade-out suave no final
-        pencil.setAttribute('opacity', (fi * fo).toFixed(3));
+        // Posição Y: interpola trajetória vertical da cursiva
+        const yn  = penY(et);
+        const pY  = yTop + yn*(yBase-yTop);
+
+        // Ângulo: tangente ao traço (mistura com ângulo base de -52°)
+        const D   = 0.012;
+        const dy  = (penY(Math.min(1,et+D))-penY(Math.max(0,et-D)))*(yBase-yTop);
+        const dx  = D*aW*2;
+        const ang = -52 + Math.atan2(dy,dx)*180/Math.PI*0.4;
+
+        pencil.setAttribute('transform',`translate(${w},${pY}) rotate(${ang.toFixed(1)})`);
+        const fi = Math.min(t*10,1);
+        const fo = t>.88 ? 1-(t-.88)/.12 : 1;
+        pencil.setAttribute('opacity',(fi*fo).toFixed(3));
       }
 
-      if(t < 1){
+      if(t<1){
         requestAnimationFrame(frame);
       } else {
-        mainCr.setAttribute('width', aW + 4);
-        glowCr.setAttribute('x', aW + 50);
-        if(pencil) pencil.setAttribute('opacity', '0');
-        glowEl.style.transition = 'opacity .5s ease';
-        glowEl.style.opacity = '0';
-        setTimeout(()=>{ lR.style.fill='#F97316'; lA.style.fill='#5B8DEF'; }, 400);
+        mainCr.setAttribute('width', aW+4);
+        glowCr.setAttribute('x', aW+50);
+        if(pencil) pencil.setAttribute('opacity','0');
+        glowEl.style.transition='opacity .5s ease';
+        glowEl.style.opacity='0';
+        setTimeout(()=>{ lR.style.fill='#F97316'; lA.style.fill='#5B8DEF'; },400);
       }
     }
-
     setTimeout(()=>requestAnimationFrame(frame), 220);
   }
 
-  if(document.fonts && document.fonts.ready){
+  if(document.fonts&&document.fonts.ready){
     document.fonts.ready.then(init);
   } else {
-    window.addEventListener('load', init);
+    window.addEventListener('load',init);
   }
 })();
 
