@@ -520,24 +520,35 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const availW = hdr.clientWidth - pad;
     const maxH   = hdr.clientHeight;
 
-    // Escalar font para preencher largura (limitado pela altura do header)
-    let fs = 82;
-    textEl.setAttribute('font-size', fs);
-    glowEl.setAttribute('font-size', fs);
-    const tw = textEl.getComputedTextLength();
-    if(tw > 80){
-      // Medição funcionou — escalar precisamente
-      fs = Math.min(Math.round(fs * availW / tw), Math.floor(maxH * 0.86));
-      textEl.setAttribute('font-size', fs);
-      glowEl.setAttribute('font-size', fs);
-    } else {
-      // Fallback — usar o font-size calculado pelo CSS (clamp vw)
-      fs = parseFloat(getComputedStyle(textEl).fontSize) || 70;
+    // Passo 1: aplicar font-size inicial pelo CSS (clamp vw já está aplicado)
+    let fs = parseFloat(getComputedStyle(textEl).fontSize) || 72;
+
+    // Passo 2: medir largura real com getBBox (mais confiável que getComputedTextLength)
+    let naturalW = 0;
+    try { naturalW = textEl.getBBox().width; } catch(e){}
+    if(naturalW < 20){ try { naturalW = textEl.getComputedTextLength(); } catch(e){} }
+
+    // Passo 3: se medição funcionou, escalar font para aproximar da largura certa
+    if(naturalW > 20){
+      const newFS = Math.min(
+        Math.round(fs * availW / naturalW),
+        Math.floor(maxH * 0.84)
+      );
+      textEl.style.fontSize = newFS + 'px';
+      glowEl.style.fontSize = newFS + 'px';
+      fs = newFS;
     }
 
+    // Passo 4: GARANTIA — textLength força o texto a preencher exatamente availW
+    // (funciona independente de getBBox ter medido certo ou não)
+    textEl.setAttribute('textLength', availW);
+    textEl.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+    glowEl.setAttribute('textLength', availW);
+    glowEl.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+
     // Ajustar altura SVG e baseline
-    const svgH = Math.ceil(fs * 1.24);
-    const yPos = Math.round(fs * 0.95);
+    const svgH = Math.ceil(fs * 1.26);
+    const yPos = Math.round(fs * 0.96);
     svgEl.setAttribute('height', svgH);
     textEl.setAttribute('y', yPos);
     glowEl.setAttribute('y', yPos);
