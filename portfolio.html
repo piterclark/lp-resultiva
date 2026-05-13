@@ -363,6 +363,28 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
     <text id="lgT" clip-path="url(#lgCp)"
           font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
           fill="var(--orange)" opacity="0.85">Resultiva</text>
+
+    <!-- Apple Pencil 2 branco — segue a ponta da escrita -->
+    <g id="pencil" opacity="0">
+      <!-- Brilho de contato laranja no ponto de escrita -->
+      <ellipse cx="0" cy="0" rx="7" ry="3" fill="rgba(249,115,22,0.38)" transform="rotate(-8)"/>
+      <!-- Nib — ponto de escrita em (0,0) -->
+      <polygon points="0,0 -2.5,-5 2.5,-5" fill="#a0a0a0"/>
+      <polygon points="-2.5,-5 2.5,-5 3.5,-12 -3.5,-12" fill="#cccccc"/>
+      <!-- Anel metálico -->
+      <rect x="-4.8" y="-18" width="9.6" height="6.5" rx="2" fill="#a8a8a8"/>
+      <line x1="-4.8" y1="-15.5" x2="4.8" y2="-15.5" stroke="rgba(255,255,255,0.55)" stroke-width="0.9"/>
+      <!-- Corpo branco -->
+      <rect x="-4.2" y="-120" width="8.4" height="102" rx="4.2" fill="#f3f3f5"/>
+      <!-- Lado plano Apple Pencil 2 -->
+      <rect x="2.8" y="-120" width="1.4" height="102" fill="rgba(180,180,180,0.28)"/>
+      <!-- Reflexo brilhante -->
+      <rect x="-3.2" y="-118" width="2.4" height="98" rx="1.2" fill="rgba(255,255,255,0.62)"/>
+      <!-- Detalhe linha -->
+      <line x1="-4.2" y1="-104" x2="4.2" y2="-104" stroke="rgba(155,155,155,0.4)" stroke-width="0.8"/>
+      <!-- Tampa superior arredondada -->
+      <ellipse cx="0" cy="-120" rx="4.2" ry="2.8" fill="#e2e2e4"/>
+    </g>
   </svg>
 </header>
 
@@ -531,33 +553,43 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     mainCr.setAttribute('height', svgH + 28);
     glowCr.setAttribute('height', svgH + 28);
 
-    // Animação contínua 60fps — sem degraus, sem setTimeout por letra
-    const DUR = 1050; // duração total em ms
-    const GW  = 58;   // largura da chama laranja
+    // Animação 60fps contínua — velocidade natural de escrita
+    const DUR    = 2200; // ms — como escrever à mão
+    const pencil = document.getElementById('pencil');
 
-    function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t } // ease in-out
+    function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t }
 
     const t0 = performance.now();
     function frame(now){
       const t = Math.min((now - t0) / DUR, 1);
       const w = ease(t) * aW;
 
+      // Expandir clip principal
       mainCr.setAttribute('width', w);
-      glowCr.setAttribute('x', w - 8); // chama corre na frente
+      // Chama laranja 8px à frente da ponta
+      glowCr.setAttribute('x', w - 8);
+
+      // Mover Apple Pencil — ponta em (w, yPos) com ângulo de escrita natural
+      if(pencil){
+        pencil.setAttribute('transform', `translate(${w},${yPos - 4}) rotate(-52)`);
+        const fi = Math.min(t * 12, 1);                     // fade-in rápido no início
+        const fo = t > 0.88 ? 1 - (t - 0.88) / 0.12 : 1;  // fade-out suave no final
+        pencil.setAttribute('opacity', (fi * fo).toFixed(3));
+      }
 
       if(t < 1){
         requestAnimationFrame(frame);
       } else {
-        // Concluído — empurrar glow para fora e fazer settle de cores
         mainCr.setAttribute('width', aW + 4);
-        glowCr.setAttribute('x', aW + 40);
-        glowEl.style.transition = 'opacity .4s ease';
+        glowCr.setAttribute('x', aW + 50);
+        if(pencil) pencil.setAttribute('opacity', '0');
+        glowEl.style.transition = 'opacity .5s ease';
         glowEl.style.opacity = '0';
-        setTimeout(()=>{ lR.style.fill='#F97316'; lA.style.fill='#5B8DEF'; }, 350);
+        setTimeout(()=>{ lR.style.fill='#F97316'; lA.style.fill='#5B8DEF'; }, 400);
       }
     }
 
-    setTimeout(()=>requestAnimationFrame(frame), 200);
+    setTimeout(()=>requestAnimationFrame(frame), 220);
   }
 
   if(document.fonts && document.fonts.ready){
