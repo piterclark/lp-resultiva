@@ -28,15 +28,13 @@ body::before{
 }
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 28px;height:58px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 24px;height:48px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
 header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color:var(--border)}
 
-/* LOGO RESULTIVA — full width + cor */
-.logo-svg{display:block;width:100%;height:80px;overflow:visible}
-/* Fallback vw para o caso de medição JS falhar */
-#logoT,#lgT{font-size:clamp(36px,15.5vw,100px)}
-/* #logoCr sem transition — rAF controla frame a frame */
-#lR,#lA{transition:fill 1.1s ease}
+/* LOGO RESULTIVA */
+.logo-svg{display:block;width:auto;overflow:visible;max-width:100%}
+#logoT,#lgT{font-size:clamp(22px,6.2vw,34px)}
+#lR,#lA{transition:fill .8s ease}
 
 /* Footer logo static */
 .f-logo{font-family:'Great Vibes',cursive;font-size:34px;color:var(--white);line-height:1.2}
@@ -293,7 +291,7 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 /* Mobile */
 @media(max-width:640px){
   /* Header */
-  header{padding:0 14px;height:46px}
+  header{padding:0 12px;height:38px}
 
   /* Hero */
   .hero{padding:0 20px 60px}
@@ -354,20 +352,15 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
       <clipPath id="logoCp"><rect id="logoCr" x="-8" y="-22" width="0" height="140"/></clipPath>
       <clipPath id="lgCp"><rect id="lgCr" x="9999" y="-22" width="95" height="140"/></clipPath>
     </defs>
-    <!-- Texto branco — revelado durante animação, nunca alterado -->
+    <!-- Texto principal: R e a com IDs para colorir no final -->
     <text id="logoT" clip-path="url(#logoCp)"
-          font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
-          fill="var(--white)">Resultiva</text>
-    <!-- Chama laranja que corre na frente da escrita -->
+          font-family="'Great Vibes',cursive" x="0" y="78" fill="var(--white)">
+      <tspan id="lR">R</tspan><tspan>esultiv</tspan><tspan id="lA">a</tspan>
+    </text>
+    <!-- Chama laranja na frente da escrita -->
     <text id="lgT" clip-path="url(#lgCp)"
-          font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
+          font-family="'Great Vibes',cursive" x="0" y="78"
           fill="var(--orange)" opacity="0.58">Resultiva</text>
-    <!-- Overlay R laranja — texto completo, clip-path mostra só o R -->
-    <text id="logoOR" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
-          fill="#F97316" opacity="0" style="transition:opacity .9s ease">Resultiva</text>
-    <!-- Overlay a azul — texto completo, clip-path mostra só o a -->
-    <text id="logoOA" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
-          fill="#5B8DEF" opacity="0" style="transition:opacity .9s ease">Resultiva</text>
 
     <!-- Apple Pencil 2 — elegante, maior, ar de arte -->
     <g id="pencil" opacity="0">
@@ -528,143 +521,105 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo — lápis segue os traços reais da cursiva (waypoints por letra)
+// Logo — animação de escrita cursiva com Apple Pencil
 (function(){
-
-  // Trajetória vertical do lápis para "Resultiva"
-  // [progresso_0_a_1, y_normalizado] — y=0 topo das ascendentes, y=1 linha de base
-  const Y = [
-    // R: traço longo para cima, laço, perna
+  const Y=[
     [0.00,0.82],[0.02,0.05],[0.05,0.08],[0.07,0.38],[0.10,0.88],[0.12,0.52],
-    // e: pequeno laço
     [0.15,0.65],[0.18,0.28],[0.21,0.78],[0.23,0.58],
-    // s: curva em S
     [0.25,0.28],[0.27,0.18],[0.29,0.52],[0.31,0.78],[0.33,0.88],
-    // u: duas bacias
     [0.35,0.88],[0.37,0.94],[0.39,0.58],[0.41,0.94],[0.43,0.50],
-    // l: traço alto
     [0.45,0.04],[0.48,0.88],[0.50,0.55],
-    // t: traço alto + travessão
     [0.52,0.12],[0.55,0.88],[0.57,0.32],[0.59,0.32],
-    // i: traço curto + ponto
     [0.61,0.45],[0.63,0.88],[0.65,0.04],
-    // v: descida e subida em V
     [0.67,0.62],[0.70,0.94],[0.73,0.40],
-    // a: laço oval + cauda
     [0.75,0.22],[0.79,0.82],[0.82,0.88],[0.84,0.28],[0.87,0.78],
     [0.91,0.68],[0.95,0.82],[1.00,0.88]
   ];
-
-  // Interpolação Catmull-Rom — curva suave que passa pelos pontos
-  function cr(t, p0, p1, p2, p3){
-    return .5*(2*p1+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t);
-  }
+  function cr(t,p0,p1,p2,p3){return .5*(2*p1+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t)}
   function penY(t){
-    if(t<=Y[0][0]) return Y[0][1];
-    if(t>=Y[Y.length-1][0]) return Y[Y.length-1][1];
-    let i=0; while(i<Y.length-2 && Y[i+1][0]<t) i++;
+    if(t<=Y[0][0])return Y[0][1];
+    if(t>=Y[Y.length-1][0])return Y[Y.length-1][1];
+    let i=0;while(i<Y.length-2&&Y[i+1][0]<t)i++;
     const st=(t-Y[i][0])/(Y[i+1][0]-Y[i][0]);
-    return Math.max(-0.05, Math.min(1.05,
-      cr(st, Y[Math.max(0,i-1)][1], Y[i][1], Y[i+1][1], Y[Math.min(Y.length-1,i+2)][1])
-    ));
+    return Math.max(-0.05,Math.min(1.05,cr(st,Y[Math.max(0,i-1)][1],Y[i][1],Y[i+1][1],Y[Math.min(Y.length-1,i+2)][1])));
   }
 
   function init(){
-    const svgEl  = document.getElementById('logoSvg');
-    const textEl = document.getElementById('logoT');
-    const glowEl = document.getElementById('lgT');
-    const mainCr = document.getElementById('logoCr');
-    const glowCr = document.getElementById('lgCr');
-    const logoOR = document.getElementById('logoOR');
-    const logoOA = document.getElementById('logoOA');
-    const pencil = document.getElementById('pencil');
-    if(!textEl||!svgEl) return;
+    const svgEl =document.getElementById('logoSvg');
+    const textEl=document.getElementById('logoT');
+    const glowEl=document.getElementById('lgT');
+    const mainCr=document.getElementById('logoCr');
+    const glowCr=document.getElementById('lgCr');
+    const lR    =document.getElementById('lR');
+    const lA    =document.getElementById('lA');
+    const pencil=document.getElementById('pencil');
+    if(!textEl||!svgEl)return;
 
-    const hdr = document.getElementById('hdr');
-    const cs  = getComputedStyle(hdr);
-    const pad = parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
-    const aW  = Math.max(hdr.clientWidth-pad, 280);
+    // Font-size: CSS define, JS lê — sem textLength, tamanho natural
+    const fs   =parseFloat(getComputedStyle(textEl).fontSize)||30;
+    const svgH =Math.ceil(fs*1.28);
+    const yBase=Math.round(fs*0.97);
+    const yTop =yBase-fs*0.92;
+    svgEl.setAttribute('height',svgH);
+    textEl.setAttribute('y',yBase);
+    glowEl.setAttribute('y',yBase);
+    mainCr.setAttribute('height',svgH+24);
+    glowCr.setAttribute('height',svgH+24);
 
-    // Todos os textos com o mesmo textLength — posicionamento idêntico
-    [textEl, glowEl, logoOR, logoOA].forEach(el=>{
-      el.setAttribute('textLength', aW);
-      el.setAttribute('lengthAdjust','spacingAndGlyphs');
-    });
-    // Clip-path por região: R ocupa ~0-13%, a ocupa ~87-100%
-    const rEnd = Math.round(aW * 0.145);
-    const aStart = Math.round(aW * 0.855);
-    logoOR.style.clipPath = `polygon(0 -400px,${rEnd}px -400px,${rEnd}px 400px,0 400px)`;
-    logoOA.style.clipPath = `polygon(${aStart}px -400px,${aW+50}px -400px,${aW+50}px 400px,${aStart}px 400px)`;
+    // Largura natural do texto (sem textLength)
+    let aW=0;
+    try{aW=textEl.getComputedTextLength();}catch(e){}
+    if(aW<30){try{aW=textEl.getBBox().width;}catch(e){}}
+    if(aW<30){aW=fs*5.4;}
+    aW=Math.round(aW)+6;
 
-    const fs   = parseFloat(getComputedStyle(textEl).fontSize)||66;
-    const svgH = Math.ceil(fs*1.28);
-    const yBase= Math.round(fs*0.97);
-    const yTop = yBase - fs*0.92;
-    svgEl.setAttribute('height', svgH);
-    [textEl, glowEl, logoOR, logoOA].forEach(el=>el.setAttribute('y', yBase));
-    mainCr.setAttribute('height', svgH+28);
-    glowCr.setAttribute('height', svgH+28);
+    // Mesmo font-size no glow
+    glowEl.style.fontSize=fs+'px';
 
-    const DUR = 4000; // ms — ritmo de arte, deliberado
-    // Ease: começa muito devagar (como artista compondo), flui no meio, desacelera elegante
-    function ease(t){ return t<.5 ? 2*t*t*t : 1-Math.pow(-2*t+2,3)/2 }
+    const DUR=4000;
+    function ease(t){return t<.5?2*t*t*t:1-Math.pow(-2*t+2,3)/2}
+    const yRange=yBase-yTop;
+    const TRAIL=60;
 
-    // Range vertical ampliado — traços altos sobem muito acima da linha
-    const yRange = yBase - yTop;
-    // Rastro de tinta: glow estende 75px atrás da ponta
-    const TRAIL = 75;
-
-    const t0 = performance.now();
+    const t0=performance.now();
     function frame(now){
-      const t  = Math.min((now-t0)/DUR, 1);
-      const et = ease(t);
-      const w  = et * aW;
-
-      // Clip branco expande
-      mainCr.setAttribute('width', w);
-      // Rastro laranja: começa 75px atrás, 20px à frente — "tinta fresca"
-      glowCr.setAttribute('x', w - TRAIL);
-
+      const t=Math.min((now-t0)/DUR,1);
+      const et=ease(t);
+      const w=et*aW;
+      mainCr.setAttribute('width',w);
+      glowCr.setAttribute('x',w-TRAIL);
       if(pencil){
-        const yn  = penY(et);
-        const pY  = yTop + yn * yRange;
-
-        // Tangente → ângulo natural do traço
-        const D   = 0.010;
-        const dy  = (penY(Math.min(1,et+D)) - penY(Math.max(0,et-D))) * yRange;
-        const dx  = D * aW * 2;
-        const ang = -52 + Math.atan2(dy, dx) * 180/Math.PI * 0.45;
-
-        pencil.setAttribute('transform', `translate(${w},${pY}) rotate(${ang.toFixed(1)})`);
-
-        const fi = Math.min(t * 8, 1);                    // aparece devagar no início
-        const fo = t > 0.90 ? 1-(t-0.90)/0.10 : 1;       // some suavemente no fim
-        pencil.setAttribute('opacity', (fi*fo).toFixed(3));
+        const yn=penY(et);
+        const pY=yTop+yn*yRange;
+        const D=0.010;
+        const dy=(penY(Math.min(1,et+D))-penY(Math.max(0,et-D)))*yRange;
+        const dx=D*aW*2;
+        const ang=-52+Math.atan2(dy,dx)*180/Math.PI*0.45;
+        pencil.setAttribute('transform',`translate(${w},${pY}) rotate(${ang.toFixed(1)})`);
+        const fi=Math.min(t*8,1);
+        const fo=t>.90?1-(t-.90)/.10:1;
+        pencil.setAttribute('opacity',(fi*fo).toFixed(3));
       }
-
-      if(t < 1){
+      if(t<1){
         requestAnimationFrame(frame);
-      } else {
-        mainCr.setAttribute('width', aW + 4);
-        glowCr.setAttribute('x', aW + 60);
-        if(pencil) pencil.setAttribute('opacity', '0');
-        glowEl.style.transition = 'opacity .7s ease';
-        glowEl.style.opacity = '0';
-        // Fade-in dos overlays: R laranja + a azul
+      }else{
+        mainCr.setAttribute('width',aW+4);
+        glowCr.setAttribute('x',aW+60);
+        if(pencil)pencil.setAttribute('opacity','0');
+        glowEl.style.transition='opacity .6s ease';
+        glowEl.style.opacity='0';
+        // Cores limpas — sem textLength, sem risco de encolhimento
         setTimeout(()=>{
-          if(logoOR) logoOR.style.opacity='1';
-          if(logoOA) logoOA.style.opacity='1';
-        }, 400);
+          if(lR)lR.style.fill='#F97316';
+          if(lA)lA.style.fill='#5B8DEF';
+        },400);
       }
     }
-    setTimeout(()=>requestAnimationFrame(frame), 300);
+    setTimeout(()=>requestAnimationFrame(frame),300);
   }
 
-  if(document.fonts&&document.fonts.ready){
-    document.fonts.ready.then(init);
-  } else {
-    window.addEventListener('load',init);
-  }
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(init);}
+  else{window.addEventListener('load',init);}
 })();
 
 // Hero entrance
