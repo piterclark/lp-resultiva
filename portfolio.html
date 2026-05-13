@@ -362,14 +362,12 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
     <text id="lgT" clip-path="url(#lgCp)"
           font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
           fill="var(--orange)" opacity="0.58">Resultiva</text>
-    <!-- Overlay R laranja: só o R visível, resto transparente -->
+    <!-- Overlay R laranja — texto completo, clip-path mostra só o R -->
     <text id="logoOR" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
-          fill="#F97316" opacity="0" style="transition:opacity .9s ease"
-          >R<tspan fill="transparent">esultiva</tspan></text>
-    <!-- Overlay a azul: Resultiv transparente, só o a visível -->
+          fill="#F97316" opacity="0" style="transition:opacity .9s ease">Resultiva</text>
+    <!-- Overlay a azul — texto completo, clip-path mostra só o a -->
     <text id="logoOA" font-family="'Great Vibes',cursive" font-size="82" x="0" y="78"
-          fill="#5B8DEF" opacity="0" style="transition:opacity .9s ease"
-          ><tspan fill="transparent">Resultiv</tspan>a</text>
+          fill="#5B8DEF" opacity="0" style="transition:opacity .9s ease">Resultiva</text>
 
     <!-- Apple Pencil 2 — elegante, maior, ar de arte -->
     <g id="pencil" opacity="0">
@@ -592,6 +590,11 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
       el.setAttribute('textLength', aW);
       el.setAttribute('lengthAdjust','spacingAndGlyphs');
     });
+    // Clip-path por região: R ocupa ~0-13%, a ocupa ~87-100%
+    const rEnd = Math.round(aW * 0.145);
+    const aStart = Math.round(aW * 0.855);
+    logoOR.style.clipPath = `polygon(0 -400px,${rEnd}px -400px,${rEnd}px 400px,0 400px)`;
+    logoOA.style.clipPath = `polygon(${aStart}px -400px,${aW+50}px -400px,${aW+50}px 400px,${aStart}px 400px)`;
 
     const fs   = parseFloat(getComputedStyle(textEl).fontSize)||66;
     const svgH = Math.ceil(fs*1.28);
