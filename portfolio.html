@@ -426,11 +426,12 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
     <text id="logoT" clip-path="url(#logoCp)" x="0" y="36" fill="var(--white)">Resultiv</text>
     <!-- Glow laranja na frente -->
     <text id="lgT" clip-path="url(#lgCp)" x="0" y="36" fill="var(--orange)" opacity="0.65">Resultiv</text>
-    <!-- Seta laranja — fiel à identidade Resultiva -->
+    <!-- Seta laranja Resultiva — corpo CURVO (bezier) + cabeça ↗ -->
     <g id="logoArrow" opacity="0">
-      <!-- Corpo diagonal + cabeça da seta (↗ estilo bold) -->
-      <line x1="5" y1="37" x2="26" y2="6" stroke="#F97316" stroke-width="8" stroke-linecap="round"/>
-      <polyline points="14,5 26,5 26,17" stroke="#F97316" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Corpo: começa em baixo, curva para cima-direita -->
+      <path d="M7,38 C7,30 5,20 15,13 L27,4" stroke="#F97316" stroke-width="8.5" stroke-linecap="round" fill="none"/>
+      <!-- Cabeça da seta: L invertido no topo-direito -->
+      <path d="M16,3 L27,3 L27,14" stroke="#F97316" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </g>
   </svg>
 </header>
@@ -627,7 +628,7 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     // Escalar e posicionar seta — scale relativo ao path original (viewbox ~42px alto)
     const scale = (fs * 1.05) / 42;
     const arrW  = Math.round(28 * scale);
-    const gap   = 3;
+    const gap   = 0;
     const arrY  = Math.round((svgH - 42 * scale) * 0.5);
 
     // Posicionar via SVG transform — UMA SÓ CHAMADA, nunca tocar via style depois
