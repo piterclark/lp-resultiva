@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burger Co. — O burguer que faz você voltar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Psicologia das cores (Eva Heller + Faber Birren):
+     Preto quente = luxo + faz comida saltar
+     Vermelho escuro = fome, paixão, urgência
+     Âmbar/dourado = artesanal, premium, queijo derretendo
+     Creme = limpeza, contraste, leveza */
+  --bg:     #0D0600;
+  --bg2:    #140900;
+  --red:    #C0392B;
+  --amber:  #D4880A;
+  --cream:  #F5F0E8;
+  --muted:  rgba(245,240,232,.42);
+  --border: rgba(245,240,232,.07);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* GRAIN — textura analógica */
+body::before{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px;mix-blend-mode:overlay}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+header.solid{background:rgba(13,6,0,.94);backdrop-filter:blur(20px);border-color:var(--border)}
+.logo-hb{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--cream)}
+.logo-hb span{color:var(--red)}
+.nav-cta-hb{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(212,136,10,.35);padding:10px 24px;border-radius:2px;transition:background .25s,color .25s}
+.nav-cta-hb:hover{background:var(--amber);color:#0D0600}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:0 48px 96px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1800&q=85');background-size:cover;background-position:center 45%;filter:brightness(.32) saturate(.8);animation:hzoom 20s ease-in-out infinite alternate}
+@keyframes hzoom{from{transform:scale(1.04)}to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,6,0,.1) 0%,rgba(13,6,0,.5) 55%,rgba(13,6,0,1) 100%)}
+/* Brilho quente âmbar no canto — chama de brasa */
+.hero::before{content:"";position:absolute;bottom:10%;right:0;width:50%;height:80%;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse at right bottom,rgba(212,136,10,.09) 0%,transparent 65%);
+  animation:brasas 12s ease-in-out infinite alternate}
+@keyframes brasas{from{opacity:.6}to{opacity:1}}
+
+.hero-content{position:relative;z-index:2;max-width:740px}
+.hero-label{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:28px;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .8s .1s,transform .8s .1s}
+.hero-label::before{content:"";display:block;width:24px;height:1px;background:var(--red)}
+.hero-label.in{opacity:1;transform:none}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8.5vw,112px);font-weight:700;line-height:1.0;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--amber)}
+.word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.word-inner{display:inline-block;transform:translateY(110%);transition:transform .85s cubic-bezier(.16,1,.3,1)}
+.word-inner.in{transform:translateY(0)}
+.hero-sub{margin-top:28px;font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:500px;line-height:1.75;opacity:0;transform:translateY(14px);transition:opacity .8s .9s,transform .8s .9s}
+.hero-sub.in{opacity:1;transform:none}
+.hero-cta-wrap{margin-top:44px;display:flex;align-items:center;gap:24px;opacity:0;transition:opacity .8s 1.2s}
+.hero-cta-wrap.in{opacity:1}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;height:58px;padding:0 40px;background:var(--red);color:var(--cream);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:transform .3s,box-shadow .3s;box-shadow:0 6px 36px rgba(192,57,43,.32)}
+.btn-primary:hover{transform:scale(1.03);box-shadow:0 10px 48px rgba(192,57,43,.46)}
+.btn-ghost{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--muted);text-decoration:underline;text-underline-offset:3px;transition:color .2s}
+.btn-ghost:hover{color:var(--cream)}
+
+/* DIFERENCIAIS */
+.diff{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(20,9,0,.65);backdrop-filter:blur(12px)}
+.diff-item{flex:1;padding:32px 36px;border-right:1px solid var(--border);text-align:center}
+.diff-item:last-child{border-right:0}
+.diff-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--amber);line-height:1;margin-bottom:4px}
+.diff-l{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* BURGUERS */
+.burguers{padding:100px 48px}
+.section-hd{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:56px;border-bottom:1px solid var(--border);margin-bottom:56px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,58px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.section-title em{font-style:italic;color:var(--amber)}
+.section-sub{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.burguer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.bcard{background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border-color .4s}
+.bcard:hover{border-color:rgba(192,57,43,.3)}
+.bcard-img{height:260px;overflow:hidden;position:relative}
+.bcard-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.85) saturate(.9);transition:transform .6s ease,filter .4s}
+.bcard:hover .bcard-img img{transform:scale(1.04);filter:brightness(.95) saturate(1.1)}
+.bcard-badge{position:absolute;top:16px;left:16px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;background:var(--red);color:var(--cream)}
+.bcard-body{padding:28px 28px 36px}
+.bcard-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.bcard-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.bcard-price{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--amber)}
+.bcard-price span{font-family:'Inter',sans-serif;font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
+
+/* MANIFESTO */
+.manifesto{padding:100px 48px;display:flex;align-items:center;gap:80px;border-top:1px solid var(--border)}
+.manifesto-text{flex:1}
+.manifesto-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,68px);font-weight:700;line-height:1.08;letter-spacing:-.02em}
+.manifesto-text h2 em{font-style:italic;color:var(--red)}
+.manifesto-aside{flex:0 0 360px;border-left:1px solid var(--border);padding-left:48px}
+.manifesto-aside p{font-size:17px;color:var(--muted);line-height:1.85}
+.manifesto-aside p strong{color:var(--cream);font-weight:500}
+
+/* GARANTIA */
+.garantia{padding:80px 48px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+.garantia-icon{font-size:40px;margin-bottom:20px}
+.garantia h3{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:700;margin-bottom:16px}
+.garantia h3 em{font-style:italic;color:var(--amber)}
+.garantia p{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.8}
+
+/* CTA */
+.cta-hb{padding:120px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.cta-hb::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,43,.07) 0%,transparent 70%);pointer-events:none;animation:brasaCta 8s ease-in-out infinite}
+@keyframes brasaCta{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+.cta-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:28px;position:relative;z-index:1}
+.cta-hb h2{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,80px);font-weight:700;line-height:1.06;letter-spacing:-.025em;margin-bottom:48px;position:relative;z-index:1;max-width:680px}
+.cta-hb h2 em{font-style:italic;color:var(--amber)}
+.cta-note{margin-top:20px;font-size:11px;color:rgba(245,240,232,.2);letter-spacing:.06em;position:relative;z-index:1}
+
+/* FOOTER */
+footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.foot-logo span{color:var(--red)}
+footer p{font-size:11px;color:rgba(245,240,232,.18)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .burguer-grid{grid-template-columns:1fr}
+  .manifesto{flex-direction:column;gap:44px}
+  .manifesto-aside{flex:none;border-left:0;border-top:1px solid var(--border);padding-left:0;padding-top:36px}
+  .diff{flex-wrap:wrap}
+  .diff-item{min-width:50%;border-bottom:1px solid var(--border)}
+  .diff-item:nth-child(even){border-right:0}
+  .diff-item:nth-last-child(-n+2){border-bottom:0}
+}
+@media(max-width:640px){
+  header{padding:0 20px;height:60px}
+  .hero{padding:0 20px 72px}
+  .diff-item{padding:22px 16px}
+  .burguers,.manifesto,.cta-hb,.garantia{padding-left:20px;padding-right:20px}
+  .burguers{padding-top:72px;padding-bottom:72px}
+  .manifesto{padding-top:72px;padding-bottom:72px}
+  .section-hd{flex-direction:column;gap:8px;padding-bottom:36px;margin-bottom:36px}
+  .bcard-img{height:200px}
+  .hero-cta-wrap{flex-direction:column;align-items:flex-start}
+  footer{padding:28px 20px;flex-direction:column;gap:8px;text-align:center}
+  .nav-cta-hb{display:none}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="logo-hb">BURGER<span>.</span>CO</div>
+  <a href="#pedir" class="nav-cta-hb">Fazer pedido</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-label" id="hlabel">Artesanal &bull; Desde 2019</div>
+    <h1>
+      <span class="word"><span class="word-inner" data-d="0">O</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="80">burguer</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="160">que</span></span><br>
+      <span class="word"><span class="word-inner" data-d="240">faz</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="320">voc&#234;</span></span><br>
+      <em><span class="word"><span class="word-inner" data-d="420">voltar.</span></span></em>
+    </h1>
+    <p class="hero-sub" id="hsub">
+      Blend artesanal, cheddar derretido na hora, bacon crocante no ponto.<br>
+      Feito para quem sabe a diferen&#231;a.
+    </p>
+    <div class="hero-cta-wrap" id="hcta">
+      <a href="#pedir" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        Quero o meu agora
+      </a>
+      <a href="#menu" class="btn-ghost">Ver o card&#225;pio completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<div class="diff">
+  <div class="diff-item"><div class="diff-n">180g</div><div class="diff-l">Blend Artesanal</div></div>
+  <div class="diff-item"><div class="diff-n">100%</div><div class="diff-l">Feito na Hora</div></div>
+  <div class="diff-item"><div class="diff-n">45min</div><div class="diff-l">Entrega Garantida</div></div>
+  <div class="diff-item"><div class="diff-n">0</div><div class="diff-l">Congelados</div></div>
+</div>
+
+<!-- OS CLÁSSICOS -->
+<section class="burguers" id="menu">
+  <div class="section-hd">
+    <h2 class="section-title reveal">Os <em>cl&#225;ssicos</em></h2>
+    <span class="section-sub reveal reveal-d2">O que os nossos clientes mais pedem</span>
+  </div>
+  <div class="burguer-grid">
+
+    <div class="bcard reveal">
+      <div class="bcard-img">
+        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&q=80" alt="O Clássico" loading="lazy">
+        <div class="bcard-badge">&#11088; Mais Pedido</div>
+      </div>
+      <div class="bcard-body">
+        <div class="bcard-name">O Cl&#225;ssico</div>
+        <p class="bcard-desc">Blend 180g temperado na m&#227;o, cheddar artesanal derretido, bacon crocante, alface americana, tomate sweet e molho da casa. O que os nossos clientes mais pedem h&#225; 5 anos.</p>
+        <div class="bcard-price">R$&nbsp;45 <span>por unidade</span></div>
+      </div>
+    </div>
+
+    <div class="bcard reveal reveal-d1">
+      <div class="bcard-img">
+        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&q=80" alt="O Smash" loading="lazy">
+        <div class="bcard-badge" style="background:var(--amber);color:#0D0600">Novo</div>
+      </div>
+      <div class="bcard-body">
+        <div class="bcard-name">O Smash</div>
+        <p class="bcard-desc">Dois blends smashados na chapa, dupla de cheddar americano, pickles artesanais, cebola caramelizada, mostarda dijon. Uma explos&#227;o que sua boca n&#227;o esquece.</p>
+        <div class="bcard-price">R$&nbsp;52 <span>por unidade</span></div>
+      </div>
+    </div>
+
+    <div class="bcard reveal reveal-d2">
+      <div class="bcard-img">
+        <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&q=80" alt="O Trufa" loading="lazy">
+        <div class="bcard-badge" style="background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.2)">Premium</div>
+      </div>
+      <div class="bcard-body">
+        <div class="bcard-name">O Trufa</div>
+        <p class="bcard-desc">Blend premium 200g, molho de trufa negra, gorgonzola cremoso, r&#250;cula selvagem, cebola roxa marinada. Para quem quer o melhor da casa — e sabe quando chegou l&#225;.</p>
+        <div class="bcard-price">R$&nbsp;68 <span>por unidade</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-text">
+    <h2 class="reveal">N&#227;o vendemos<br>fast food.<br><em>Vendemos<br>a melhor hora<br>do seu dia.</em></h2>
+  </div>
+  <div class="manifesto-aside">
+    <p class="reveal reveal-d2">
+      A maioria das hamburguerias usa blend congelado, queijo industrializado e tudo pronto em 5 minutos. A sua pr&#243;xima refei&#231;&#227;o n&#227;o vai ser assim.
+      <br><br>
+      Cada burguer come&#231;a com carne fresca entregue toda manh&#227;, temperada &#224; m&#227;o e preparada quando voc&#234; pede. <strong>Porque comida boa exige respeito com o tempo.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- GARANTIA (Hormozi — risk reversal) -->
+<div class="garantia">
+  <div class="garantia-icon">🔥</div>
+  <h3 class="reveal">Se n&#227;o for o melhor burguer<br>que voc&#234; j&#225; provou, <em>a gente devolve.</em></h3>
+  <p class="reveal reveal-d1">Sem burocracia. Sem pergunta. Se n&#227;o ficar satisfeito com o primeiro pedido, devolveremos 100% do valor. Esse &#233; nosso compromisso com cada cliente.</p>
+</div>
+
+<!-- CTA -->
+<section class="cta-hb" id="pedir">
+  <div class="cta-eyebrow reveal">Seu pr&#243;ximo pedido</div>
+  <h2 class="reveal reveal-d1">
+    Sente aquele cheiro.<br>Agora pede.<br>
+    <em>Chega em 45 minutos.</em>
+  </h2>
+  <a href="https://wa.me/5511999999999" class="btn-primary reveal reveal-d2" style="font-size:14px;height:62px;padding:0 52px">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Fazer meu pedido no WhatsApp
+  </a>
+  <p class="cta-note reveal reveal-d3">Entrega em at&#233; 45min &bull; Pagamento no recebimento &bull; Satisfa&#231;&#227;o garantida</p>
+</section>
+
+<footer>
+  <div class="foot-logo">BURGER<span>.</span>CO</div>
+  <p>&#169; 2026 Burger Co. &mdash; Todos os direitos reservados</p>
+</footer>
+
+<script>
+// Header
+window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>60)},{passive:true});
+
+// Hero entrance
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('hlabel').classList.add('in'),100);
+  document.querySelectorAll('.word-inner').forEach(el=>{
+    setTimeout(()=>el.classList.add('in'),300+parseInt(el.dataset.d||0));
+  });
+  setTimeout(()=>document.getElementById('hsub').classList.add('in'),820);
+  setTimeout(()=>document.getElementById('hcta').classList.add('in'),1100);
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
