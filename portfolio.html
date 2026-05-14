@@ -427,7 +427,7 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
     <!-- Glow laranja na frente -->
     <text id="lgT" clip-path="url(#lgCp)" x="0" y="36" fill="var(--orange)" opacity="0.65">Resultiv</text>
     <!-- Seta laranja — aparece no final com pop, posicionada pelo JS -->
-    <g id="logoArrow" opacity="0" transform="translate(0,0) scale(.85)" style="transform-origin:left center">
+    <g id="logoArrow" opacity="0">
       <path d="M4 38C4 38 4 26 13 18L24 6" stroke="#F97316" stroke-width="7" stroke-linecap="round"/>
       <path d="M15 4H25V14"               stroke="#F97316" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
@@ -596,7 +596,7 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo Resultiva — animação de reveal na logo oficial (Poppins + seta laranja)
+// Logo Resultiva — reveal rápido + seta no lugar certo
 (function(){
   function init(){
     const svgEl  = document.getElementById('logoSvg');
@@ -607,44 +607,36 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     const arrow  = document.getElementById('logoArrow');
     if(!textEl||!svgEl) return;
 
-    // Dimensões baseadas no font-size computado
-    const fs   = parseFloat(getComputedStyle(textEl).fontSize) || 28;
-    const svgH = Math.ceil(fs * 1.35);
-    const yPos = Math.round(fs * 0.92);
+    const fs   = parseFloat(getComputedStyle(textEl).fontSize) || 26;
+    const svgH = Math.ceil(fs * 1.4);
+    const yPos = Math.round(fs * 0.94);
+
     svgEl.setAttribute('height', svgH);
-    textEl.setAttribute('y', yPos);
-    glowEl.setAttribute('y', yPos);
+    [textEl, glowEl].forEach(el => el.setAttribute('y', yPos));
     mainCr.setAttribute('height', svgH + 10);
     glowCr.setAttribute('height', svgH + 10);
-
-    // Largura do texto "Resultiv"
-    let tW = 0;
-    try{ tW = textEl.getComputedTextLength(); }catch(e){}
-    if(tW < 20){ try{ tW = textEl.getBBox().width; }catch(e){} }
-    if(tW < 20){ tW = fs * 4.8; }
-    tW = Math.round(tW);
-
-    // Tamanho da seta ≈ altura do texto
-    const arrH = Math.round(fs * 1.05);
-    const arrW = Math.round(arrH * 0.75);
-    const gap  = Math.round(fs * 0.08);
-    const totalW = tW + gap + arrW;
-
-    // Posicionar seta ao lado do texto
-    arrow.setAttribute('transform', `translate(${tW + gap}, ${Math.round((svgH - arrH) * 0.5) - 2})`);
-    // Escalar paths da seta para o tamanho certo
-    const scale = arrH / 42; // 42 = viewbox height do path original
-    arrow.querySelector('path:first-child').setAttribute('transform', `scale(${scale})`);
-    arrow.querySelector('path:last-child').setAttribute('transform', `scale(${scale})`);
-
-    // Largura total do SVG = texto + gap + seta
-    svgEl.setAttribute('width', totalW + 4);
     glowEl.setAttribute('font-size', fs);
 
-    // Animação: clip expande da esquerda para a direita
-    const DUR = 2800;
-    const TRAIL = 55;
-    function ease(t){ return t < .5 ? 2*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+    // Medir largura de "Resultiv"
+    let tW = 0;
+    try{ tW = textEl.getComputedTextLength(); }catch(e){}
+    if(tW < 20) tW = fs * 4.8;
+    tW = Math.round(tW);
+
+    // Escalar e posicionar seta — scale relativo ao path original (viewbox ~42px alto)
+    const scale = (fs * 1.05) / 42;
+    const arrW  = Math.round(28 * scale);
+    const gap   = Math.round(fs * 0.12);
+    const arrY  = Math.round((svgH - 42 * scale) * 0.5);
+
+    // Posicionar via SVG transform — UMA SÓ CHAMADA, nunca tocar via style depois
+    arrow.setAttribute('transform', `translate(${tW + gap},${arrY}) scale(${scale})`);
+    svgEl.setAttribute('width', tW + gap + arrW + 4);
+
+    // Animação: 1300ms, fluida
+    const DUR = 1300;
+    const TRAIL = 50;
+    function ease(t){ return t<.5 ? 2*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
 
     const t0 = performance.now();
     function frame(now){
@@ -657,16 +649,13 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
       } else {
         mainCr.setAttribute('width', tW + 4);
         glowCr.setAttribute('x', tW + 60);
-        glowEl.style.transition = 'opacity .5s ease';
-        glowEl.style.opacity = '0';
-        // Seta aparece com pop após o texto terminar
-        setTimeout(()=>{
-          arrow.style.opacity = '1';
-          arrow.style.transform = 'translate(0,0) scale(1)';
-        }, 200);
+        glowEl.style.transition = 'opacity .4s ease';
+        glowEl.style.opacity    = '0';
+        // Seta: só mudar opacity, NUNCA style.transform (quebraria o translate)
+        setTimeout(()=> arrow.style.opacity = '1', 150);
       }
     }
-    setTimeout(()=>requestAnimationFrame(frame), 250);
+    setTimeout(()=>requestAnimationFrame(frame), 200);
   }
 
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); }
