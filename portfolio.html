@@ -628,7 +628,7 @@ window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.t
     // Escalar e posicionar seta — scale relativo ao path original (viewbox ~42px alto)
     const scale = (fs * 1.05) / 42;
     const arrW  = Math.round(28 * scale);
-    const gap   = 0;
+    const gap   = -5;
     const arrY  = Math.round((svgH - 42 * scale) * 0.5);
 
     // Posicionar via SVG transform — UMA SÓ CHAMADA, nunca tocar via style depois
