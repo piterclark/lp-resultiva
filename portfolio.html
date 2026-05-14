@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resultiva — Páginas que mudam o que as pessoas fazem.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Poppins:wght@800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -31,10 +31,14 @@ body::before{
 header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 24px;height:78px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
 header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color:var(--border)}
 
-/* LOGO RESULTIVA */
-.logo-svg{display:block;width:auto;overflow:visible;max-width:100%}
-#logoT,#lgT{font-size:clamp(36px,11vw,58px)}
-#lR,#lA{transition:fill .8s ease}
+/* LOGO RESULTIVA — brand mark */
+.logo-brand{display:flex;align-items:center;gap:1px;text-decoration:none;line-height:1}
+.lb-text{
+  font-family:'Poppins',sans-serif;font-weight:800;
+  font-size:clamp(18px,5vw,30px);
+  color:#fff;letter-spacing:-.025em;line-height:1;
+}
+.lb-arrow{height:clamp(18px,5vw,30px);width:auto;display:block;flex-shrink:0}
 
 /* Footer logo static */
 .f-logo{font-family:'Great Vibes',cursive;font-size:34px;color:var(--white);line-height:1.2}
@@ -356,7 +360,7 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 /* Mobile */
 @media(max-width:640px){
   /* Header */
-  header{padding:0 16px;height:64px}
+  header{padding:0 16px;height:56px}
 
   /* Hero */
   .hero{padding:0 20px 60px}
@@ -412,22 +416,15 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 <body>
 
 <header id="hdr">
-  <svg class="logo-svg" id="logoSvg" xmlns="http://www.w3.org/2000/svg" aria-label="Resultiva">
-    <defs>
-      <clipPath id="logoCp"><rect id="logoCr" x="-8" y="-22" width="0" height="140"/></clipPath>
-      <clipPath id="lgCp"><rect id="lgCr" x="9999" y="-22" width="95" height="140"/></clipPath>
-    </defs>
-    <!-- Texto principal: R e a com IDs para colorir no final -->
-    <text id="logoT" clip-path="url(#logoCp)"
-          font-family="'Great Vibes',cursive" x="0" y="78" fill="var(--white)">
-      <tspan id="lR">R</tspan><tspan>esultiv</tspan><tspan id="lA">a</tspan>
-    </text>
-    <!-- Chama laranja na frente da escrita -->
-    <text id="lgT" clip-path="url(#lgCp)"
-          font-family="'Great Vibes',cursive" x="0" y="78"
-          fill="var(--orange)" opacity="0.58">Resultiva</text>
-
-  </svg>
+  <!-- Logo Resultiva — brand oficial -->
+  <a class="logo-brand" href="#" aria-label="Resultiva">
+    <span class="lb-text">Resultiv</span>
+    <!-- Seta laranja substituindo o "a" — fiel à identidade visual -->
+    <svg class="lb-arrow" viewBox="0 0 38 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M7 42C7 42 7 28 19 19L32 7" stroke="#F97316" stroke-width="9" stroke-linecap="round"/>
+      <path d="M19 5H33V19"               stroke="#F97316" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 </header>
 
 <!-- HERO -->
@@ -592,94 +589,6 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo — animação de escrita cursiva com Apple Pencil
-(function(){
-  const Y=[
-    [0.00,0.82],[0.02,0.05],[0.05,0.08],[0.07,0.38],[0.10,0.88],[0.12,0.52],
-    [0.15,0.65],[0.18,0.28],[0.21,0.78],[0.23,0.58],
-    [0.25,0.28],[0.27,0.18],[0.29,0.52],[0.31,0.78],[0.33,0.88],
-    [0.35,0.88],[0.37,0.94],[0.39,0.58],[0.41,0.94],[0.43,0.50],
-    [0.45,0.04],[0.48,0.88],[0.50,0.55],
-    [0.52,0.12],[0.55,0.88],[0.57,0.32],[0.59,0.32],
-    [0.61,0.45],[0.63,0.88],[0.65,0.04],
-    [0.67,0.62],[0.70,0.94],[0.73,0.40],
-    [0.75,0.22],[0.79,0.82],[0.82,0.88],[0.84,0.28],[0.87,0.78],
-    [0.91,0.68],[0.95,0.82],[1.00,0.88]
-  ];
-  function cr(t,p0,p1,p2,p3){return .5*(2*p1+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t)}
-  function penY(t){
-    if(t<=Y[0][0])return Y[0][1];
-    if(t>=Y[Y.length-1][0])return Y[Y.length-1][1];
-    let i=0;while(i<Y.length-2&&Y[i+1][0]<t)i++;
-    const st=(t-Y[i][0])/(Y[i+1][0]-Y[i][0]);
-    return Math.max(-0.05,Math.min(1.05,cr(st,Y[Math.max(0,i-1)][1],Y[i][1],Y[i+1][1],Y[Math.min(Y.length-1,i+2)][1])));
-  }
-
-  function init(){
-    const svgEl =document.getElementById('logoSvg');
-    const textEl=document.getElementById('logoT');
-    const glowEl=document.getElementById('lgT');
-    const mainCr=document.getElementById('logoCr');
-    const glowCr=document.getElementById('lgCr');
-    const lR    =document.getElementById('lR');
-    const lA    =document.getElementById('lA');
-    if(!textEl||!svgEl)return;
-
-    // Font-size: CSS define, JS lê — sem textLength, tamanho natural
-    const fs   =parseFloat(getComputedStyle(textEl).fontSize)||30;
-    const svgH =Math.ceil(fs*1.28);
-    const yBase=Math.round(fs*0.97);
-    const yTop =yBase-fs*0.92;
-    svgEl.setAttribute('height',svgH);
-    textEl.setAttribute('y',yBase);
-    glowEl.setAttribute('y',yBase);
-    mainCr.setAttribute('height',svgH+24);
-    glowCr.setAttribute('height',svgH+24);
-
-    // Largura natural do texto (sem textLength)
-    let aW=0;
-    try{aW=textEl.getComputedTextLength();}catch(e){}
-    if(aW<30){try{aW=textEl.getBBox().width;}catch(e){}}
-    if(aW<30){aW=fs*5.4;}
-    aW=Math.round(aW)+6;
-
-    // Mesmo font-size no glow
-    glowEl.style.fontSize=fs+'px';
-    // Definir largura do SVG = largura do texto → justify-content:center centraliza
-    svgEl.setAttribute('width', aW+4);
-
-    const DUR=4000;
-    function ease(t){return t<.5?2*t*t*t:1-Math.pow(-2*t+2,3)/2}
-    const yRange=yBase-yTop;
-    const TRAIL=60;
-
-    const t0=performance.now();
-    function frame(now){
-      const t=Math.min((now-t0)/DUR,1);
-      const et=ease(t);
-      const w=et*aW;
-      mainCr.setAttribute('width',w);
-      glowCr.setAttribute('x',w-TRAIL);
-      if(t<1){
-        requestAnimationFrame(frame);
-      }else{
-        mainCr.setAttribute('width',aW+4);
-        glowCr.setAttribute('x',aW+60);
-        glowEl.style.transition='opacity .6s ease';
-        glowEl.style.opacity='0';
-        // Cores limpas — sem textLength, sem risco de encolhimento
-        setTimeout(()=>{
-          if(lR)lR.style.fill='#F97316';
-          if(lA)lA.style.fill='#5B8DEF';
-        },400);
-      }
-    }
-    setTimeout(()=>requestAnimationFrame(frame),300);
-  }
-
-  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(init);}
-  else{window.addEventListener('load',init);}
-})();
 
 // Hero entrance
 window.addEventListener('load',()=>{
