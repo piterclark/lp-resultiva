@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nori. — O sushi que faz você entender o Japão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:     #050508;
+  --bg2:    #0A0A12;
+  --red:    #BE1E2D;
+  --gold:   #C9A84C;
+  --cream:  #F2EDE4;
+  --muted:  rgba(242,237,228,.42);
+  --border: rgba(242,237,228,.07);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* GRAIN */
+body::before{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px;mix-blend-mode:overlay}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+header.solid{background:rgba(5,5,8,.95);backdrop-filter:blur(20px);border-color:var(--border)}
+.logo-nr{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;letter-spacing:.06em;color:var(--cream)}
+.logo-nr span{color:var(--red)}
+.nav-cta-nr{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:10px 24px;border-radius:2px;transition:background .25s,color .25s}
+.nav-cta-nr:hover{background:var(--gold);color:#050508}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:0 48px 96px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=1800&q=85');background-size:cover;background-position:center 40%;filter:brightness(.28) saturate(.7);animation:hzoom 22s ease-in-out infinite alternate}
+@keyframes hzoom{from{transform:scale(1.04)}to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,8,.05) 0%,rgba(5,5,8,.45) 50%,rgba(5,5,8,1) 100%)}
+.hero::before{content:"";position:absolute;bottom:15%;left:0;width:45%;height:70%;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse at left bottom,rgba(201,168,76,.07) 0%,transparent 65%);
+  animation:koyo 14s ease-in-out infinite alternate}
+@keyframes koyo{from{opacity:.5}to{opacity:1}}
+
+.hero-content{position:relative;z-index:2;max-width:760px}
+.hero-label{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .8s .1s,transform .8s .1s}
+.hero-label::before{content:"";display:block;width:24px;height:1px;background:var(--gold)}
+.hero-label.in{opacity:1;transform:none}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(50px,8vw,108px);font-weight:700;line-height:1.0;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.word-inner{display:inline-block;transform:translateY(110%);transition:transform .85s cubic-bezier(.16,1,.3,1)}
+.word-inner.in{transform:translateY(0)}
+.hero-sub{margin-top:28px;font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:480px;line-height:1.8;opacity:0;transform:translateY(14px);transition:opacity .8s .9s,transform .8s .9s}
+.hero-sub.in{opacity:1;transform:none}
+.hero-cta-wrap{margin-top:44px;display:flex;align-items:center;gap:24px;opacity:0;transition:opacity .8s 1.2s}
+.hero-cta-wrap.in{opacity:1}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;height:58px;padding:0 40px;background:var(--red);color:var(--cream);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:transform .3s,box-shadow .3s;box-shadow:0 6px 36px rgba(190,30,45,.28)}
+.btn-primary:hover{transform:scale(1.03);box-shadow:0 10px 48px rgba(190,30,45,.44)}
+.btn-ghost{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--muted);text-decoration:underline;text-underline-offset:3px;transition:color .2s}
+.btn-ghost:hover{color:var(--cream)}
+
+/* DIFERENCIAIS */
+.diff{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(10,10,18,.7);backdrop-filter:blur(12px)}
+.diff-item{flex:1;padding:32px 36px;border-right:1px solid var(--border);text-align:center}
+.diff-item:last-child{border-right:0}
+.diff-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.diff-l{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* MENU */
+.menu-sec{padding:100px 48px}
+.section-hd{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:56px;border-bottom:1px solid var(--border);margin-bottom:56px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4.5vw,58px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-sub{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+
+/* CARDS */
+.mcard{display:block;background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border-color .4s;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;text-decoration:none;color:inherit}
+.mcard:hover{border-color:rgba(201,168,76,.25)}
+.mcard-img{height:280px;overflow:hidden;position:relative}
+.mcard-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(.88);transition:transform .6s ease,filter .4s}
+.mcard:hover .mcard-img img{transform:scale(1.04);filter:brightness(.95) saturate(1.08)}
+.mcard-badge{position:absolute;top:16px;left:16px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;background:var(--red);color:var(--cream)}
+.mcard-body{padding:28px 28px 36px}
+.mcard-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.mcard-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.mcard-price{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold)}
+.mcard-price span{font-family:'Inter',sans-serif;font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
+.mcard-trigger{margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);transition:gap .3s}
+.mcard:hover .mcard-trigger{gap:14px}
+.mcard-trigger svg{width:14px;height:14px}
+
+/* MANIFESTO */
+.manifesto{padding:100px 48px;display:flex;align-items:center;gap:80px;border-top:1px solid var(--border)}
+.manifesto-text{flex:1}
+.manifesto-text h2{font-family:'Playfair Display',serif;font-size:clamp(36px,4.8vw,64px);font-weight:700;line-height:1.08;letter-spacing:-.02em}
+.manifesto-text h2 em{font-style:italic;color:var(--red)}
+.manifesto-aside{flex:0 0 360px;border-left:1px solid var(--border);padding-left:48px}
+.manifesto-aside p{font-size:17px;color:var(--muted);line-height:1.85}
+.manifesto-aside p strong{color:var(--cream);font-weight:500}
+
+/* GARANTIA */
+.garantia{padding:80px 48px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+.garantia-icon{font-size:38px;margin-bottom:20px}
+.garantia h3{font-family:'Playfair Display',serif;font-size:clamp(26px,3.8vw,46px);font-weight:700;margin-bottom:16px;line-height:1.15}
+.garantia h3 em{font-style:italic;color:var(--gold)}
+.garantia p{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.8}
+
+/* CTA */
+.cta-nr{padding:120px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.cta-nr::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(190,30,45,.05) 0%,transparent 70%);pointer-events:none;animation:ctaGlow 10s ease-in-out infinite}
+@keyframes ctaGlow{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.25)}}
+.cta-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;position:relative;z-index:1}
+.cta-nr h2{font-family:'Playfair Display',serif;font-size:clamp(38px,5.5vw,76px);font-weight:700;line-height:1.06;letter-spacing:-.025em;margin-bottom:48px;position:relative;z-index:1;max-width:680px}
+.cta-nr h2 em{font-style:italic;color:var(--gold)}
+.cta-note{margin-top:20px;font-size:11px;color:rgba(242,237,228,.2);letter-spacing:.06em;position:relative;z-index:1}
+
+/* FOOTER */
+footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.foot-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;letter-spacing:.06em}
+.foot-logo span{color:var(--red)}
+footer p{font-size:11px;color:rgba(242,237,228,.18)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+
+/* ── MODAL ─────────────────────────── */
+.modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0);display:flex;align-items:flex-end;justify-content:center;pointer-events:none;transition:background .35s ease}
+.modal-overlay.open{background:rgba(0,0,0,.93);pointer-events:all}
+.modal-box{width:100%;max-width:420px;height:92vh;background:var(--bg2);border:1px solid var(--border);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(105%);transition:transform .5s cubic-bezier(.16,1,.3,1);overflow:hidden;position:relative}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-video-wrap{position:relative;height:48%;flex-shrink:0;overflow:hidden;background:#000}
+.modal-video{width:100%;height:100%;object-fit:cover;display:block}
+.modal-vid-grad{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,var(--bg2) 100%);pointer-events:none}
+.modal-video-wrap::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,transparent,rgba(201,168,76,.03),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.modal-close{position:absolute;top:14px;right:14px;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(5,5,8,.75);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--cream);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;transition:background .2s}
+.modal-close:hover{background:rgba(190,30,45,.7)}
+.modal-handle{width:40px;height:4px;background:rgba(242,237,228,.12);border-radius:2px;margin:12px auto 0}
+.modal-copy{padding:20px 24px 36px;overflow-y:auto;flex:1;display:flex;flex-direction:column}
+.modal-badge{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.modal-badge::before{content:"";display:block;width:18px;height:1px;background:var(--gold)}
+.modal-name{font-family:'Playfair Display',serif;font-size:clamp(26px,6vw,34px);font-weight:900;letter-spacing:-.025em;line-height:1.05;margin-bottom:10px}
+.modal-headline{font-size:14px;font-weight:600;color:var(--cream);line-height:1.5;margin-bottom:14px}
+.modal-desc{font-size:14px;color:var(--muted);line-height:1.82;margin-bottom:18px;flex:1}
+.modal-proof{font-size:12px;color:var(--cream);font-weight:500;padding:11px 14px;margin-bottom:20px;background:rgba(201,168,76,.06);border-left:2px solid var(--gold);border-radius:0 4px 4px 0}
+.modal-cta-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:56px;background:var(--red);color:var(--cream);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;border:none;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 28px rgba(190,30,45,.28);flex-shrink:0}
+.modal-cta-btn:hover{transform:scale(1.02);box-shadow:0 10px 40px rgba(190,30,45,.46)}
+.modal-guarantee{font-size:10px;color:rgba(242,237,228,.2);text-align:center;margin-top:10px;letter-spacing:.05em}
+
+@media(min-width:768px){
+  .modal-overlay{align-items:center}
+  .modal-box{flex-direction:row;border-radius:16px;max-width:900px;height:78vh;max-height:640px}
+  .modal-video-wrap{width:50%;height:100%;border-radius:16px 0 0 16px;flex-shrink:0}
+  .modal-vid-grad{background:linear-gradient(to right,transparent 60%,var(--bg2) 100%)}
+  .modal-handle{display:none}
+  .modal-copy{padding:36px 40px;overflow-y:auto}
+  .modal-close{top:16px;right:16px}
+}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .menu-grid{grid-template-columns:1fr}
+  .manifesto{flex-direction:column;gap:44px}
+  .manifesto-aside{flex:none;border-left:0;border-top:1px solid var(--border);padding-left:0;padding-top:36px}
+  .diff{flex-wrap:wrap}
+  .diff-item{min-width:50%;border-bottom:1px solid var(--border)}
+  .diff-item:nth-child(even){border-right:0}
+  .diff-item:nth-last-child(-n+2){border-bottom:0}
+}
+@media(max-width:640px){
+  header{padding:0 20px;height:60px}
+  .hero{padding:0 20px 72px}
+  .diff-item{padding:22px 16px}
+  .menu-sec,.manifesto,.cta-nr,.garantia{padding-left:20px;padding-right:20px}
+  .menu-sec{padding-top:72px;padding-bottom:72px}
+  .manifesto{padding-top:72px;padding-bottom:72px}
+  .section-hd{flex-direction:column;gap:8px;padding-bottom:36px;margin-bottom:36px}
+  .mcard-img{height:210px}
+  .hero-cta-wrap{flex-direction:column;align-items:flex-start}
+  footer{padding:28px 20px;flex-direction:column;gap:8px;text-align:center}
+  .nav-cta-nr{display:none}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="logo-nr">NORI<span>.</span></div>
+  <a href="#pedir" class="nav-cta-nr">Fazer pedido</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-label" id="hlabel">Autêntico &bull; Desde 2009</div>
+    <h1>
+      <span class="word"><span class="word-inner" data-d="0">O</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="80">sushi</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="160">que</span></span><br>
+      <span class="word"><span class="word-inner" data-d="240">faz</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="320">voc&#234;</span></span><br>
+      <em><span class="word"><span class="word-inner" data-d="420">entender</span></span>&#160;
+      <span class="word"><span class="word-inner" data-d="520">o&#160;Jap&#227;o.</span></span></em>
+    </h1>
+    <p class="hero-sub" id="hsub">
+      Feito com o mesmo respeito de um chef em Osaka.<br>
+      Entregue em 45 minutos.
+    </p>
+    <div class="hero-cta-wrap" id="hcta">
+      <a href="#pedir" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        Quero o meu agora
+      </a>
+      <a href="#menu" class="btn-ghost">Ver o card&#225;pio completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<div class="diff">
+  <div class="diff-item"><div class="diff-n">15</div><div class="diff-l">Anos de Tradição</div></div>
+  <div class="diff-item"><div class="diff-n">100%</div><div class="diff-l">Peixe Fresco</div></div>
+  <div class="diff-item"><div class="diff-n">45min</div><div class="diff-l">Entrega Garantida</div></div>
+  <div class="diff-item"><div class="diff-n">0</div><div class="diff-l">Congelados</div></div>
+</div>
+
+<!-- MENU -->
+<section class="menu-sec" id="menu">
+  <div class="section-hd">
+    <h2 class="section-title reveal">Os <em>favoritos</em></h2>
+    <span class="section-sub reveal reveal-d2">O que os nossos clientes mais pedem</span>
+  </div>
+  <div class="menu-grid">
+
+    <a class="mcard reveal" data-id="sashimi" href="javascript:;" onclick="openModal('sashimi');return false;">
+      <div class="mcard-img">
+        <img src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=600&q=80" alt="O Sashimi" loading="lazy">
+        <div class="mcard-badge">&#9889; Chef&#39;s Choice</div>
+      </div>
+      <div class="mcard-body">
+        <div class="mcard-name">O Sashimi</div>
+        <p class="mcard-desc">Salm&#227;o noruegu&#234;s, atum azul e peixe-branco chegam toda manh&#227;. Cortados na espessura exata que o chef aprendeu em Osaka. Nenhum congelado. Nenhum compromisso.</p>
+        <div class="mcard-price">R$&nbsp;58 <span>por por&#231;&#227;o</span></div>
+        <div class="mcard-trigger">Ver o prato <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+      </div>
+    </a>
+
+    <a class="mcard reveal reveal-d1" data-id="hotroll" href="javascript:;" onclick="openModal('hotroll');return false;">
+      <div class="mcard-img">
+        <img src="https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&q=80" alt="O Hot Roll" loading="lazy">
+        <div class="mcard-badge" style="background:var(--gold);color:#050508">&#128293; Mais Pedido</div>
+      </div>
+      <div class="mcard-body">
+        <div class="mcard-name">O Hot Roll</div>
+        <p class="mcard-desc">Roll de salm&#227;o com cream cheese, empanado e frito na hora. Maionese japonesa, molho agridoce artesanal. Crocante por fora, cremoso por dentro. Imposss&#237;vel comer um s&#243;.</p>
+        <div class="mcard-price">R$&nbsp;49 <span>por por&#231;&#227;o</span></div>
+        <div class="mcard-trigger">Ver o prato <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+      </div>
+    </a>
+
+    <a class="mcard reveal reveal-d2" data-id="temaki" href="javascript:;" onclick="openModal('temaki');return false;">
+      <div class="mcard-img">
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" alt="O Temaki" loading="lazy">
+        <div class="mcard-badge" style="background:rgba(242,237,228,.1);border:1px solid rgba(242,237,228,.18)">Tradicional</div>
+      </div>
+      <div class="mcard-body">
+        <div class="mcard-name">O Temaki</div>
+        <p class="mcard-desc">Alga nori crocante, arroz temperado com vinagre de arroz, salm&#227;o premium e um fio de maionese japonesa. Feito e entregue em minutos. A alga n&#227;o espera.</p>
+        <div class="mcard-price">R$&nbsp;34 <span>por unidade</span></div>
+        <div class="mcard-trigger">Ver o prato <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-text">
+    <h2 class="reveal">N&#227;o servimos<br>comida japonesa.<br><em>Servimos<br>o respeito que<br>os japoneses t&#234;m<br>pela comida.</em></h2>
+  </div>
+  <div class="manifesto-aside">
+    <p class="reveal reveal-d2">
+      Enquanto a maioria usa peixe congelado e arroz de panela el&#233;trica, nosso chef prepara cada por&#231;&#227;o com o mesmo cuidado de um restaurante em Tokyo.
+      <br><br>
+      O sushi n&#227;o &#233; comida r&#225;pida. &#201; um ritual. <strong>E a gente leva isso a s&#233;rio desde 2009.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<div class="garantia">
+  <div class="garantia-icon">🍣</div>
+  <h3 class="reveal">Se n&#227;o for a melhor experi&#234;ncia<br>japonesa que voc&#234; j&#225; teve, <em>a gente devolve.</em></h3>
+  <p class="reveal reveal-d1">Sem burocracia. Sem pergunta. Se n&#227;o ficar satisfeito com o primeiro pedido, devolveremos 100% do valor. Esse &#233; o compromisso de quem sabe o que faz.</p>
+</div>
+
+<!-- CTA -->
+<section class="cta-nr" id="pedir">
+  <div class="cta-eyebrow reveal">Seu pr&#243;ximo pedido</div>
+  <h2 class="reveal reveal-d1">
+    Sente o cheiro do nori.<br>Agora pede.<br>
+    <em>Chega em 45 minutos.</em>
+  </h2>
+  <a href="https://wa.me/5511999999999" class="btn-primary reveal reveal-d2" style="font-size:14px;height:62px;padding:0 52px">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Fazer meu pedido no WhatsApp
+  </a>
+  <p class="cta-note reveal reveal-d3">Entrega em at&#233; 45min &bull; Pagamento no recebimento &bull; Satisfa&#231;&#227;o garantida</p>
+</section>
+
+<footer>
+  <div class="foot-logo">NORI<span>.</span></div>
+  <p>&#169; 2026 Nori. &mdash; Todos os direitos reservados</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Fechar">&#10005;</button>
+    <div class="modal-video-wrap">
+      <video class="modal-video" id="modalVid" autoplay muted loop playsinline></video>
+      <div class="modal-vid-grad"></div>
+    </div>
+    <div class="modal-handle"></div>
+    <div class="modal-copy">
+      <div class="modal-badge" id="modalBadge"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-headline" id="modalHeadline"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-proof" id="modalProof"></div>
+      <a href="https://wa.me/5511999999999" class="modal-cta-btn" id="modalCta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span id="modalCtaText">Fazer pedido agora</span>
+      </a>
+      <p class="modal-guarantee">Satisfa&#231;&#227;o garantida &bull; Devolu&#231;&#227;o 100% se n&#227;o gostar</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Header
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('solid',scrollY>60);
+},{passive:true});
+
+// Hero entrance
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('hlabel').classList.add('in'),100);
+  document.querySelectorAll('.word-inner').forEach(el=>{
+    setTimeout(()=>el.classList.add('in'),300+parseInt(el.dataset.d||0));
+  });
+  setTimeout(()=>document.getElementById('hsub').classList.add('in'),860);
+  setTimeout(()=>document.getElementById('hcta').classList.add('in'),1150);
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ── Modal data (Arsenal copy) ──────────────────────────────────────────────
+const PRATOS = {
+  sashimi:{
+    vid:'https://assets.mixkit.co/videos/46010/46010-360.mp4',
+    badge:'⚡ Chef\'s Choice',
+    name:'O Sashimi',
+    headline:'Fatias que você não esquece na primeira mordida.',
+    desc:'Salmão norueguês, atum azul e peixe-branco chegam toda manhã. Nenhum congelado. Nenhum conservante. Cada fatia cortada na espessura exata que o chef aprendeu em Osaka. Você não come sashimi. Você prova o que "fresco" realmente significa.',
+    proof:'"Já comi em Tokyo. Esse é melhor." — Yuki, via Google. 4.9⭐ em 847 avaliações.',
+    cta:'Quero o Sashimi agora'
+  },
+  hotroll:{
+    vid:'https://assets.mixkit.co/videos/5761/5761-360.mp4',
+    badge:'🔥 Mais Pedido',
+    name:'O Hot Roll',
+    headline:'Crocante por fora. Cremoso por dentro. Impossível comer um só.',
+    desc:'Roll de salmão com cream cheese, empanado e frito na hora, coberto com maionese japonesa e molho agridoce feito na casa. A crocância some em 3 minutos — por isso fazemos só na hora do pedido. Quem pede uma vez pede toda semana.',
+    proof:'"Vício. Não consigo fazer sábado sem o hot roll." — Fernanda, cliente há 3 anos. 89% dos clientes repetem o pedido.',
+    cta:'Pedir o Hot Roll agora'
+  },
+  temaki:{
+    vid:'https://assets.mixkit.co/videos/46020/46020-360.mp4',
+    badge:'Tradicional',
+    name:'O Temaki',
+    headline:'Do tamanho certo. Do jeito certo. Do peixe certo.',
+    desc:'Alga nori crocante envolvendo arroz japonês temperado com vinagre de arroz, salmão premium e um fio de maionese japonesa. A alga perde a crocância em 4 minutos de contato com o arroz — por isso fazemos na hora do pedido e entregamos correndo. Isso é respeito com a comida.',
+    proof:'"O único temaki que mantém a crocância na entrega. Milagre." — Gabriel, engenheiro, cliente mensal.',
+    cta:'Quero o Temaki agora'
+  }
+};
+
+// Modal elements
+const overlay  = document.getElementById('modal');
+const vid      = document.getElementById('modalVid');
+const elBadge  = document.getElementById('modalBadge');
+const elName   = document.getElementById('modalName');
+const elHead   = document.getElementById('modalHeadline');
+const elDesc   = document.getElementById('modalDesc');
+const elProof  = document.getElementById('modalProof');
+const elCtaTxt = document.getElementById('modalCtaText');
+
+window.openModal = function(id){
+  const p = PRATOS[id];
+  if(!p) return;
+  elBadge.textContent  = p.badge;
+  elName.textContent   = p.name;
+  elHead.textContent   = p.headline;
+  elDesc.textContent   = p.desc;
+  elProof.textContent  = p.proof;
+  elCtaTxt.textContent = p.cta;
+  vid.src = p.vid;
+  vid.load();
+  vid.play().catch(()=>{});
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+};
+
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+  setTimeout(()=>{vid.pause();vid.src='';},500);
+}
+
+document.getElementById('modalClose').addEventListener('click',closeModal);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+let touchStartY=0;
+overlay.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY;},{passive:true});
+overlay.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-touchStartY>70)closeModal();},{passive:true});
+</script>
+</body>
+</html>
