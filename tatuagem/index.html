@@ -36,8 +36,8 @@ header.solid{background:rgba(5,5,8,.97);backdrop-filter:blur(20px);border-color:
 
 /* HERO */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:0 48px 96px;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1604449325317-4967c715538a?w=1800&q=85');background-size:cover;background-position:center 30%;filter:brightness(.25) saturate(.3);animation:hzoom 24s ease-in-out infinite alternate}
-@keyframes hzoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.28) saturate(.4)}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,8,.05) 0%,rgba(5,5,8,.5) 55%,rgba(5,5,8,1) 100%)}
 .hero::before{content:"";position:absolute;bottom:0;right:0;width:60%;height:80%;pointer-events:none;z-index:1;
   background:radial-gradient(ellipse at right bottom,rgba(155,170,184,.04) 0%,transparent 65%)}
@@ -263,7 +263,11 @@ footer p{font-size:11px;color:rgba(240,242,245,.15)}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="tattoo-4.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="hero-content">
     <div class="hero-label" id="hlabel">Tatuagem Ultra Realista &bull; Desde 2016</div>
     <h1>
