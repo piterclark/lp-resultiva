@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resultiva — Páginas que mudam o que as pessoas fazem.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Poppins:wght@800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -31,10 +31,15 @@ body::before{
 header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:0 24px;height:78px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
 header.solid{background:rgba(6,8,15,.92);backdrop-filter:blur(28px);border-color:var(--border)}
 
-/* LOGO RESULTIVA */
+/* LOGO RESULTIVA — brand com animação */
 .logo-svg{display:block;width:auto;overflow:visible;max-width:100%}
-#logoT,#lgT{font-size:clamp(36px,11vw,58px)}
-#lR,#lA{transition:fill .8s ease}
+#logoT,#lgT{
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:clamp(20px,5.8vw,36px);
+  letter-spacing:-.02em;
+}
+#logoArrow{transition:opacity .45s ease, transform .45s cubic-bezier(.34,1.56,.64,1)}
 
 /* Footer logo static */
 .f-logo{font-family:'Great Vibes',cursive;font-size:34px;color:var(--white);line-height:1.2}
@@ -414,16 +419,18 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 <header id="hdr">
   <svg class="logo-svg" id="logoSvg" xmlns="http://www.w3.org/2000/svg" aria-label="Resultiva">
     <defs>
-      <clipPath id="logoCp"><rect id="logoCr" x="-8" y="-22" width="0" height="140"/></clipPath>
-      <clipPath id="lgCp"><rect id="lgCr" x="9999" y="-22" width="95" height="140"/></clipPath>
+      <clipPath id="logoCp"><rect id="logoCr" x="-5" y="-8" width="0" height="100"/></clipPath>
+      <clipPath id="lgCp"><rect id="lgCr" x="9999" y="-8" width="80" height="100"/></clipPath>
     </defs>
-    <text id="logoT" clip-path="url(#logoCp)"
-          font-family="'Great Vibes',cursive" x="0" y="78" fill="var(--white)">
-      <tspan id="lR">R</tspan><tspan>esultiv</tspan><tspan id="lA">a</tspan>
-    </text>
-    <text id="lgT" clip-path="url(#lgCp)"
-          font-family="'Great Vibes',cursive" x="0" y="78"
-          fill="var(--orange)" opacity="0.58">Resultiva</text>
+    <!-- "Resultiv" em Poppins 800 revelado pelo clip -->
+    <text id="logoT" clip-path="url(#logoCp)" x="0" y="36" fill="var(--white)">Resultiv</text>
+    <!-- Glow laranja na frente -->
+    <text id="lgT" clip-path="url(#lgCp)" x="0" y="36" fill="var(--orange)" opacity="0.65">Resultiv</text>
+    <!-- Seta laranja — aparece no final com pop, posicionada pelo JS -->
+    <g id="logoArrow" opacity="0" transform="translate(0,0) scale(.85)" style="transform-origin:left center">
+      <path d="M4 38C4 38 4 26 13 18L24 6" stroke="#F97316" stroke-width="7" stroke-linecap="round"/>
+      <path d="M15 4H25V14"               stroke="#F97316" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </svg>
 </header>
 
@@ -589,63 +596,81 @@ footer p{font-size:11px;color:rgba(240,237,232,.18)}
 // Header scroll
 window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>50)},{passive:true});
 
-// Logo — escrita cursiva sem caneta
+// Logo Resultiva — animação de reveal na logo oficial (Poppins + seta laranja)
 (function(){
   function init(){
-    const svgEl =document.getElementById('logoSvg');
-    const textEl=document.getElementById('logoT');
-    const glowEl=document.getElementById('lgT');
-    const mainCr=document.getElementById('logoCr');
-    const glowCr=document.getElementById('lgCr');
-    const lR    =document.getElementById('lR');
-    const lA    =document.getElementById('lA');
-    if(!textEl||!svgEl)return;
+    const svgEl  = document.getElementById('logoSvg');
+    const textEl = document.getElementById('logoT');
+    const glowEl = document.getElementById('lgT');
+    const mainCr = document.getElementById('logoCr');
+    const glowCr = document.getElementById('lgCr');
+    const arrow  = document.getElementById('logoArrow');
+    if(!textEl||!svgEl) return;
 
-    const fs   =parseFloat(getComputedStyle(textEl).fontSize)||50;
-    const svgH =Math.ceil(fs*1.28);
-    const yBase=Math.round(fs*0.97);
-    svgEl.setAttribute('height',svgH);
-    textEl.setAttribute('y',yBase);
-    glowEl.setAttribute('y',yBase);
-    mainCr.setAttribute('height',svgH+24);
-    glowCr.setAttribute('height',svgH+24);
+    // Dimensões baseadas no font-size computado
+    const fs   = parseFloat(getComputedStyle(textEl).fontSize) || 28;
+    const svgH = Math.ceil(fs * 1.35);
+    const yPos = Math.round(fs * 0.92);
+    svgEl.setAttribute('height', svgH);
+    textEl.setAttribute('y', yPos);
+    glowEl.setAttribute('y', yPos);
+    mainCr.setAttribute('height', svgH + 10);
+    glowCr.setAttribute('height', svgH + 10);
 
-    let aW=0;
-    try{aW=textEl.getComputedTextLength();}catch(e){}
-    if(aW<30){try{aW=textEl.getBBox().width;}catch(e){}}
-    if(aW<30){aW=fs*5.4;}
-    aW=Math.round(aW)+6;
-    glowEl.style.fontSize=fs+'px';
-    svgEl.setAttribute('width',aW+4);
+    // Largura do texto "Resultiv"
+    let tW = 0;
+    try{ tW = textEl.getComputedTextLength(); }catch(e){}
+    if(tW < 20){ try{ tW = textEl.getBBox().width; }catch(e){} }
+    if(tW < 20){ tW = fs * 4.8; }
+    tW = Math.round(tW);
 
-    const DUR=3600;
-    function ease(t){return t<.5?2*t*t*t:1-Math.pow(-2*t+2,3)/2}
-    const TRAIL=65;
+    // Tamanho da seta ≈ altura do texto
+    const arrH = Math.round(fs * 1.05);
+    const arrW = Math.round(arrH * 0.75);
+    const gap  = Math.round(fs * 0.08);
+    const totalW = tW + gap + arrW;
 
-    const t0=performance.now();
+    // Posicionar seta ao lado do texto
+    arrow.setAttribute('transform', `translate(${tW + gap}, ${Math.round((svgH - arrH) * 0.5) - 2})`);
+    // Escalar paths da seta para o tamanho certo
+    const scale = arrH / 42; // 42 = viewbox height do path original
+    arrow.querySelector('path:first-child').setAttribute('transform', `scale(${scale})`);
+    arrow.querySelector('path:last-child').setAttribute('transform', `scale(${scale})`);
+
+    // Largura total do SVG = texto + gap + seta
+    svgEl.setAttribute('width', totalW + 4);
+    glowEl.setAttribute('font-size', fs);
+
+    // Animação: clip expande da esquerda para a direita
+    const DUR = 2800;
+    const TRAIL = 55;
+    function ease(t){ return t < .5 ? 2*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+    const t0 = performance.now();
     function frame(now){
-      const t=Math.min((now-t0)/DUR,1);
-      const w=ease(t)*aW;
-      mainCr.setAttribute('width',w);
-      glowCr.setAttribute('x',w-TRAIL);
-      if(t<1){
+      const t = Math.min((now - t0) / DUR, 1);
+      const w = ease(t) * tW;
+      mainCr.setAttribute('width', w);
+      glowCr.setAttribute('x', w - TRAIL);
+      if(t < 1){
         requestAnimationFrame(frame);
-      }else{
-        mainCr.setAttribute('width',aW+4);
-        glowCr.setAttribute('x',aW+60);
-        glowEl.style.transition='opacity .6s ease';
-        glowEl.style.opacity='0';
+      } else {
+        mainCr.setAttribute('width', tW + 4);
+        glowCr.setAttribute('x', tW + 60);
+        glowEl.style.transition = 'opacity .5s ease';
+        glowEl.style.opacity = '0';
+        // Seta aparece com pop após o texto terminar
         setTimeout(()=>{
-          if(lR)lR.style.fill='#F97316';
-          if(lA)lA.style.fill='#5B8DEF';
-        },400);
+          arrow.style.opacity = '1';
+          arrow.style.transform = 'translate(0,0) scale(1)';
+        }, 200);
       }
     }
-    setTimeout(()=>requestAnimationFrame(frame),280);
+    setTimeout(()=>requestAnimationFrame(frame), 250);
   }
 
-  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(init);}
-  else{window.addEventListener('load',init);}
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); }
+  else{ window.addEventListener('load', init); }
 })();
 
 
