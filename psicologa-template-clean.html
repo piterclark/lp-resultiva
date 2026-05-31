@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TEMPLATE: Altere o título da aba -->
+  <title>Dra. [Nome] | Psicóloga Clínica</title>
+  <meta name="description" content="Psicóloga clínica com atendimento presencial e online. Agende sua consulta.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            snow:    '#FAFAFA',   /* fundo principal */
+            paper:   '#F4F0EC',   /* fundo alternado */
+            sage:    '#8FAF8F',   /* verde sage — cor de destaque */
+            sageDk:  '#6B9070',   /* sage escuro — hover */
+            sageLt:  '#D4E6D4',   /* sage claro — backgrounds sutis */
+            ink:     '#1C1C1C',   /* texto principal */
+            muted:   '#777777',   /* texto secundário */
+            line:    '#E8E4DF',   /* divisores */
+          },
+          fontFamily: {
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans:  ['DM Sans', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #FAFAFA; color: #1C1C1C; }
+    h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+
+    /* NAV */
+    nav { transition: background 0.3s, box-shadow 0.3s; }
+    nav.scrolled { background: rgba(250,250,250,0.97); box-shadow: 0 1px 0 #E8E4DF; }
+
+    /* HERO */
+    .hero-img {
+      width: 340px; height: 420px;
+      object-fit: cover; object-position: top;
+      border-radius: 200px 200px 160px 160px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 768px) {
+      .hero-img { width: 220px; height: 280px; }
+    }
+
+    /* TAG */
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+      background: #D4E6D4; color: #4A7A4A;
+    }
+
+    /* BUTTON */
+    .btn-sage {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 32px; border-radius: 100px;
+      background: #8FAF8F; color: #fff;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none; border: none; cursor: pointer;
+    }
+    .btn-sage:hover { background: #6B9070; transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 32px; border-radius: 100px;
+      background: transparent; color: #8FAF8F;
+      border: 1.5px solid #8FAF8F;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+      transition: all 0.2s;
+      text-decoration: none; cursor: pointer;
+    }
+    .btn-outline:hover { background: #8FAF8F; color: #fff; }
+
+    /* ABOUT */
+    .about-img {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover; border-radius: 16px;
+    }
+    .credential-badge {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px; background: #fff;
+      border: 1px solid #E8E4DF; border-radius: 12px;
+    }
+    .credential-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #D4E6D4; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* SERVICE CARDS */
+    .service-card {
+      background: #fff; border: 1px solid #E8E4DF; border-radius: 16px;
+      padding: 32px 28px; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover {
+      border-color: #8FAF8F; transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(143,175,143,0.12);
+    }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: #D4E6D4; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    /* STATS */
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem; color: #8FAF8F; line-height: 1;
+    }
+    .stat-label { font-size: 0.85rem; color: #777; margin-top: 4px; }
+
+    /* TESTIMONIALS */
+    .testi-card {
+      background: #fff; border: 1px solid #E8E4DF; border-radius: 16px;
+      padding: 28px; position: relative;
+    }
+    .testi-quote {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem; color: #D4E6D4; line-height: 1;
+      position: absolute; top: 20px; right: 24px;
+    }
+    .stars { color: #8FAF8F; font-size: 0.9rem; letter-spacing: 2px; }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: cover; background: #D4E6D4;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #6B9070;
+    }
+
+    /* CAROUSEL */
+    .carousel-wrap { overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.4s ease; }
+    .carousel-slide { min-width: 100%; padding: 0 4px; }
+    @media (min-width: 768px) { .carousel-slide { min-width: 50%; } }
+    @media (min-width: 1024px) { .carousel-slide { min-width: 33.333%; } }
+
+    /* CONTACT */
+    .contact-card {
+      background: #fff; border: 1px solid #E8E4DF; border-radius: 16px;
+      padding: 28px 24px; transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: #8FAF8F; }
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 12px; background: #D4E6D4;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+    }
+    input, textarea, select {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid #E8E4DF; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: #1C1C1C;
+      background: #fff; outline: none; transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: #8FAF8F; }
+    textarea { resize: vertical; min-height: 120px; }
+    label { font-size: 0.85rem; font-weight: 500; color: #555; margin-bottom: 6px; display: block; }
+
+    /* WHATSAPP FLOAT */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+      transition: transform 0.2s; text-decoration: none;
+    }
+    .whatsapp-float:hover { transform: scale(1.08); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: #E8E4DF; }
+
+    /* MOBILE NAV */
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: flex; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #1C1C1C; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  </style>
+</head>
+<body class="bg-snow">
+
+  <!-- WHATSAPP FLUTUANTE -->
+  <!-- TEMPLATE: Substitua pelo número do WhatsApp -->
+  <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta." class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- NAVEGAÇÃO -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <!-- TEMPLATE: Nome curto para nav -->
+      <a href="#" class="font-serif text-lg text-ink">Dra. [Nome]</a>
+
+      <!-- Desktop links -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li><a href="#sobre" class="text-sm font-medium text-muted hover:text-sage transition-colors">Sobre</a></li>
+        <li><a href="#servicos" class="text-sm font-medium text-muted hover:text-sage transition-colors">Serviços</a></li>
+        <li><a href="#depoimentos" class="text-sm font-medium text-muted hover:text-sage transition-colors">Depoimentos</a></li>
+        <li><a href="#contato" class="btn-sage py-2.5 px-6 text-sm">Agendar Consulta</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="hamburger md:hidden flex flex-col gap-1.5" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="mobile-menu flex-col gap-1 pt-4 pb-2 md:hidden">
+      <a href="#sobre" class="block px-4 py-3 text-sm font-medium text-muted hover:text-sage">Sobre</a>
+      <a href="#servicos" class="block px-4 py-3 text-sm font-medium text-muted hover:text-sage">Serviços</a>
+      <a href="#depoimentos" class="block px-4 py-3 text-sm font-medium text-muted hover:text-sage">Depoimentos</a>
+      <div class="px-4 pt-2 pb-1">
+        <a href="#contato" class="btn-sage w-full text-sm">Agendar Consulta</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center pt-24 pb-16 px-6">
+    <div class="max-w-6xl mx-auto w-full">
+      <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
+
+        <!-- Texto -->
+        <div class="flex-1 text-center md:text-left order-2 md:order-1">
+          <div class="tag mb-6 mx-auto md:mx-0 w-fit">
+            <!-- TEMPLATE: CRP e especialidade -->
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#4A7A4A" stroke-width="1.5"/><path d="M6 4v3M6 8.5v.5" stroke="#4A7A4A" stroke-width="1.5" stroke-linecap="round"/></svg>
+            CRP 06/000000 · Psicóloga Clínica
+          </div>
+
+          <!-- TEMPLATE: Headline principal -->
+          <h1 class="font-serif text-4xl md:text-5xl xl:text-6xl text-ink leading-tight mb-6">
+            Um espaço seguro<br>
+            <em class="text-sage not-italic">para ser você</em><br>
+            mesmo.
+          </h1>
+
+          <!-- TEMPLATE: Subtítulo / proposta de valor -->
+          <p class="text-muted text-lg leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
+            Psicoterapia de base cognitivo-comportamental para quem quer compreender seus padrões e viver com mais leveza e clareza.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+            <!-- TEMPLATE: Link do Calendly -->
+            <a href="https://calendly.com/LINK-AQUI" target="_blank" class="btn-sage">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Agendar Consulta
+            </a>
+            <!-- TEMPLATE: Número do WhatsApp -->
+            <a href="https://wa.me/5511999999999" target="_blank" class="btn-outline">
+              Fale no WhatsApp
+            </a>
+          </div>
+
+          <!-- Stats rápidas -->
+          <div class="flex gap-8 mt-10 justify-center md:justify-start">
+            <div class="stat-item">
+              <div class="stat-num" data-target="300" data-suffix="+">0</div>
+              <div class="stat-label">Pacientes atendidos</div>
+            </div>
+            <div class="divider" style="width:1px;height:auto;background:#E8E4DF;"></div>
+            <div class="stat-item">
+              <div class="stat-num" data-target="5" data-suffix=" anos">0</div>
+              <div class="stat-label">De experiência</div>
+            </div>
+            <div class="divider" style="width:1px;height:auto;background:#E8E4DF;"></div>
+            <div class="stat-item">
+              <div class="stat-num" data-target="98" data-suffix="%">0</div>
+              <div class="stat-label">Satisfação</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto -->
+        <div class="order-1 md:order-2 flex-shrink-0 flex flex-col items-center gap-6">
+          <!-- TEMPLATE: foto da psicóloga -->
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+               alt="Foto da psicóloga" class="hero-img">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="py-24 px-6 bg-paper">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row gap-16 items-start">
+
+        <!-- Foto -->
+        <div class="w-full md:w-80 flex-shrink-0 fade-in">
+          <!-- TEMPLATE: foto sobre -->
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+               alt="Sobre a psicóloga" class="about-img">
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="flex-1 fade-in">
+          <p class="text-sage text-sm font-semibold tracking-widest uppercase mb-3">Sobre mim</p>
+          <!-- TEMPLATE: nome completo -->
+          <h2 class="font-serif text-4xl text-ink mb-6">Dra. [Nome Completo]</h2>
+          <!-- TEMPLATE: bio principal (2–3 parágrafos) -->
+          <p class="text-muted leading-relaxed mb-4">
+            Sou psicóloga clínica formada pela [Universidade] com especialização em Terapia Cognitivo-Comportamental. Atendo adultos que enfrentam ansiedade, depressão, questões de relacionamento e autoconhecimento — presencialmente em [Cidade] e também online para todo o Brasil.
+          </p>
+          <p class="text-muted leading-relaxed mb-8">
+            Acredito que cada pessoa carrega consigo a capacidade de transformação. Meu papel é criar um espaço de escuta genuína onde você possa explorar seus pensamentos e emoções com segurança, sem julgamentos.
+          </p>
+
+          <!-- Credenciais -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- TEMPLATE: Ajuste as credenciais -->
+            <div class="credential-badge">
+              <div class="credential-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-ink">Graduação</p>
+                <p class="text-xs text-muted">[Universidade], [Ano]</p>
+              </div>
+            </div>
+            <div class="credential-badge">
+              <div class="credential-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-ink">Especialização</p>
+                <p class="text-xs text-muted">TCC · [Instituição]</p>
+              </div>
+            </div>
+            <div class="credential-badge">
+              <div class="credential-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h4"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-ink">Registro</p>
+                <!-- TEMPLATE: CRP -->
+                <p class="text-xs text-muted">CRP 06/000000</p>
+              </div>
+            </div>
+            <div class="credential-badge">
+              <div class="credential-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-ink">Atendimentos</p>
+                <p class="text-xs text-muted">Presencial & Online</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="py-24 px-6 bg-snow">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-sage text-sm font-semibold tracking-widest uppercase mb-3">Como posso ajudar</p>
+        <h2 class="font-serif text-4xl text-ink mb-4">Serviços & Especialidades</h2>
+        <p class="text-muted max-w-xl mx-auto">Cada processo terapêutico é único. Trabalhamos juntos no seu ritmo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- TEMPLATE: Ajuste os cards de serviço -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-ink mb-3">Psicoterapia Individual</h3>
+          <p class="text-muted text-sm leading-relaxed">Sessões individuais focadas nas suas necessidades, com abordagem cognitivo-comportamental adaptada ao seu momento de vida.</p>
+          <div class="mt-5 pt-4 border-t border-line">
+            <span class="text-xs font-medium text-sage">Presencial · Online · 50 min/sessão</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-ink mb-3">Ansiedade & Estresse</h3>
+          <p class="text-muted text-sm leading-relaxed">Técnicas baseadas em evidências para compreender e reduzir a ansiedade, ataques de pânico e estresse crônico no dia a dia.</p>
+          <div class="mt-5 pt-4 border-t border-line">
+            <span class="text-xs font-medium text-sage">Especialidade principal</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-ink mb-3">Relacionamentos</h3>
+          <p class="text-muted text-sm leading-relaxed">Trabalho com padrões relacionais, comunicação, vínculos afetivos e questões de família, seja em terapia individual ou de casal.</p>
+          <div class="mt-5 pt-4 border-t border-line">
+            <span class="text-xs font-medium text-sage">Individual · Casal</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-ink mb-3">Autoconhecimento</h3>
+          <p class="text-muted text-sm leading-relaxed">Explore seus padrões de pensamento, emoções e comportamentos para tomar decisões mais conscientes e alinhadas com seus valores.</p>
+          <div class="mt-5 pt-4 border-t border-line">
+            <span class="text-xs font-medium text-sage">Desenvolvimento pessoal</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-ink mb-3">Atendimento Online</h3>
+          <p class="text-muted text-sm leading-relaxed">Sessões por videochamada com a mesma qualidade do atendimento presencial. Atendo todo o Brasil com agendamento flexível.</p>
+          <div class="mt-5 pt-4 border-t border-line">
+            <span class="text-xs font-medium text-sage">Brasil todo · Sem deslocamento</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-ink mb-3">Consulta Inicial</h3>
+          <p class="text-muted text-sm leading-relaxed">A primeira sessão é um espaço para nos conhecermos, entender sua demanda e desenhar juntos o melhor caminho terapêutico para você.</p>
+          <div class="mt-5 pt-4 border-t border-line">
+            <span class="text-xs font-medium text-sage">Agende agora · Sem compromisso</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos" class="py-24 px-6 bg-paper">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-sage text-sm font-semibold tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="font-serif text-4xl text-ink mb-4">O que dizem os pacientes</h2>
+        <div class="flex items-center justify-center gap-2 mt-4">
+          <div class="stars">★★★★★</div>
+          <span class="text-sm text-muted">4.9 de 5 · +120 avaliações</span>
+        </div>
+      </div>
+
+      <!-- Carousel -->
+      <div class="carousel-wrap" id="carouselWrap">
+        <div class="carousel-track" id="carouselTrack">
+
+          <!-- TEMPLATE: Substitua pelos depoimentos reais -->
+          <div class="carousel-slide px-2">
+            <div class="testi-card h-full">
+              <span class="testi-quote">"</span>
+              <div class="stars mb-3">★★★★★</div>
+              <p class="text-ink text-sm leading-relaxed mb-6">A terapia com a Dra. [Nome] mudou minha relação comigo mesma. Aprendi a reconhecer meus gatilhos de ansiedade e lidar com eles de forma muito mais saudável.</p>
+              <div class="flex items-center gap-3">
+                <div class="avatar">M</div>
+                <div>
+                  <p class="text-sm font-semibold text-ink">Marina S.</p>
+                  <p class="text-xs text-muted">Paciente há 1 ano</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide px-2">
+            <div class="testi-card h-full">
+              <span class="testi-quote">"</span>
+              <div class="stars mb-3">★★★★★</div>
+              <p class="text-ink text-sm leading-relaxed mb-6">O atendimento online é incrível. Consigo fazer minha sessão do trabalho ou de casa, sem precisar reorganizar minha agenda. A qualidade é exatamente igual ao presencial.</p>
+              <div class="flex items-center gap-3">
+                <div class="avatar">R</div>
+                <div>
+                  <p class="text-sm font-semibold text-ink">Rafael M.</p>
+                  <p class="text-xs text-muted">Paciente online · 8 meses</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide px-2">
+            <div class="testi-card h-full">
+              <span class="testi-quote">"</span>
+              <div class="stars mb-3">★★★★★</div>
+              <p class="text-ink text-sm leading-relaxed mb-6">Fui com muito medo na primeira sessão e saí me sentindo acolhida. A Dra. [Nome] tem um jeito muito gentil de conduzir, sem nunca me forçar além do que eu estava pronta.</p>
+              <div class="flex items-center gap-3">
+                <div class="avatar">C</div>
+                <div>
+                  <p class="text-sm font-semibold text-ink">Camila T.</p>
+                  <p class="text-xs text-muted">Paciente há 2 anos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide px-2">
+            <div class="testi-card h-full">
+              <span class="testi-quote">"</span>
+              <div class="stars mb-3">★★★★★</div>
+              <p class="text-ink text-sm leading-relaxed mb-6">Melhorei muito meu relacionamento com minha família depois de iniciar a terapia. As ferramentas que aprendi aqui eu uso todos os dias — muito além do consultório.</p>
+              <div class="flex items-center gap-3">
+                <div class="avatar">L</div>
+                <div>
+                  <p class="text-sm font-semibold text-ink">Lucas A.</p>
+                  <p class="text-xs text-muted">Paciente há 14 meses</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide px-2">
+            <div class="testi-card h-full">
+              <span class="testi-quote">"</span>
+              <div class="stars mb-3">★★★★★</div>
+              <p class="text-ink text-sm leading-relaxed mb-6">Passei anos evitando terapia por achar que não era para mim. Me arrependo de ter demorado tanto. O processo com a Dra. [Nome] foi transformador de um jeito muito concreto.</p>
+              <div class="flex items-center gap-3">
+                <div class="avatar">B</div>
+                <div>
+                  <p class="text-sm font-semibold text-ink">Beatriz O.</p>
+                  <p class="text-xs text-muted">Paciente há 6 meses</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Carousel controls -->
+      <div class="flex items-center justify-center gap-4 mt-10">
+        <button id="prevBtn" class="w-10 h-10 rounded-full border border-line flex items-center justify-center text-muted hover:border-sage hover:text-sage transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div id="carouselDots" class="flex gap-2"></div>
+        <button id="nextBtn" class="w-10 h-10 rounded-full border border-line flex items-center justify-center text-muted hover:border-sage hover:text-sage transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- CONTATO -->
+  <section id="contato" class="py-24 px-6 bg-snow">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-sage text-sm font-semibold tracking-widest uppercase mb-3">Contato</p>
+        <h2 class="font-serif text-4xl text-ink mb-4">Vamos conversar?</h2>
+        <p class="text-muted max-w-md mx-auto">O primeiro passo pode ser o mais difícil. Escolha a forma mais confortável para você.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+        <!-- Canais de contato -->
+        <div class="space-y-4 fade-in">
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="contact-card flex items-center gap-4 no-underline block">
+            <div class="contact-icon mb-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#6B9070"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-ink text-sm">WhatsApp</p>
+              <!-- TEMPLATE: número -->
+              <p class="text-muted text-sm">(11) 99999-9999</p>
+            </div>
+            <svg class="ml-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8FAF8F" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+
+          <!-- Calendly -->
+          <!-- TEMPLATE: link calendly -->
+          <a href="https://calendly.com/LINK-AQUI" target="_blank" class="contact-card flex items-center gap-4 no-underline block">
+            <div class="contact-icon mb-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-ink text-sm">Agendar Online</p>
+              <p class="text-muted text-sm">Calendly · Horários disponíveis</p>
+            </div>
+            <svg class="ml-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8FAF8F" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+
+          <!-- Email -->
+          <!-- TEMPLATE: e-mail -->
+          <a href="mailto:contato@exemplo.com.br" class="contact-card flex items-center gap-4 no-underline block">
+            <div class="contact-icon mb-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-ink text-sm">E-mail</p>
+              <p class="text-muted text-sm">contato@exemplo.com.br</p>
+            </div>
+            <svg class="ml-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8FAF8F" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+
+          <!-- Endereço -->
+          <div class="contact-card">
+            <div class="flex items-center gap-4">
+              <div class="contact-icon mb-0">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B9070" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <!-- TEMPLATE: endereço -->
+                <p class="font-semibold text-ink text-sm">Consultório Presencial</p>
+                <p class="text-muted text-sm">Rua [Nome], [Número] · [Bairro] · [Cidade]</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Formulário -->
+        <div class="fade-in">
+          <form class="space-y-4" onsubmit="submitForm(event)">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="name">Nome</label>
+                <input type="text" id="name" placeholder="Seu nome" required>
+              </div>
+              <div>
+                <label for="phone">WhatsApp</label>
+                <input type="tel" id="phone" placeholder="(11) 99999-9999">
+              </div>
+            </div>
+            <div>
+              <label for="email">E-mail</label>
+              <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+            <div>
+              <label for="subject">Assunto</label>
+              <select id="subject">
+                <option value="">Selecione o motivo</option>
+                <option>Quero iniciar terapia</option>
+                <option>Ansiedade / Pânico</option>
+                <option>Relacionamentos</option>
+                <option>Autoconhecimento</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div>
+              <label for="message">Mensagem</label>
+              <textarea id="message" placeholder="Conte um pouco sobre o que você está buscando..."></textarea>
+            </div>
+            <button type="submit" class="btn-sage w-full">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              Enviar mensagem
+            </button>
+            <p class="text-xs text-center text-muted">Respondo em até 24 horas úteis.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ink py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <!-- TEMPLATE: nome e CRP -->
+        <div>
+          <p class="font-serif text-xl text-white">Dra. [Nome Completo]</p>
+          <p class="text-sm text-white/50 mt-1">Psicóloga Clínica · CRP 06/000000</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="#sobre" class="text-sm text-white/50 hover:text-white transition-colors">Sobre</a>
+          <a href="#servicos" class="text-sm text-white/50 hover:text-white transition-colors">Serviços</a>
+          <a href="#contato" class="text-sm text-white/50 hover:text-white transition-colors">Contato</a>
+        </div>
+        <!-- TEMPLATE: redes sociais -->
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="divider mt-8 mb-6" style="background: rgba(255,255,255,0.1)"></div>
+      <p class="text-center text-xs text-white/30">© 2025 Dra. [Nome]. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // NAV scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Counters
+    function animateCounters() {
+      document.querySelectorAll('[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        let start = 0;
+        const step = target / 60;
+        const timer = setInterval(() => {
+          start += step;
+          if (start >= target) { start = target; clearInterval(timer); }
+          el.textContent = Math.floor(start) + suffix;
+        }, 20);
+      });
+    }
+    const heroObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { animateCounters(); heroObs.disconnect(); }
+    }, { threshold: 0.3 });
+    const firstStat = document.querySelector('[data-target]');
+    if (firstStat) heroObs.observe(firstStat.closest('section') || firstStat);
+
+    // Fade-in
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => fadeObs.observe(el));
+
+    // Carousel
+    const track = document.getElementById('carouselTrack');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carouselDots');
+    let current = 0;
+    let autoTimer;
+
+    function getSlidesVisible() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function totalPages() {
+      return Math.ceil(slides.length / getSlidesVisible());
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalPages(); i++) {
+        const d = document.createElement('button');
+        d.className = `w-2 h-2 rounded-full transition-all ${i === current ? 'bg-sage w-5' : 'bg-line'}`;
+        d.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(d);
+      }
+    }
+
+    function goTo(page) {
+      current = Math.max(0, Math.min(page, totalPages() - 1));
+      track.style.transform = `translateX(-${current * 100 / getSlidesVisible() * getSlidesVisible()}%)`;
+      // Adjust based on slides
+      const offset = current * getSlidesVisible();
+      track.style.transform = `translateX(-${(offset / slides.length) * 100}%)`;
+      buildDots();
+    }
+
+    function startAuto() { autoTimer = setInterval(() => goTo((current + 1) % totalPages()), 5000); }
+    function stopAuto() { clearInterval(autoTimer); }
+
+    document.getElementById('prevBtn').addEventListener('click', () => { stopAuto(); goTo(current - 1); startAuto(); });
+    document.getElementById('nextBtn').addEventListener('click', () => { stopAuto(); goTo(current + 1); startAuto(); });
+
+    // Touch swipe
+    let touchStartX = 0;
+    const wrap = document.getElementById('carouselWrap');
+    wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    wrap.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) { stopAuto(); goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+    });
+
+    buildDots();
+    startAuto();
+    window.addEventListener('resize', () => { buildDots(); goTo(0); });
+
+    // Form
+    function submitForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = '✓ Mensagem enviada!';
+      btn.style.background = '#6B9070';
+      setTimeout(() => { btn.textContent = 'Enviar mensagem'; btn.style.background = ''; e.target.reset(); }, 3000);
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>
