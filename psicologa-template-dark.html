@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- TEMPLATE: page title + meta description -->
+  <title>Dra. Ana Lima — Psicóloga Clínica</title>
+  <meta name="description" content="Psicoterapia individual para adultos. Agende sua consulta." />
+
+  <!-- Fonts: Playfair Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            /* ── PALETTE ── change these 6 vars to rebrand ───────────────── */
+            void:   '#080808',   /* page background          */
+            surface:'#111111',   /* card / section bg        */
+            border: '#1E1E1E',   /* subtle borders           */
+            gold:   '#C9A96E',   /* primary accent           */
+            goldlt: '#E2C99A',   /* light accent / hover     */
+            snow:   '#F5F0E8',   /* primary text             */
+            muted:  '#8A8380',   /* secondary text           */
+            /* ────────────────────────────────────────────────────────────── */
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ──────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #080808;
+      color: #F5F0E8;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Grain overlay ─────────────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px;
+    }
+
+    /* ── Gold gradient text ────────────────────────────────────────────── */
+    .gold-text {
+      background: linear-gradient(135deg, #C9A96E 0%, #E2C99A 50%, #C9A96E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Gold divider ──────────────────────────────────────────────────── */
+    .divider {
+      width: 48px; height: 1px;
+      background: linear-gradient(90deg, transparent, #C9A96E, transparent);
+      margin: 0 auto;
+    }
+
+    /* ── Section label ─────────────────────────────────────────────────── */
+    .section-label {
+      letter-spacing: .18em;
+      font-size: .68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: #C9A96E;
+    }
+
+    /* ── Reveal animation ──────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── Navbar ────────────────────────────────────────────────────────── */
+    #nav { transition: background .35s ease, border-color .35s ease; }
+    #nav.nav-solid { background: rgba(8,8,8,.96); border-bottom-color: #1E1E1E; backdrop-filter: blur(12px); }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    .hero-bg {
+      background: radial-gradient(ellipse 80% 60% at 60% 50%, rgba(201,169,110,.07) 0%, transparent 70%),
+                  linear-gradient(180deg, #080808 0%, #0D0D0D 100%);
+    }
+    .hero-line {
+      width: 1px; height: 80px;
+      background: linear-gradient(180deg, transparent, #C9A96E, transparent);
+      margin: 0 auto;
+    }
+
+    /* ── Photo frame ───────────────────────────────────────────────────── */
+    .photo-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border: 1px solid rgba(201,169,110,.25);
+      border-radius: 9999px;
+      animation: ring-pulse 3.5s ease-in-out infinite;
+    }
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -24px;
+      border: 1px solid rgba(201,169,110,.1);
+      border-radius: 9999px;
+      animation: ring-pulse 3.5s ease-in-out infinite .8s;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { opacity: .6; }
+      50% { opacity: 1; }
+    }
+
+    /* ── Stat counter ──────────────────────────────────────────────────── */
+    .stat-num { font-family: 'Playfair Display', serif; }
+
+    /* ── Cards ─────────────────────────────────────────────────────────── */
+    .card {
+      background: #111111;
+      border: 1px solid #1E1E1E;
+      border-radius: 2px;
+      transition: border-color .3s ease, transform .3s ease;
+    }
+    .card:hover { border-color: rgba(201,169,110,.35); transform: translateY(-4px); }
+
+    /* ── Gold button ───────────────────────────────────────────────────── */
+    .btn-gold {
+      display: inline-block;
+      padding: .75rem 2rem;
+      border: 1px solid #C9A96E;
+      color: #C9A96E;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: background .25s ease, color .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #C9A96E;
+      transform: translateX(-101%);
+      transition: transform .3s ease;
+    }
+    .btn-gold:hover::before { transform: translateX(0); }
+    .btn-gold:hover { color: #080808; }
+    .btn-gold span { position: relative; z-index: 1; }
+
+    .btn-gold-solid {
+      display: inline-block;
+      padding: .75rem 2rem;
+      background: #C9A96E;
+      color: #080808;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: background .25s ease;
+    }
+    .btn-gold-solid:hover { background: #E2C99A; }
+
+    /* ── Specialties strip ─────────────────────────────────────────────── */
+    .spec-tag {
+      display: inline-block;
+      padding: .35rem 1rem;
+      border: 1px solid rgba(201,169,110,.3);
+      color: #C9A96E;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: background .2s, border-color .2s;
+    }
+    .spec-tag:hover { background: rgba(201,169,110,.1); border-color: #C9A96E; }
+
+    /* ── Testimonial carousel ──────────────────────────────────────────── */
+    #cViewport { overflow: hidden; }
+    #cTrack {
+      display: flex;
+      transition: transform .55s cubic-bezier(.77,0,.175,1);
+    }
+    .c-slide {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+    .c-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #333;
+      transition: background .3s ease, transform .3s ease;
+      cursor: pointer;
+    }
+    .c-dot.active { background: #C9A96E; transform: scale(1.5); }
+
+    /* ── Parallax-ish hero decoration ─────────────────────────────────── */
+    .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ── WhatsApp float ────────────────────────────────────────────────── */
+    .wa-float {
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      z-index: 50;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,.35);
+      animation: wa-pulse 2.5s ease-in-out infinite;
+      transition: transform .2s ease;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,.35), 0 0 0 0 rgba(37,211,102,.3); }
+      50%       { box-shadow: 0 4px 20px rgba(37,211,102,.5), 0 0 0 10px rgba(37,211,102,0); }
+    }
+
+    /* ── Input ─────────────────────────────────────────────────────────── */
+    .field {
+      width: 100%;
+      background: #111111;
+      border: 1px solid #2A2A2A;
+      color: #F5F0E8;
+      padding: .75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .875rem;
+      transition: border-color .25s ease;
+      outline: none;
+      border-radius: 0;
+    }
+    .field::placeholder { color: #555; }
+    .field:focus { border-color: #C9A96E; }
+
+    /* ── Mobile hamburger ──────────────────────────────────────────────── */
+    .ham-line {
+      display: block; width: 22px; height: 1px;
+      background: #F5F0E8;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .ham-open .ham-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .ham-open .ham-line:nth-child(2) { opacity: 0; }
+    .ham-open .ham-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  </style>
+</head>
+<body class="relative">
+
+  <!-- ═══════════════════════════════════════════════════════════ NAV ══ -->
+  <nav id="nav" class="fixed top-0 inset-x-0 z-40 border-b border-transparent">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+
+      <!-- TEMPLATE: logo / nome abreviado -->
+      <a href="#hero" class="font-serif text-lg tracking-widest">
+        <span class="gold-text">DRA.</span> <span class="text-snow">ANA LIMA</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase text-muted">
+        <li><a href="#sobre" class="hover:text-gold transition-colors">Sobre</a></li>
+        <li><a href="#servicos" class="hover:text-gold transition-colors">Serviços</a></li>
+        <li><a href="#depoimentos" class="hover:text-gold transition-colors">Depoimentos</a></li>
+        <li><a href="#contato">
+          <span class="btn-gold text-[.7rem]"><span>Agendar</span></span>
+        </a></li>
+      </ul>
+
+      <!-- Mobile hamburger -->
+      <button id="hamBtn" class="md:hidden flex flex-col gap-[5px] p-2" aria-label="Menu">
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden bg-surface border-t border-border px-6 py-6">
+      <ul class="flex flex-col gap-5 text-xs tracking-widest uppercase text-muted">
+        <li><a href="#sobre" class="hover:text-gold transition-colors" onclick="closeMobile()">Sobre</a></li>
+        <li><a href="#servicos" class="hover:text-gold transition-colors" onclick="closeMobile()">Serviços</a></li>
+        <li><a href="#depoimentos" class="hover:text-gold transition-colors" onclick="closeMobile()">Depoimentos</a></li>
+        <li><a href="#contato" onclick="closeMobile()">
+          <span class="btn-gold text-[.7rem]"><span>Agendar Consulta</span></span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════ HERO ══ -->
+  <section id="hero" class="hero-bg relative min-h-screen flex items-center pt-16 overflow-hidden">
+
+    <!-- Decorative circles -->
+    <div class="deco-circle" style="width:600px;height:600px;top:-100px;right:-150px;border:1px solid rgba(201,169,110,.05);"></div>
+    <div class="deco-circle" style="width:900px;height:900px;top:-250px;right:-350px;border:1px solid rgba(201,169,110,.03);"></div>
+
+    <div class="max-w-6xl mx-auto px-6 py-24 w-full">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+
+        <!-- Copy -->
+        <div class="order-2 md:order-1">
+          <p class="section-label mb-6 reveal">Psicologia Clínica</p>
+
+          <!-- TEMPLATE: headline principal -->
+          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-snow mb-6 reveal">
+            O caminho para<br />
+            <em class="gold-text">quem você<br />realmente é</em>
+          </h1>
+
+          <!-- TEMPLATE: subtítulo / proposta de valor -->
+          <p class="text-muted text-base leading-relaxed mb-10 reveal max-w-md">
+            Psicoterapia individual de excelência para adultos que buscam transformação genuína e duradoura.
+          </p>
+
+          <div class="flex flex-wrap gap-4 reveal">
+            <a href="#contato" class="btn-gold-solid">
+              <span>Agendar Consulta</span>
+            </a>
+            <a href="#sobre" class="btn-gold">
+              <span>Conhecer a Dra.</span>
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6 mt-16 pt-10 border-t border-border reveal">
+            <!-- TEMPLATE: estatísticas — alterar números e rótulos -->
+            <div class="text-center">
+              <p class="stat-num text-3xl text-snow mb-1">
+                <span class="counter" data-target="600" data-suffix="+">0</span>
+              </p>
+              <p class="text-muted text-xs tracking-wider uppercase">Pacientes</p>
+            </div>
+            <div class="text-center border-x border-border">
+              <p class="stat-num text-3xl text-snow mb-1">
+                <span class="counter" data-target="10" data-suffix="+">0</span>
+              </p>
+              <p class="text-muted text-xs tracking-wider uppercase">Anos</p>
+            </div>
+            <div class="text-center">
+              <p class="stat-num text-3xl text-snow mb-1">
+                <span class="counter" data-target="98" data-suffix="%">0</span>
+              </p>
+              <p class="text-muted text-xs tracking-wider uppercase">Satisfação</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="order-1 md:order-2 flex justify-center md:justify-end">
+          <div class="photo-wrap">
+            <!-- TEMPLATE: foto da psicóloga (substituir src) -->
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden relative reveal-right"
+                 style="background: linear-gradient(135deg, #1a1a1a 0%, #222 100%); border: 2px solid rgba(201,169,110,.3);">
+              <img
+                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80"
+                alt="Dra. Ana Lima"
+                class="w-full h-full object-cover"
+                onerror="this.style.display='none'"
+              />
+              <!-- Placeholder if image fails -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6" style="display:none" id="photoFallback">
+                <p class="font-serif text-gold text-lg">Foto</p>
+                <p class="text-muted text-xs mt-1">TEMPLATE: inserir foto</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <p class="text-muted text-[.6rem] tracking-widest uppercase">Rolar</p>
+      <div class="hero-line"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ SOBRE ══ -->
+  <section id="sobre" class="py-28" style="background: linear-gradient(180deg, #0D0D0D 0%, #080808 100%);">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid md:grid-cols-2 gap-20 items-center">
+
+        <!-- Image block -->
+        <div class="reveal-left relative">
+          <!-- TEMPLATE: foto ambiente / consultório -->
+          <div class="aspect-[4/5] overflow-hidden"
+               style="background: #111; border: 1px solid #1E1E1E;">
+            <img
+              src="https://images.unsplash.com/photo-1586105449897-20b5efeb3233?w=700&q=80"
+              alt="Consultório"
+              class="w-full h-full object-cover opacity-70"
+              onerror="this.style.display='none'"
+            />
+          </div>
+          <!-- Gold accent block -->
+          <div class="absolute -bottom-4 -right-4 w-24 h-24"
+               style="background: rgba(201,169,110,.08); border: 1px solid rgba(201,169,110,.2);"></div>
+          <!-- Years badge -->
+          <div class="absolute top-6 -right-6 hidden md:flex flex-col items-center justify-center w-20 h-20"
+               style="background:#080808; border: 1px solid rgba(201,169,110,.35);">
+            <p class="font-serif text-gold text-2xl font-bold">10</p>
+            <p class="text-muted text-[.6rem] tracking-widest uppercase">anos</p>
+          </div>
+        </div>
+
+        <!-- Text block -->
+        <div class="reveal">
+          <p class="section-label mb-4">Sobre a Psicóloga</p>
+          <div class="divider mb-8" style="margin:0 0 2rem 0; background: linear-gradient(90deg, #C9A96E, transparent);"></div>
+
+          <!-- TEMPLATE: nome completo + CRP -->
+          <h2 class="font-serif text-3xl md:text-4xl text-snow mb-2">Dra. Ana Lima</h2>
+          <p class="text-gold text-sm tracking-widest mb-8">CRP 06/000000</p>
+
+          <!-- TEMPLATE: bio — 2-3 parágrafos -->
+          <div class="space-y-5 text-muted leading-relaxed text-sm">
+            <p>
+              Com mais de uma década dedicada à psicologia clínica, construí uma prática fundamentada
+              em escuta profunda, rigor científico e cuidado genuíno com cada pessoa que chega até mim.
+            </p>
+            <p>
+              Especialista em Terapia Cognitivo-Comportamental, com formação complementar em Mindfulness
+              e Neurociência Aplicada. Minha abordagem une a solidez do método ao calor humano que todo
+              processo terapêutico exige.
+            </p>
+            <p>
+              Acredito que cada pessoa carrega consigo todos os recursos necessários para a transformação.
+              Meu papel é criar o espaço seguro para que essa jornada aconteça.
+            </p>
+          </div>
+
+          <!-- TEMPLATE: formação — substituir itens -->
+          <div class="mt-10 space-y-3">
+            <p class="text-xs text-gold tracking-widest uppercase mb-4">Formação</p>
+            <div class="flex items-start gap-3 text-sm text-muted">
+              <span class="text-gold mt-1">—</span>
+              <span>Mestrado em Psicologia Clínica — USP</span>
+            </div>
+            <div class="flex items-start gap-3 text-sm text-muted">
+              <span class="text-gold mt-1">—</span>
+              <span>Especialização em TCC — FMUSP</span>
+            </div>
+            <div class="flex items-start gap-3 text-sm text-muted">
+              <span class="text-gold mt-1">—</span>
+              <span>Formação em Mindfulness-Based Cognitive Therapy</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ SERVIÇOS ══ -->
+  <section id="servicos" class="py-28 bg-void">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16 reveal">
+        <p class="section-label mb-4">O que ofereço</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-snow mb-4">Serviços</h2>
+        <div class="divider"></div>
+      </div>
+
+      <!-- TEMPLATE: cards de serviços — alterar ícone, título, descrição, modalidade -->
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="card p-8 reveal">
+          <div class="w-10 h-10 mb-6 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl text-snow mb-3">Psicoterapia Individual</h3>
+          <p class="text-muted text-sm leading-relaxed mb-6">
+            Processo terapêutico personalizado para adultos em busca de autoconhecimento,
+            superação de crises e desenvolvimento pessoal.
+          </p>
+          <div class="space-y-2 text-xs text-muted">
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Presencial — São Paulo / SP</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Online — Todo o Brasil</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Sessões de 50 minutos</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card p-8 reveal" style="transition-delay:.1s;">
+          <div class="w-10 h-10 mb-6 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl text-snow mb-3">Terapia de Casal</h3>
+          <p class="text-muted text-sm leading-relaxed mb-6">
+            Espaço terapêutico estruturado para casais que desejam melhorar a comunicação,
+            resolver conflitos e fortalecer o vínculo.
+          </p>
+          <div class="space-y-2 text-xs text-muted">
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Presencial — São Paulo / SP</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Online — Todo o Brasil</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Sessões de 60 minutos</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card p-8 reveal" style="transition-delay:.2s;">
+          <div class="w-10 h-10 mb-6 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl text-snow mb-3">Avaliação Psicológica</h3>
+          <p class="text-muted text-sm leading-relaxed mb-6">
+            Processo avaliativo rigoroso utilizando instrumentos validados para fins
+            clínicos, profissionais ou jurídicos.
+          </p>
+          <div class="space-y-2 text-xs text-muted">
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Presencial — São Paulo / SP</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Laudo e relatório incluso</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-gold">◆</span>
+              <span>Prazo: 15 a 30 dias úteis</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TEMPLATE: especialidades — substituir tags -->
+      <div class="mt-16 reveal">
+        <p class="text-center text-xs text-gold tracking-widest uppercase mb-6">Especialidades</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="spec-tag">Ansiedade</span>
+          <span class="spec-tag">Depressão</span>
+          <span class="spec-tag">Autoestima</span>
+          <span class="spec-tag">Relacionamentos</span>
+          <span class="spec-tag">Luto</span>
+          <span class="spec-tag">Burnout</span>
+          <span class="spec-tag">Fobias</span>
+          <span class="spec-tag">TOC</span>
+          <span class="spec-tag">Traumas</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ DEPOIMENTOS ══ -->
+  <section id="depoimentos" class="py-28" style="background:#0D0D0D;">
+    <div class="max-w-4xl mx-auto px-6">
+
+      <div class="text-center mb-16 reveal">
+        <p class="section-label mb-4">Experiências</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-snow mb-4">O que dizem os pacientes</h2>
+        <div class="divider"></div>
+      </div>
+
+      <!-- TEMPLATE: depoimentos — substituir textos, nomes, iniciais -->
+      <div class="reveal">
+        <div id="cViewport">
+          <div id="cTrack">
+
+            <div class="c-slide">
+              <div class="card p-10 text-center">
+                <p class="font-serif text-5xl text-gold opacity-30 mb-4">"</p>
+                <p class="font-serif italic text-snow text-lg leading-relaxed mb-8">
+                  A Dra. Ana criou um espaço onde me sinto completamente segura para ser eu mesma.
+                  Após dois anos de terapia, reconheço como minha vida transformou em todos os aspectos.
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium"
+                       style="background: rgba(201,169,110,.15); color: #C9A96E;">M</div>
+                  <div class="text-left">
+                    <p class="text-snow text-sm font-medium">M. Fernanda</p>
+                    <p class="text-muted text-xs">Paciente há 2 anos</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="c-slide">
+              <div class="card p-10 text-center">
+                <p class="font-serif text-5xl text-gold opacity-30 mb-4">"</p>
+                <p class="font-serif italic text-snow text-lg leading-relaxed mb-8">
+                  Busquei ajuda em um momento muito difícil e encontrei na Dra. Ana uma profissional
+                  extraordinária. Sua competência técnica aliada à sensibilidade humana fazem toda a diferença.
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium"
+                       style="background: rgba(201,169,110,.15); color: #C9A96E;">R</div>
+                  <div class="text-left">
+                    <p class="text-snow text-sm font-medium">Ricardo S.</p>
+                    <p class="text-muted text-xs">Paciente há 1 ano e 3 meses</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="c-slide">
+              <div class="card p-10 text-center">
+                <p class="font-serif text-5xl text-gold opacity-30 mb-4">"</p>
+                <p class="font-serif italic text-snow text-lg leading-relaxed mb-8">
+                  Aprendi a me conhecer de verdade. A terapia me deu ferramentas que uso todos os dias.
+                  Recomendo sem hesitar para qualquer pessoa que queira crescer.
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium"
+                       style="background: rgba(201,169,110,.15); color: #C9A96E;">L</div>
+                  <div class="text-left">
+                    <p class="text-snow text-sm font-medium">Letícia M.</p>
+                    <p class="text-muted text-xs">Paciente há 8 meses</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center justify-center gap-8 mt-10">
+          <button onclick="prevSlide()" class="text-muted hover:text-gold transition-colors" aria-label="Anterior">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+            </svg>
+          </button>
+          <div id="cDots" class="flex gap-2"></div>
+          <button onclick="nextSlide()" class="text-muted hover:text-gold transition-colors" aria-label="Próximo">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════ CONTATO ══ -->
+  <section id="contato" class="py-28 bg-void">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16 reveal">
+        <p class="section-label mb-4">Dê o primeiro passo</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-snow mb-4">Agende sua Consulta</h2>
+        <div class="divider"></div>
+        <p class="text-muted text-sm mt-6 max-w-md mx-auto leading-relaxed">
+          Escolha a forma mais confortável para entrar em contato. Respondo em até 24 horas.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-16">
+
+        <!-- TEMPLATE: número do WhatsApp -->
+        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta."
+           target="_blank" rel="noopener"
+           class="card p-8 text-center group reveal">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full"
+               style="background: rgba(37,211,102,.1);">
+            <svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg text-snow mb-2">WhatsApp</h3>
+          <p class="text-muted text-xs leading-relaxed">Resposta rápida para tirar dúvidas e agendar</p>
+          <p class="text-gold text-xs mt-4 tracking-widest uppercase group-hover:underline">(11) 99999-9999</p>
+        </a>
+
+        <!-- TEMPLATE: link do Calendly -->
+        <a href="https://calendly.com/[SEU-LINK]"
+           target="_blank" rel="noopener"
+           class="card p-8 text-center group reveal" style="transition-delay:.1s; border-color: rgba(201,169,110,.2);">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full"
+               style="background: rgba(201,169,110,.1);">
+            <svg class="w-6 h-6" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg text-snow mb-2">Agenda Online</h3>
+          <p class="text-muted text-xs leading-relaxed">Escolha o horário ideal direto na minha agenda</p>
+          <p class="text-gold text-xs mt-4 tracking-widest uppercase group-hover:underline">Acessar Calendly →</p>
+        </a>
+
+        <!-- E-mail / form -->
+        <div class="card p-8 text-center reveal" style="transition-delay:.2s;">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full"
+               style="background: rgba(201,169,110,.1);">
+            <svg class="w-6 h-6" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg text-snow mb-2">E-mail</h3>
+          <p class="text-muted text-xs leading-relaxed">Envie uma mensagem detalhada. Respondida em 24h.</p>
+          <!-- TEMPLATE: e-mail da psicóloga -->
+          <p class="text-gold text-xs mt-4 tracking-widest">contato@dranalima.com.br</p>
+        </div>
+
+      </div>
+
+      <!-- Contact form -->
+      <div class="max-w-2xl mx-auto reveal">
+        <p class="text-center text-xs text-muted tracking-widest uppercase mb-8">Ou envie uma mensagem</p>
+        <!-- TEMPLATE: substituir [SEU-EMAIL] pelo e-mail real no action do formsubmit -->
+        <form action="https://formsubmit.co/[SEU-EMAIL]" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://seusite.com.br/obrigado" />
+          <input type="hidden" name="_subject" value="Nova mensagem pelo site" />
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-muted tracking-widest uppercase mb-2">Nome</label>
+              <input type="text" name="nome" required placeholder="Seu nome completo" class="field" />
+            </div>
+            <div>
+              <label class="block text-xs text-muted tracking-widest uppercase mb-2">Telefone</label>
+              <input type="tel" name="telefone" required placeholder="(11) 99999-9999" class="field" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-muted tracking-widest uppercase mb-2">E-mail</label>
+            <input type="email" name="email" required placeholder="seu@email.com" class="field" />
+          </div>
+
+          <div>
+            <label class="block text-xs text-muted tracking-widest uppercase mb-2">Serviço de interesse</label>
+            <select name="servico" class="field">
+              <option value="" style="background:#111; color:#555;">Selecione...</option>
+              <option value="individual" style="background:#111;">Psicoterapia Individual</option>
+              <option value="casal" style="background:#111;">Terapia de Casal</option>
+              <option value="avaliacao" style="background:#111;">Avaliação Psicológica</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs text-muted tracking-widest uppercase mb-2">Mensagem</label>
+            <textarea name="mensagem" rows="4" placeholder="Conte um pouco sobre o que te trouxe até aqui..." class="field resize-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full btn-gold-solid text-center">
+            Enviar Mensagem
+          </button>
+
+          <p class="text-center text-muted text-xs">
+            Suas informações são tratadas com total sigilo e confidencialidade.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ FOOTER ══ -->
+  <footer class="border-t border-border py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-10 mb-10">
+
+        <!-- Brand -->
+        <div>
+          <!-- TEMPLATE: nome + CRP + tagline no rodapé -->
+          <p class="font-serif text-lg tracking-widest mb-2">
+            <span class="gold-text">DRA.</span> <span class="text-snow">ANA LIMA</span>
+          </p>
+          <p class="text-gold text-xs tracking-widest mb-4">CRP 06/000000</p>
+          <p class="text-muted text-xs leading-relaxed">
+            Psicologia Clínica com cuidado, método e compromisso com sua transformação.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <p class="text-xs text-gold tracking-widest uppercase mb-4">Navegação</p>
+          <ul class="space-y-2 text-xs text-muted">
+            <li><a href="#sobre" class="hover:text-gold transition-colors">Sobre</a></li>
+            <li><a href="#servicos" class="hover:text-gold transition-colors">Serviços</a></li>
+            <li><a href="#depoimentos" class="hover:text-gold transition-colors">Depoimentos</a></li>
+            <li><a href="#contato" class="hover:text-gold transition-colors">Agendamento</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact info -->
+        <div>
+          <p class="text-xs text-gold tracking-widest uppercase mb-4">Contato</p>
+          <div class="space-y-2 text-xs text-muted">
+            <!-- TEMPLATE: endereço, telefone, e-mail no footer -->
+            <p>São Paulo — SP</p>
+            <p>(11) 99999-9999</p>
+            <p>contato@dranalima.com.br</p>
+            <p class="pt-2">Seg–Sex: 8h–20h</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted">
+        <!-- TEMPLATE: nome para copyright -->
+        <p>© 2025 Dra. Ana Lima — Todos os direitos reservados.</p>
+        <p>
+          O sigilo e a ética são pilares inegociáveis da minha prática.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp float -->
+  <!-- TEMPLATE: número do WhatsApp para o botão flutuante -->
+  <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta."
+     target="_blank" rel="noopener"
+     class="wa-float" aria-label="Contato via WhatsApp">
+    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ═══════════════════════════════════════════════════════ SCRIPTS ══ -->
+  <script>
+    /* ── Nav scroll ── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-solid', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── Mobile hamburger ── */
+    const hamBtn = document.getElementById('hamBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamBtn.addEventListener('click', () => {
+      hamBtn.classList.toggle('ham-open');
+      mobileMenu.classList.toggle('hidden');
+    });
+    function closeMobile() {
+      hamBtn.classList.remove('ham-open');
+      mobileMenu.classList.add('hidden');
+    }
+
+    /* ── Scroll reveal ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+    /* ── Counter animation ── */
+    function animateCounter(el) {
+      const target = +el.dataset.target;
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+    /* ── Testimonial carousel ── */
+    let current = 0;
+    const track = document.getElementById('cTrack');
+    const slides = document.querySelectorAll('.c-slide');
+    const total = slides.length;
+    const dotsContainer = document.getElementById('cDots');
+
+    /* build dots */
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'c-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goSlide(i));
+      dotsContainer.appendChild(d);
+    });
+
+    function goSlide(n) {
+      current = (n + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    function nextSlide() { goSlide(current + 1); }
+    function prevSlide() { goSlide(current - 1); }
+
+    let autoplay = setInterval(nextSlide, 6000);
+    track.addEventListener('mouseenter', () => clearInterval(autoplay));
+    track.addEventListener('mouseleave', () => { autoplay = setInterval(nextSlide, 6000); });
+
+    /* touch swipe */
+    let touchStart = null;
+    document.getElementById('cViewport').addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; }, { passive: true });
+    document.getElementById('cViewport').addEventListener('touchend', e => {
+      if (touchStart === null) return;
+      const diff = touchStart - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+      touchStart = null;
+    }, { passive: true });
+  </script>
+</body>
+</html>
