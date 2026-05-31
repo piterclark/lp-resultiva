@@ -772,10 +772,10 @@ document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
 // ── Slot Machine Counter ───────────────────────────────────
 function buildSlot(el) {
-  const target  = parseInt(el.dataset.target);
-  const suffix  = el.dataset.suffix || '';
-  const digits  = String(target).split('');
-  const CYCLES  = 2;
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const digits = String(target).split('');
+  const CYCLES = 3;
 
   el.style.display    = 'inline-flex';
   el.style.alignItems = 'baseline';
@@ -787,14 +787,18 @@ function buildSlot(el) {
     const itemCount = CYCLES * 10 + d + 1;
 
     const wrap = document.createElement('span');
-    wrap.style.cssText = 'display:inline-block;overflow:hidden;height:1em;vertical-align:top;';
+    // gradient mask: hides the top bleed from the digit above (font ascender artifact)
+    wrap.style.cssText =
+      'display:inline-block;overflow:hidden;height:1em;vertical-align:top;' +
+      '-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 20%,#000 100%);' +
+      'mask-image:linear-gradient(to bottom,transparent 0%,#000 20%,#000 100%);';
 
     const reel = document.createElement('span');
     reel.style.cssText = 'display:block;transform:translateY(0);will-change:transform;';
 
     for (let i = 0; i < itemCount; i++) {
       const s = document.createElement('span');
-      s.textContent  = i % 10;
+      s.textContent   = i % 10;
       s.style.cssText = 'display:block;height:1em;line-height:1;';
       reel.appendChild(s);
     }
@@ -802,30 +806,34 @@ function buildSlot(el) {
     wrap.appendChild(reel);
     el.appendChild(wrap);
 
-    const spinDur   = CYCLES * 0.28 + 0.32;
-    const nearEnd   = CYCLES * 10 + d - 2;
-    const finalPos  = CYCLES * 10 + d;
+    const spinDur  = 1.1;
+    const finalPos = CYCLES * 10 + d;
 
     setTimeout(() => {
-      // Phase 1 — fast spin
-      reel.style.transition = `transform ${spinDur}s cubic-bezier(0.15,0,0.5,1)`;
-      reel.style.transform  = `translateY(-${nearEnd}em)`;
+      // Phase 1 — fast blur spin
+      reel.style.filter     = 'blur(2px)';
+      reel.style.transition = `transform ${spinDur}s cubic-bezier(0.12,0,0.42,1)`;
+      reel.style.transform  = `translateY(-${finalPos - 1}em)`;
 
-      // Phase 2 — spring settle
+      // Phase 2 — spring settle + unblur
       setTimeout(() => {
-        reel.style.transition = 'transform 0.55s cubic-bezier(0.34,1.56,0.64,1)';
+        reel.style.transition = 'transform 0.65s cubic-bezier(0.34,1.56,0.64,1),filter 0.2s ease';
+        reel.style.filter     = 'blur(0px)';
         reel.style.transform  = `translateY(-${finalPos}em)`;
       }, spinDur * 1000);
-    }, 100 + idx * 90);
+    }, 200 + idx * 130);
   });
 
   if (suffix) {
     const sfx = document.createElement('span');
-    sfx.textContent    = suffix;
-    sfx.style.cssText  = 'opacity:0;display:inline-block;transform:translateY(0.1em);transition:opacity 0.35s,transform 0.35s;';
+    sfx.textContent   = suffix;
+    sfx.style.cssText = 'opacity:0;display:inline-block;transform:translateY(0.1em);transition:opacity 0.4s,transform 0.4s;';
     el.appendChild(sfx);
-    const delay = 100 + digits.length * 90 + CYCLES * 280 + 870;
-    setTimeout(() => { sfx.style.opacity = '1'; sfx.style.transform = 'translateY(0)'; }, delay);
+    const delay = 200 + digits.length * 130 + 1850;
+    setTimeout(() => {
+      sfx.style.opacity   = '1';
+      sfx.style.transform = 'translateY(0)';
+    }, delay);
   }
 }
 
