@@ -509,6 +509,10 @@
       gap: 6rem;
       align-items: center;
     }
+    .office-text-only {
+      grid-template-columns: 1fr;
+      max-width: 700px;
+    }
     .office-img {
       border-radius: 8px;
       overflow: hidden;
@@ -975,13 +979,7 @@
 
   <!-- ── OFFICE + PRIMEIRA SESSÃO ── -->
   <section class="office">
-    <div class="office-inner">
-      <div class="office-img fade-up">
-        <img
-          src="thais-consultorio.jpg"
-          alt="Consultório Dra. Thaís"
-        >
-      </div>
+    <div class="office-inner office-text-only">
       <div class="office-text fade-up">
         <p class="section-label">Meu consultório</p>
         <h2 class="section-title">Um espaço criado <em>para você</em></h2>
