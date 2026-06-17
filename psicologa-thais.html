@@ -578,7 +578,14 @@
     /* ─────────── FOOTER ─────────── */
     footer {
       background: var(--chocolate);
-      padding: 2.25rem 3rem;
+      padding: 2.5rem 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .footer-top {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -593,6 +600,22 @@
     .footer-info {
       font-size: .78rem;
       color: rgba(244,237,227,.3);
+    }
+    .footer-info a {
+      color: rgba(179,127,80,.6);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-info a:hover { color: var(--caramelo); }
+    .footer-lgpd {
+      width: 100%;
+      border-top: 1px solid rgba(244,237,227,.07);
+      padding-top: 1.25rem;
+      font-size: .72rem;
+      color: rgba(244,237,227,.2);
+      text-align: center;
+      line-height: 1.65;
+      max-width: 700px;
     }
 
     /* ─────────── FADE ANIMATIONS ─────────── */
@@ -619,7 +642,7 @@
       .steps { grid-template-columns: 1fr; }
       .steps::before { display: none; }
       .mod-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
+      .footer-top { flex-direction: column; text-align: center; }
     }
     @media (max-width: 480px) {
       .hero-title { font-size: 2.4rem; }
@@ -868,7 +891,7 @@
   <section class="process">
     <div class="process-header fade-up">
       <p class="section-label">Como funciona</p>
-      <h2 class="section-title">Simples de começar,<br><em>transformador</em> no resultado</h2>
+      <h2 class="section-title">Simples de começar,<br><em>consistente</em> no processo</h2>
     </div>
     <div class="steps">
       <div class="step fade-up">
@@ -932,7 +955,7 @@
         <p class="section-label">Meu consultório</p>
         <h2 class="section-title">Um espaço criado <em>para você</em></h2>
         <p class="office-p">
-          O setting terapêutico é pensado nos mínimos detalhes. Um ambiente seguro, ético e acolhedor — onde você pode chegar como está e sair melhor do que entrou.
+          O setting terapêutico é pensado nos mínimos detalhes. Um ambiente seguro, ético e acolhedor — onde você pode chegar como está e construir mudanças reais ao seu próprio ritmo.
         </p>
         <p class="office-p">
           Particular · Atendimento para maiores de 18 anos · Sem convênio
@@ -961,8 +984,17 @@
 
   <!-- ── FOOTER ── -->
   <footer>
-    <div class="footer-brand">Dra. Thaís · Psicóloga</div>
-    <div class="footer-info">CRP 04/75208 · Divinópolis-MG · © 2025</div>
+    <div class="footer-top">
+      <div class="footer-brand">Dra. Thaís · Psicóloga</div>
+      <div class="footer-info">
+        CRP 04/75208 ·
+        <a href="https://cadastro.cfp.org.br/" target="_blank" rel="noopener">Verificar registro</a>
+        · Divinópolis-MG · Particular · © 2025
+      </div>
+    </div>
+    <div class="footer-lgpd">
+      Este site não coleta dados pessoais de forma automática. Ao entrar em contato via WhatsApp, você concorda que suas informações sejam tratadas com sigilo absoluto, nos termos da Lei nº 13.709/2018 (LGPD) e do Código de Ética Profissional do Psicólogo. Dados de saúde mental são considerados dados de categoria especial e recebem proteção reforçada.
+    </div>
   </footer>
 
   <script>
