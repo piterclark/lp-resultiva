@@ -254,7 +254,14 @@
       transition: background .25s;
     }
     .pain-item:hover { background: rgba(179,127,80,.12); }
-    .pain-icon { font-size: 1.6rem; display: block; margin-bottom: .75rem; }
+    .pain-icon-wrap {
+      width: 54px; height: 54px; border-radius: 12px;
+      background: rgba(179,127,80,.22);
+      border: 1.5px solid rgba(214,176,138,.28);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: .85rem;
+    }
+    .pain-icon-wrap svg { width: 22px; height: 22px; }
     .pain-text { color: rgba(244,237,227,.75); font-size: .9rem; line-height: 1.65; }
 
     /* ─────────── ABOUT ─────────── */
@@ -361,7 +368,15 @@
       box-shadow: 0 14px 36px rgba(74,51,38,.18);
     }
     .area-card:hover .area-name { color: var(--areia); }
-    .area-emoji { font-size: 1.9rem; display: block; margin-bottom: .85rem; }
+    .area-card:hover .area-icon-wrap { background: rgba(255,255,255,.15); }
+    .area-icon-wrap {
+      width: 62px; height: 62px; border-radius: 14px;
+      background: #B37F50;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.15rem;
+      flex-shrink: 0;
+    }
+    .area-icon-wrap svg { width: 26px; height: 26px; }
     .area-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
@@ -665,27 +680,59 @@
     <p class="pains-sub">Muitas pessoas chegam à terapia carregando pesos que parecem impossíveis de nomear. Você não está sozinho.</p>
     <div class="pains-grid">
       <div class="pain-item fade-up">
-        <span class="pain-icon">🌊</span>
+        <div class="pain-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+          </svg>
+        </div>
         <p class="pain-text">Ansiedade constante que não te deixa descansar nem se concentrar no presente</p>
       </div>
       <div class="pain-item fade-up">
-        <span class="pain-icon">🌫️</span>
+        <div class="pain-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <line x1="12" y1="8" x2="12" y2="11"/><line x1="12" y1="14" x2="12.01" y2="14"/>
+          </svg>
+        </div>
         <p class="pain-text">Dificuldade de reconhecer, nomear e expressar o que sente</p>
       </div>
       <div class="pain-item fade-up">
-        <span class="pain-icon">🕯️</span>
+        <div class="pain-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="6" width="18" height="12" rx="2" ry="2"/>
+            <line x1="23" y1="13" x2="23" y2="11"/>
+            <line x1="5" y1="12" x2="7" y2="12"/>
+          </svg>
+        </div>
         <p class="pain-text">Esgotamento emocional e sensação de sobrecarga no dia a dia</p>
       </div>
       <div class="pain-item fade-up">
-        <span class="pain-icon">🧩</span>
+        <div class="pain-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
         <p class="pain-text">Autocrítica excessiva e dificuldade de reconhecer o próprio valor</p>
       </div>
       <div class="pain-item fade-up">
-        <span class="pain-icon">🌪️</span>
+        <div class="pain-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+            <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+            <line x1="4" y1="4" x2="9" y2="9"/>
+          </svg>
+        </div>
         <p class="pain-text">Desequilíbrio entre vida pessoal e profissional, sem saber como mudar</p>
       </div>
       <div class="pain-item fade-up">
-        <span class="pain-icon">🗺️</span>
+        <div class="pain-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="3" r="2"/><circle cx="6" cy="21" r="2"/><circle cx="18" cy="18" r="2"/>
+            <line x1="6" y1="5" x2="6" y2="19"/>
+            <path d="M6 8a6 6 0 0 1 6 6 6 6 0 0 0 6 6"/>
+          </svg>
+        </div>
         <p class="pain-text">Dificuldade de tomar decisões e definir o que realmente quer para a sua vida</p>
       </div>
     </div>
@@ -744,35 +791,73 @@
       </div>
       <div class="areas-grid">
         <div class="area-card fade-up">
-          <span class="area-emoji">🌊</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+            </svg>
+          </div>
           <p class="area-name">Ansiedade</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">🌑</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </div>
           <p class="area-name">Depressão</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">🎭</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
           <p class="area-name">Regulação Emocional</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">🕯️</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
           <p class="area-name">Estresse e Sobrecarga</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">🌱</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
           <p class="area-name">Autoestima</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">🔮</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
           <p class="area-name">Autoconhecimento</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">⏳</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="2" x2="12" y2="20"/>
+              <path d="M5 20h14"/>
+              <line x1="2" y1="8" x2="22" y2="8"/>
+              <path d="M3 8a4 3 0 0 0 8 0"/>
+              <path d="M13 8a4 3 0 0 0 8 0"/>
+            </svg>
+          </div>
           <p class="area-name">Equilíbrio Vida / Trabalho</p>
         </div>
         <div class="area-card fade-up">
-          <span class="area-emoji">🗺️</span>
+          <div class="area-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="white" stroke="none"/>
+            </svg>
+          </div>
           <p class="area-name">Tomada de Decisão</p>
         </div>
       </div>
