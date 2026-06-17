@@ -495,7 +495,10 @@
       display: flex;
       align-items: flex-start;
       gap: .5rem;
+      text-decoration: none;
     }
+    .mod-address--link { transition: color .2s; }
+    .mod-address--link:hover { color: var(--areia); }
 
     /* ─────────── OFFICE PHOTO ─────────── */
     .office {
@@ -958,10 +961,10 @@
         <p class="mod-text">
           Em um ambiente acolhedor e reservado, pensado para que você se sinta à vontade para ser quem você é.
         </p>
-        <div class="mod-address">
+        <a href="https://maps.google.com/?q=Rua+Rio+de+Janeiro,+426,+Centro,+Divinópolis,+MG" target="_blank" rel="noopener" class="mod-address mod-address--link">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           Rua Rio de Janeiro, 426 · Sala 702<br>Centro · Divinópolis-MG
-        </div>
+        </a>
       </div>
       <div class="mod-card fade-up">
         <span class="mod-icon"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
