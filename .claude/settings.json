@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "defaultMode": "dontAsk",
+    "allow": [
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(node *)",
+      "Bash(cp *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(curl *)",
+      "Bash(pkill *)",
+      "WebFetch(*)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git push --force)",
+      "Bash(git reset --hard *)"
+    ]
+  }
+}
