@@ -188,6 +188,12 @@
       border-radius: 99px;
       padding: .28rem .75rem;
       white-space: nowrap;
+      text-decoration: none;
+    }
+    .meta-badge--link:hover {
+      background: rgba(179,127,80,.2);
+      color: var(--chocolate);
+      border-color: rgba(179,127,80,.4);
     }
     .hero-meta::before {
       content: '';
@@ -693,7 +699,7 @@
         <a href="#sobre" class="btn-ghost">Saiba mais sobre a Thaís →</a>
       </div>
       <div class="hero-meta">
-        <span class="meta-badge">CRP 04/75208</span>
+        <a href="https://cadastro.cfp.org.br/" target="_blank" rel="noopener" class="meta-badge meta-badge--link">CRP 04/75208 ↗</a>
         <span class="meta-badge">Divinópolis · MG</span>
         <span class="meta-badge">Online e Presencial</span>
       </div>
