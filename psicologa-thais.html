@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dra. Thaís | Psicóloga CRP 04/75208 | Divinópolis-MG</title>
+  <meta name="description" content="Psicoterapia individual baseada em TCC. Atendimento presencial em Divinópolis e online para todo o Brasil. Especialista em ansiedade, autoconhecimento e equilíbrio emocional.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --creme:     #F4EDE3;
+      --areia:     #D6B08A;
+      --caramelo:  #B37F50;
+      --terracota: #8A5A3C;
+      --chocolate: #4A3326;
+      --taupe:     #8E7B6A;
+      --off-white: #FFFCF8;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--creme);
+      color: var(--chocolate);
+      overflow-x: hidden;
+    }
+
+    /* ── Grain ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(244,237,227,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(179,127,80,0.15);
+    }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--chocolate);
+    }
+    .nav-brand strong { color: var(--caramelo); font-weight: 600; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.825rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--caramelo); }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: var(--caramelo);
+      color: #fff;
+      text-decoration: none;
+      padding: .6rem 1.4rem;
+      border-radius: 50px;
+      font-size: .8125rem;
+      font-weight: 500;
+      letter-spacing: .03em;
+      transition: background .2s, transform .2s;
+    }
+    .nav-btn:hover { background: var(--terracota); transform: translateY(-1px); }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      padding-top: 72px;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 6rem;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 1px solid rgba(179,127,80,.35);
+      color: var(--caramelo);
+      padding: .3rem .95rem;
+      border-radius: 50px;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.12;
+      margin-bottom: 1.5rem;
+      color: var(--chocolate);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--caramelo);
+    }
+    .hero-desc {
+      font-size: 1.0625rem;
+      color: var(--taupe);
+      line-height: 1.75;
+      max-width: 430px;
+      margin-bottom: 2.75rem;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: var(--caramelo);
+      color: #fff;
+      text-decoration: none;
+      padding: 1rem 2.1rem;
+      border-radius: 50px;
+      font-size: .9375rem;
+      font-weight: 500;
+      transition: all .25s;
+      box-shadow: 0 6px 24px rgba(179,127,80,.32);
+    }
+    .btn-primary:hover {
+      background: var(--terracota);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(138,90,60,.4);
+    }
+    .btn-ghost {
+      color: var(--chocolate);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      transition: color .2s;
+    }
+    .btn-ghost:hover { color: var(--caramelo); }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: .78rem;
+      color: var(--taupe);
+      letter-spacing: .03em;
+    }
+    .hero-meta::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--areia);
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    /* warm color overlay to tie into palette */
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(74,51,38,.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ─────────── PAINS ─────────── */
+    .pains {
+      background: var(--chocolate);
+      padding: 5.5rem 2rem;
+      text-align: center;
+    }
+    .pains-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--areia);
+      margin-bottom: 1rem;
+      opacity: .7;
+    }
+    .pains-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 3vw, 2.6rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--areia);
+      margin-bottom: .75rem;
+    }
+    .pains-sub {
+      color: rgba(244,237,227,.55);
+      font-size: .9375rem;
+      max-width: 480px;
+      margin: 0 auto 3.5rem;
+      line-height: 1.7;
+    }
+    .pains-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 960px;
+      margin: 0 auto;
+      background: rgba(179,127,80,.2);
+    }
+    .pain-item {
+      background: rgba(74,51,38,.95);
+      padding: 2.25rem 1.75rem;
+      text-align: left;
+      transition: background .25s;
+    }
+    .pain-item:hover { background: rgba(179,127,80,.12); }
+    .pain-icon { font-size: 1.6rem; display: block; margin-bottom: .75rem; }
+    .pain-text { color: rgba(244,237,227,.75); font-size: .9rem; line-height: 1.65; }
+
+    /* ─────────── ABOUT ─────────── */
+    .about {
+      padding: 7rem 2rem;
+    }
+    .about-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+    }
+    .about-img-frame {
+      position: absolute;
+      inset: -18px 18px 18px -18px;
+      border: 2px solid var(--areia);
+      border-radius: 4px;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .section-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--caramelo);
+      margin-bottom: .9rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--chocolate);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--caramelo); }
+    .about-p {
+      color: var(--taupe);
+      font-size: .9875rem;
+      line-height: 1.85;
+      margin-bottom: 1.1rem;
+    }
+    .differentials {
+      margin-top: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+    }
+    .diff-row {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+    }
+    .diff-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--caramelo);
+      border-radius: 50%;
+      margin-top: .48rem;
+      flex-shrink: 0;
+    }
+    .diff-text {
+      font-size: .9125rem;
+      color: var(--chocolate);
+      line-height: 1.6;
+    }
+
+    /* ─────────── AREAS ─────────── */
+    .areas {
+      background: var(--off-white);
+      padding: 6.5rem 2rem;
+    }
+    .areas-inner { max-width: 1100px; margin: 0 auto; }
+    .areas-header { text-align: center; margin-bottom: 4rem; }
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .area-card {
+      background: var(--creme);
+      border: 1px solid rgba(179,127,80,.22);
+      border-radius: 10px;
+      padding: 2rem 1.25rem;
+      text-align: center;
+      cursor: default;
+      transition: all .3s ease;
+    }
+    .area-card:hover {
+      background: var(--chocolate);
+      border-color: var(--chocolate);
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(74,51,38,.18);
+    }
+    .area-card:hover .area-name { color: var(--areia); }
+    .area-emoji { font-size: 1.9rem; display: block; margin-bottom: .85rem; }
+    .area-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--chocolate);
+      transition: color .3s;
+      line-height: 1.3;
+    }
+
+    /* ─────────── PROCESS ─────────── */
+    .process {
+      padding: 6.5rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .process-header { text-align: center; margin-bottom: 4.5rem; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--areia) 30%, var(--areia) 70%, transparent);
+      pointer-events: none;
+    }
+    .step { text-align: center; }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--caramelo);
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--chocolate);
+      margin-bottom: .65rem;
+    }
+    .step-desc { color: var(--taupe); font-size: .8875rem; line-height: 1.7; }
+
+    /* ─────────── MODALITIES ─────────── */
+    .modalities {
+      background: var(--chocolate);
+      padding: 6rem 2rem;
+    }
+    .mod-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .mod-header .section-title { color: var(--areia); }
+    .mod-header .section-label { color: rgba(214,176,138,.6); }
+    .mod-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .mod-card {
+      border: 1px solid rgba(179,127,80,.25);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      transition: border-color .25s, background .25s;
+    }
+    .mod-card:hover {
+      border-color: rgba(179,127,80,.5);
+      background: rgba(244,237,227,.04);
+    }
+    .mod-icon { font-size: 2.25rem; display: block; margin-bottom: 1.1rem; }
+    .mod-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--areia);
+      margin-bottom: .9rem;
+    }
+    .mod-text { color: rgba(244,237,227,.6); font-size: .9rem; line-height: 1.75; }
+    .mod-address {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(179,127,80,.2);
+      color: rgba(214,176,138,.8);
+      font-size: .8375rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+    }
+
+    /* ─────────── OFFICE PHOTO ─────────── */
+    .office {
+      padding: 6rem 2rem;
+    }
+    .office-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .office-img {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(74,51,38,.14);
+    }
+    .office-img img { width: 100%; display: block; }
+    .office-text .section-title { margin-bottom: 1.25rem; }
+    .office-p {
+      color: var(--taupe);
+      font-size: .9875rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .primeira-sessao {
+      margin-top: 2rem;
+      background: rgba(179,127,80,.1);
+      border-left: 3px solid var(--caramelo);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+    .primeira-sessao-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--caramelo);
+      margin-bottom: .5rem;
+    }
+    .primeira-sessao p {
+      font-size: .9rem;
+      color: var(--chocolate);
+      line-height: 1.7;
+    }
+
+    /* ─────────── FINAL CTA ─────────── */
+    .cta-final {
+      background: var(--caramelo);
+      padding: 6.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-final .section-title { color: #fff; margin-bottom: 1rem; }
+    .cta-final .section-title em { color: rgba(255,255,255,.75); }
+    .cta-sub {
+      color: rgba(255,255,255,.8);
+      font-size: 1.0625rem;
+      max-width: 460px;
+      margin: 0 auto 2.75rem;
+      line-height: 1.75;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: #fff;
+      color: var(--caramelo);
+      text-decoration: none;
+      padding: 1.1rem 2.4rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all .25s;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+    }
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.22);
+    }
+    .cta-crp {
+      margin-top: 2rem;
+      color: rgba(255,255,255,.5);
+      font-size: .78rem;
+      letter-spacing: .05em;
+    }
+
+    /* ─────────── FOOTER ─────────── */
+    footer {
+      background: var(--chocolate);
+      padding: 2.25rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: rgba(244,237,227,.5);
+    }
+    .footer-info {
+      font-size: .78rem;
+      color: rgba(244,237,227,.3);
+    }
+
+    /* ─────────── FADE ANIMATIONS ─────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 3.5rem 2.5rem; }
+      .hero-right { height: 65vw; max-height: 520px; }
+      .about-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+      .office-inner { grid-template-columns: 1fr; gap: 3rem; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 768px) {
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+      .pains-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .mod-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.4rem; }
+      .hero-left { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-brand">Dra. <strong>Thaís</strong> · Psicóloga</div>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#areas">Áreas</a></li>
+      <li><a href="#atendimento">Atendimento</a></li>
+    </ul>
+    <a href="https://wa.me/55XXXXXXXXXXX?text=Olá,%20Dra.%20Thaís!%20Gostaria%20de%20agendar%20uma%20sessão." class="nav-btn" target="_blank">
+      💬 Agendar sessão
+    </a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">✦ Psicoterapia Individual · TCC</div>
+      <h1 class="hero-title">
+        Você não precisa<br>
+        carregar tudo<br>
+        <em>sozinho.</em>
+      </h1>
+      <p class="hero-desc">
+        Um espaço seguro, ético e acolhedor para lidar com a ansiedade, se conhecer melhor e construir uma vida com mais equilíbrio e leveza.
+      </p>
+      <div class="hero-actions">
+        <a href="https://wa.me/55XXXXXXXXXXX?text=Olá,%20Dra.%20Thaís!%20Gostaria%20de%20agendar%20uma%20sessão." class="btn-primary" target="_blank">
+          💬 Quero agendar minha sessão
+        </a>
+        <a href="#sobre" class="btn-ghost">Conheça a Dra. Thaís →</a>
+      </div>
+      <div class="hero-meta">
+        CRP 04/75208 · Divinópolis-MG · Online e Presencial
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <!-- SUBSTITUIR pela foto profissional dela -->
+      <img
+        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&h=1100&q=85"
+        alt="Dra. Thaís, Psicóloga"
+      >
+    </div>
+  </section>
+
+  <!-- ── PAINS ── -->
+  <section class="pains">
+    <p class="pains-eyebrow">Você se identifica?</p>
+    <h2 class="pains-title">Situações que seus pacientes vivem todos os dias</h2>
+    <p class="pains-sub">Muitas pessoas chegam à terapia carregando pesos que parecem impossíveis de nomear. Você não está sozinho.</p>
+    <div class="pains-grid">
+      <div class="pain-item fade-up">
+        <span class="pain-icon">😰</span>
+        <p class="pain-text">Ansiedade constante que não te deixa descansar nem se concentrar no presente</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-icon">🌀</span>
+        <p class="pain-text">Dificuldade de reconhecer, nomear e expressar o que sente</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-icon">🔋</span>
+        <p class="pain-text">Esgotamento emocional e sensação de sobrecarga no dia a dia</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-icon">🪞</span>
+        <p class="pain-text">Autocrítica excessiva e dificuldade de reconhecer o próprio valor</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-icon">⚖️</span>
+        <p class="pain-text">Desequilíbrio entre vida pessoal e profissional, sem saber como mudar</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-icon">🧭</span>
+        <p class="pain-text">Dificuldade de tomar decisões e definir o que realmente quer para a sua vida</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about" id="sobre">
+    <div class="about-inner">
+      <div class="about-img-wrap fade-up">
+        <!-- SUBSTITUIR pela foto do consultório -->
+        <img
+          src="https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?auto=format&fit=crop&w=800&h=1000&q=85"
+          alt="Consultório da Dra. Thaís"
+        >
+        <div class="about-img-frame"></div>
+      </div>
+      <div class="fade-up">
+        <p class="section-label">Sobre mim</p>
+        <h2 class="section-title">
+          Um atendimento que<br>
+          <em>respeita a sua história</em>
+        </h2>
+        <p class="about-p">
+          Sou Thaís, psicóloga com atuação em Terapia Cognitivo-Comportamental (TCC). Trabalho com adultos que buscam superar a ansiedade, compreender suas emoções e construir uma vida com mais propósito e equilíbrio.
+        </p>
+        <p class="about-p">
+          Minha prática é pautada na individualidade de cada pessoa. Acredito que a terapia é um processo colaborativo — e que resultados reais surgem de um vínculo terapêutico sólido, seguro e honesto.
+        </p>
+        <div class="differentials">
+          <div class="diff-row">
+            <div class="diff-dot"></div>
+            <p class="diff-text">Atendimento 100% individualizado, respeitando seu ritmo e sua história</p>
+          </div>
+          <div class="diff-row">
+            <div class="diff-dot"></div>
+            <p class="diff-text">Suporte pontual por mensagem entre as sessões</p>
+          </div>
+          <div class="diff-row">
+            <div class="diff-dot"></div>
+            <p class="diff-text">Setting terapêutico ético, seguro e acolhedor</p>
+          </div>
+          <div class="diff-row">
+            <div class="diff-dot"></div>
+            <p class="diff-text">Alinhamento contínuo de expectativas e objetivos com você</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AREAS ── -->
+  <section class="areas" id="areas">
+    <div class="areas-inner">
+      <div class="areas-header fade-up">
+        <p class="section-label">Áreas de atuação</p>
+        <h2 class="section-title">Como posso <em>te ajudar</em></h2>
+      </div>
+      <div class="areas-grid">
+        <div class="area-card fade-up">
+          <span class="area-emoji">🌬️</span>
+          <p class="area-name">Ansiedade</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">🌧️</span>
+          <p class="area-name">Depressão</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">💛</span>
+          <p class="area-name">Regulação Emocional</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">🔋</span>
+          <p class="area-name">Estresse e Sobrecarga</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">🪞</span>
+          <p class="area-name">Autoestima</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">🧭</span>
+          <p class="area-name">Autoconhecimento</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">⚖️</span>
+          <p class="area-name">Equilíbrio Vida / Trabalho</p>
+        </div>
+        <div class="area-card fade-up">
+          <span class="area-emoji">🎯</span>
+          <p class="area-name">Tomada de Decisão</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROCESS ── -->
+  <section class="process">
+    <div class="process-header fade-up">
+      <p class="section-label">Como funciona</p>
+      <h2 class="section-title">Simples de começar,<br><em>transformador</em> no resultado</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Primeiro Contato</h3>
+        <p class="step-desc">Você me conta o que está sentindo. Escuta sem julgamentos, acolhimento desde o início.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Alinhamento de Objetivos</h3>
+        <p class="step-desc">Definimos juntos suas expectativas, metas e o caminho que vamos percorrer.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Ação e Resultado</h3>
+        <p class="step-desc">Intervenções personalizadas com acompanhamento contínuo — inclusive entre sessões.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MODALITIES ── -->
+  <section class="modalities" id="atendimento">
+    <div class="mod-header fade-up">
+      <p class="section-label">Modalidades</p>
+      <h2 class="section-title">Atendo do jeito que <em>funciona pra você</em></h2>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card fade-up">
+        <span class="mod-icon">🏠</span>
+        <h3 class="mod-title">Presencial</h3>
+        <p class="mod-text">
+          Em um ambiente acolhedor e reservado, pensado para que você se sinta à vontade para ser quem você é.
+        </p>
+        <div class="mod-address">
+          📍 Rua Rio de Janeiro, 426 · Sala 702<br>Centro · Divinópolis-MG
+        </div>
+      </div>
+      <div class="mod-card fade-up">
+        <span class="mod-icon">💻</span>
+        <h3 class="mod-title">Online</h3>
+        <p class="mod-text">
+          A mesma qualidade e presença do consultório, no conforto da sua casa. Para quem prefere flexibilidade ou mora em outra cidade.
+        </p>
+        <div class="mod-address">
+          🌐 Atendo em todo o Brasil via videochamada
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OFFICE + PRIMEIRA SESSÃO ── -->
+  <section class="office">
+    <div class="office-inner">
+      <div class="office-img fade-up">
+        <!-- SUBSTITUIR pela foto do consultório dela -->
+        <img
+          src="https://images.unsplash.com/photo-1616587894289-86480e533129?auto=format&fit=crop&w=800&h=600&q=85"
+          alt="Consultório Dra. Thaís"
+        >
+      </div>
+      <div class="office-text fade-up">
+        <p class="section-label">Meu consultório</p>
+        <h2 class="section-title">Um espaço criado <em>para você</em></h2>
+        <p class="office-p">
+          O setting terapêutico é pensado nos mínimos detalhes. Um ambiente seguro, ético e acolhedor — onde você pode chegar como está e sair melhor do que entrou.
+        </p>
+        <p class="office-p">
+          Particular · Atendimento para maiores de 18 anos · Sem convênio
+        </p>
+        <div class="primeira-sessao">
+          <p class="primeira-sessao-label">✦ Como é a primeira sessão</p>
+          <p>
+            A terapia começa desde o primeiro contato. Fazemos uma coleta de informações, alinhamos objetivos e expectativas, e já definimos ações imediatas para o seu processo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section class="cta-final">
+    <h2 class="section-title">Pronto para dar o <em>primeiro passo?</em></h2>
+    <p class="cta-sub">
+      Me chame pelo WhatsApp. A terapia começa desde o primeiro atendimento.
+    </p>
+    <a href="https://wa.me/55XXXXXXXXXXX?text=Olá,%20Dra.%20Thaís!%20Gostaria%20de%20agendar%20uma%20sessão." class="btn-white" target="_blank">
+      💬 Falar agora no WhatsApp
+    </a>
+    <p class="cta-crp">CRP 04/75208 · Psicóloga em Divinópolis-MG</p>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">Dra. Thaís · Psicóloga</div>
+    <div class="footer-info">CRP 04/75208 · Divinópolis-MG · © 2025</div>
+  </footer>
+
+  <script>
+    // Fade-up on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          const delay = (entry.target.dataset.delay || 0) * 80;
+          setTimeout(() => entry.target.classList.add('in'), delay);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach((el, i) => {
+      el.dataset.delay = i % 5;
+      io.observe(el);
+    });
+
+    // Nav scroll shadow
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.boxShadow = window.scrollY > 20
+        ? '0 2px 20px rgba(74,51,38,0.1)'
+        : 'none';
+    });
+  </script>
+</body>
+</html>
