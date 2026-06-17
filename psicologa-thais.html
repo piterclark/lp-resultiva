@@ -175,14 +175,23 @@
     .hero-meta {
       display: flex;
       align-items: center;
-      gap: .75rem;
-      font-size: .78rem;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+    .meta-badge {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .04em;
       color: var(--taupe);
-      letter-spacing: .03em;
+      background: rgba(179,127,80,.1);
+      border: 1px solid rgba(179,127,80,.2);
+      border-radius: 99px;
+      padding: .28rem .75rem;
+      white-space: nowrap;
     }
     .hero-meta::before {
       content: '';
-      display: inline-block;
+      display: none;
       width: 32px;
       height: 1px;
       background: var(--areia);
@@ -681,10 +690,12 @@
         <a href="https://wa.me/55XXXXXXXXXXX?text=Olá,%20Dra.%20Thaís!%20Gostaria%20de%20agendar%20uma%20sessão." class="btn-primary" target="_blank">
           💬 Quero agendar minha sessão
         </a>
-        <a href="#sobre" class="btn-ghost">Conheça a Dra. Thaís →</a>
+        <a href="#sobre" class="btn-ghost">Saiba mais sobre a Thaís →</a>
       </div>
       <div class="hero-meta">
-        CRP 04/75208 · Divinópolis-MG · Online e Presencial
+        <span class="meta-badge">CRP 04/75208</span>
+        <span class="meta-badge">Divinópolis · MG</span>
+        <span class="meta-badge">Online e Presencial</span>
       </div>
     </div>
 
