@@ -761,8 +761,8 @@
       .hero-actions { justify-content: center; flex-direction: column; gap: 1rem; }
       .btn-primary { width: 100%; justify-content: center; }
       .hero-meta { justify-content: center; }
-      .hero-right { height: 85vw; max-height: 560px; }
-      .hero-right img { object-position: center 8%; }
+      .hero-right { height: auto; max-height: none; overflow: visible; }
+      .hero-right img { position: relative; inset: auto; height: auto; object-fit: unset; }
       .about-inner { grid-template-columns: 1fr; gap: 3.5rem; }
       .about-img-accent { display: none; }
       .office-inner { grid-template-columns: 1fr; gap: 3rem; }
