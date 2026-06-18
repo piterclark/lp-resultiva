@@ -98,6 +98,20 @@
       transition: background .2s, transform .2s;
     }
     .nav-btn:hover { background: var(--terracota); transform: translateY(-1px); }
+    .nav-instagram {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--caramelo);
+      border-radius: 50%;
+      color: var(--caramelo);
+      text-decoration: none;
+      transition: background .2s, color .2s;
+      flex-shrink: 0;
+    }
+    .nav-instagram:hover { background: var(--caramelo); color: #fff; }
 
     /* ─────────── HERO ─────────── */
     .hero {
@@ -763,6 +777,9 @@
       <li><a href="#areas">Áreas</a></li>
       <li><a href="#atendimento">Atendimento</a></li>
     </ul>
+    <a href="https://www.instagram.com/psithais.silva/" class="nav-instagram" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
     <a href="https://wa.me/5535999494322?text=Olá,%20Dra.%20Thaís!%20Gostaria%20de%20agendar%20uma%20sessão." class="nav-btn" target="_blank">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Agendar sessão
