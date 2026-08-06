@@ -1,4 +1,5 @@
 {
+  "name": "lp-estetica",
   "rewrites": [
     { "source": "/", "destination": "/psicologa-thais.html" }
   ]

@@ -3,639 +3,600 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HARMONIA. — Harmonização Facial & Estética Premium</title>
+<title>Studio [Nome] | Estética Avançada</title>
+<meta name="description" content="Tratamentos estéticos personalizados para sua pele. Avaliação gratuita e sem compromisso. Resultados reais.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:    #080709;
-  --bg2:   #0E0C10;
-  --blush: #C9A0A8;
-  --gold:  #C9A87C;
-  --pearl: #F2EDE9;
-  --muted: rgba(242,237,233,.42);
-  --border:rgba(242,237,233,.07);
+  --bg:#F0E8DF;
+  --bg2:#E7DDD2;
+  --bg3:#231A12;
+  --nude:#B8896F;
+  --nude-dk:#966650;
+  --nude-lt:#F5EDE5;
+  --ink:#231A12;
+  --muted:#72574A;
+  --border:#CDBFB2;
+  --cream:#FBF6EF;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--pearl);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-
-/* GRAIN */
-body::before{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:128px;mix-blend-mode:overlay}
-
-/* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
-header.solid{background:rgba(8,7,9,.96);backdrop-filter:blur(20px);border-color:var(--border)}
-.logo-hm{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pearl)}
-.logo-hm span{color:var(--blush)}
-.nav-cta-hm{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blush);border:1px solid rgba(201,160,168,.3);padding:10px 24px;border-radius:2px;transition:background .25s,color .25s}
-.nav-cta-hm:hover{background:var(--blush);color:#080709}
-
-/* HERO */
-.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:0 48px 96px;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1800&q=85');background-size:cover;background-position:center 20%;filter:brightness(.2) saturate(.55);animation:hzoom 22s ease-in-out infinite alternate}
-@keyframes hzoom{from{transform:scale(1.05)}to{transform:scale(1)}}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,7,9,.05) 0%,rgba(8,7,9,.42) 50%,rgba(8,7,9,1) 100%)}
-.hero::before{content:"";position:absolute;top:0;right:0;width:55%;height:100%;pointer-events:none;z-index:1;
-  background:radial-gradient(ellipse at right top,rgba(201,160,168,.07) 0%,transparent 60%);
-  animation:blushGlow 16s ease-in-out infinite alternate}
-@keyframes blushGlow{from{opacity:.4}to{opacity:1}}
-
-.hero-content{position:relative;z-index:2;max-width:800px}
-.hero-label{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--blush);margin-bottom:28px;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .8s .1s,transform .8s .1s}
-.hero-label::before{content:"";display:block;width:24px;height:1px;background:var(--blush)}
-.hero-label.in{opacity:1;transform:none}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(46px,7.5vw,102px);font-weight:700;line-height:.97;letter-spacing:-.025em}
-.hero h1 em{font-style:italic;color:var(--blush);display:block}
-#hero-em{display:block;opacity:0;transform:translateY(12px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-#hero-em.in{opacity:1;transform:none}
-.word{display:inline-block;overflow:hidden;vertical-align:bottom}
-.word-inner{display:inline-block;transform:translateY(110%);transition:transform .85s cubic-bezier(.16,1,.3,1)}
-.word-inner.in{transform:translateY(0)}
-.hero-sub{margin-top:32px;font-size:clamp(15px,1.4vw,18px);color:var(--muted);max-width:540px;line-height:1.88;opacity:0;transform:translateY(14px);transition:opacity .8s .9s,transform .8s .9s}
-.hero-sub.in{opacity:1;transform:none}
-.hero-cta-wrap{margin-top:48px;display:flex;align-items:center;gap:24px;opacity:0;transition:opacity .8s 1.2s}
-.hero-cta-wrap.in{opacity:1}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;height:58px;padding:0 40px;background:var(--blush);color:#080709;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:transform .3s,box-shadow .3s;box-shadow:0 6px 36px rgba(201,160,168,.28)}
-.btn-primary:hover{transform:scale(1.03);box-shadow:0 10px 48px rgba(201,160,168,.46)}
-.btn-ghost{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--muted);text-decoration:underline;text-underline-offset:3px;transition:color .2s}
-.btn-ghost:hover{color:var(--pearl)}
-
-/* STRIP */
-.diff{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(14,12,16,.72);backdrop-filter:blur(12px)}
-.diff-item{flex:1;padding:30px 36px;border-right:1px solid var(--border);text-align:center}
-.diff-item:last-child{border-right:0}
-.diff-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--blush);line-height:1;margin-bottom:4px}
-.diff-l{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-
-/* TRATAMENTOS PRINCIPAIS */
-.tratamentos{padding:100px 48px}
-.section-hd{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:56px;border-bottom:1px solid var(--border);margin-bottom:56px}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4.5vw,56px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
-.section-title em{font-style:italic;color:var(--blush)}
-.section-sub{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.trat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.tcard{display:block;background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border-color .4s;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;text-decoration:none;color:inherit}
-.tcard:hover{border-color:rgba(201,160,168,.28)}
-.tcard-img{height:300px;overflow:hidden;position:relative}
-.tcard-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.8);transition:transform .7s ease,filter .4s}
-.tcard:hover .tcard-img img{transform:scale(1.05);filter:brightness(.92) saturate(.96)}
-.tcard-badge{position:absolute;top:16px;left:16px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;background:rgba(8,7,9,.8);backdrop-filter:blur(8px);border:1px solid rgba(201,160,168,.3);color:var(--blush)}
-.tcard-body{padding:28px 28px 36px}
-.tcard-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:8px}
-.tcard-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
-.tcard-price{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--blush)}
-.tcard-price span{font-family:'Inter',sans-serif;font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
-.tcard-trigger{margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blush);transition:gap .3s}
-.tcard:hover .tcard-trigger{gap:14px}
-.tcard-trigger svg{width:14px;height:14px}
-
-/* OUTROS TRATAMENTOS */
-.outros{padding:0 48px 100px}
-.outros-intro{margin-bottom:44px}
-.outros-intro h3{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,32px);font-weight:700;letter-spacing:-.015em;margin-bottom:8px}
-.outros-intro p{font-size:14px;color:var(--muted)}
-.outros-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.outro-card{padding:32px 28px;border:1px solid var(--border);background:var(--bg2);transition:border-color .3s}
-.outro-card:hover{border-color:rgba(201,160,168,.2)}
-.outro-icon{width:38px;height:38px;border-radius:8px;background:rgba(201,160,168,.07);border:1px solid rgba(201,160,168,.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.outro-icon svg{width:18px;height:18px;stroke:var(--blush);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.outro-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:8px}
-.outro-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:14px}
-.outro-price{font-size:13px;font-weight:600;color:var(--blush)}
-
-/* PROCESSO */
-.processo{padding:100px 48px;border-top:1px solid var(--border)}
-.processo-intro{max-width:560px;margin-bottom:72px}
-.processo-intro h2{font-family:'Playfair Display',serif;font-size:clamp(30px,3.8vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px}
-.processo-intro h2 em{font-style:italic;color:var(--blush)}
-.processo-intro p{font-size:16px;color:var(--muted);line-height:1.8}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
-.step{padding:40px 32px;border:1px solid var(--border);position:relative;overflow:hidden;background:var(--bg2)}
-.step-num{font-family:'Playfair Display',serif;font-size:96px;font-weight:900;color:var(--blush);opacity:.05;position:absolute;top:-10px;right:12px;line-height:1;pointer-events:none}
-.step-icon{width:44px;height:44px;border-radius:10px;background:rgba(201,160,168,.07);border:1px solid rgba(201,160,168,.18);display:flex;align-items:center;justify-content:center;margin-bottom:24px}
-.step-icon svg{width:22px;height:22px;stroke:var(--blush);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.step-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;margin-bottom:10px}
-.step-desc{font-size:14px;color:var(--muted);line-height:1.7}
-
-/* MANIFESTO */
-.manifesto{padding:100px 48px;display:flex;align-items:center;gap:80px;border-top:1px solid var(--border)}
-.manifesto-text{flex:1}
-.manifesto-text h2{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,60px);font-weight:700;line-height:1.06;letter-spacing:-.025em}
-.manifesto-text h2 em{font-style:italic;color:var(--blush)}
-.manifesto-aside{flex:0 0 360px;border-left:1px solid var(--border);padding-left:48px}
-.manifesto-aside p{font-size:17px;color:var(--muted);line-height:1.85}
-.manifesto-aside p strong{color:var(--pearl);font-weight:500}
-
-/* FAQ */
-.faq{padding:80px 48px;border-top:1px solid var(--border)}
-.faq-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.2vw,42px);font-weight:700;letter-spacing:-.02em;margin-bottom:48px}
-.faq-title em{font-style:italic;color:var(--blush)}
-.faq-list{max-width:760px}
-.faq-item{border-bottom:1px solid var(--border)}
-.faq-q{width:100%;background:none;border:none;color:var(--pearl);font-family:'Inter',sans-serif;font-size:16px;font-weight:500;text-align:left;padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;transition:color .2s}
-.faq-q:hover{color:var(--blush)}
-.faq-icon{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s}
-.faq-icon svg{width:12px;height:12px;stroke:var(--muted);transition:stroke .2s,transform .3s}
-.faq-item.open .faq-icon{background:rgba(201,160,168,.12);border-color:rgba(201,160,168,.3)}
-.faq-item.open .faq-icon svg{stroke:var(--blush);transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
-.faq-a p{font-size:15px;color:var(--muted);line-height:1.85;padding-bottom:24px}
-.faq-item.open .faq-a{max-height:300px}
-
-/* DEPOIMENTOS */
-.depos{padding:80px 48px;border-top:1px solid var(--border)}
-.depos-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.2vw,42px);font-weight:700;letter-spacing:-.02em;margin-bottom:48px}
-.depos-title em{font-style:italic;color:var(--blush)}
-.depos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.depo-card{padding:36px 32px;border:1px solid var(--border);background:var(--bg2);position:relative;overflow:hidden}
-.depo-card::before{content:"❝";font-family:'Playfair Display',serif;font-size:96px;color:var(--blush);opacity:.05;position:absolute;top:-8px;left:16px;line-height:1}
-.depo-stars{color:var(--blush);font-size:13px;letter-spacing:2px;margin-bottom:18px}
-.depo-text{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:24px;font-style:italic;position:relative;z-index:1}
-.depo-author{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pearl)}
-.depo-service{font-size:11px;color:var(--blush);letter-spacing:.06em;margin-top:4px}
-
-/* GARANTIA */
-.garantia{padding:80px 48px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
-.garantia-icon{font-size:38px;margin-bottom:20px}
-.garantia h3{font-family:'Playfair Display',serif;font-size:clamp(24px,3.6vw,44px);font-weight:700;margin-bottom:16px;line-height:1.15}
-.garantia h3 em{font-style:italic;color:var(--blush)}
-.garantia p{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.8}
-
-/* CTA */
-.cta-hm{padding:120px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
-.cta-hm::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,160,168,.05) 0%,transparent 70%);pointer-events:none;animation:ctaGlow 12s ease-in-out infinite}
-@keyframes ctaGlow{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.3)}}
-.cta-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--blush);margin-bottom:28px;position:relative;z-index:1}
-.cta-hm h2{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,70px);font-weight:700;line-height:1.06;letter-spacing:-.025em;margin-bottom:16px;position:relative;z-index:1;max-width:680px}
-.cta-hm h2 em{font-style:italic;color:var(--blush)}
-.cta-sub{font-size:16px;color:var(--muted);margin-bottom:48px;position:relative;z-index:1;max-width:460px}
-.cta-note{margin-top:20px;font-size:11px;color:rgba(242,237,233,.2);letter-spacing:.06em;position:relative;z-index:1}
-
-/* FOOTER */
-footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.foot-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.foot-logo span{color:var(--blush)}
-footer p{font-size:11px;color:rgba(242,237,233,.18)}
+img{display:block}
+h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',serif}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
-.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:72px;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(240,232,223,.96);backdrop-filter:blur(20px);border-color:var(--border)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.logo em{font-style:normal;color:var(--nude)}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.07em;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--nude)}
+.nav-cta{padding:10px 24px;border:1.5px solid var(--nude);border-radius:2px;color:var(--nude)!important;font-size:11px!important;font-weight:600!important;letter-spacing:.1em!important;text-transform:uppercase;transition:background .2s,color .2s!important}
+.nav-cta:hover{background:var(--nude);color:#fff!important}
+
+/* FLOATING WA */
+.wa-fab{position:fixed;bottom:28px;right:28px;z-index:900;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.4);transition:transform .25s,box-shadow .25s}
+.wa-fab:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,.52)}
+.wa-fab svg{width:26px;height:26px;fill:#fff}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:52% 48%;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:120px 56px 80px;background:var(--bg);position:relative;z-index:1}
+.hero-left::after{content:"";position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--border)}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--nude);margin-bottom:28px}
+.hero-tag::before{content:"";width:22px;height:1px;background:var(--nude)}
+.hero h1{font-size:clamp(50px,5.8vw,90px);font-weight:600;line-height:.95;letter-spacing:-.025em;margin-bottom:28px}
+.hero h1 em{font-style:italic;color:var(--nude)}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.9;max-width:400px;margin-bottom:48px}
+.hero-actions{display:flex;align-items:center;gap:20px}
+.btn-main{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;background:var(--nude);color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:background .25s,transform .2s,box-shadow .25s}
+.btn-main:hover{background:var(--nude-dk);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,137,111,.38)}
+.btn-ghost{font-size:12px;font-weight:500;letter-spacing:.05em;color:var(--muted);text-decoration:underline;text-underline-offset:4px;transition:color .2s}
+.btn-ghost:hover{color:var(--nude)}
+.hero-stats{display:flex;gap:44px;margin-top:56px;padding-top:36px;border-top:1px solid var(--border)}
+.hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--ink);line-height:1}
+.hero-stat-l{font-size:11px;color:var(--muted);margin-top:5px}
+
+/* HERO RIGHT */
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-right::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(240,232,223,.15) 0%,transparent 35%)}
+.hero-card{position:absolute;bottom:48px;left:-28px;z-index:2;background:var(--cream);border-radius:14px;padding:20px 22px;box-shadow:0 20px 56px rgba(35,26,18,.2);width:196px}
+.hero-card-label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--nude);margin-bottom:12px}
+.hero-card-slot{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.hero-card-slot:last-child{border-bottom:0;padding-bottom:0}
+.hero-card-dot{width:7px;height:7px;border-radius:50%;background:var(--nude);flex-shrink:0}
+.hero-card-time{font-size:10px;font-weight:600;color:var(--nude)}
+.hero-card-name{font-size:11px;color:var(--muted)}
+
+/* STRIP */
+.strip{display:flex;background:var(--bg3)}
+.strip-item{flex:1;padding:28px 32px;border-right:1px solid rgba(255,255,255,.06);text-align:center}
+.strip-item:last-child{border-right:0}
+.strip-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--nude);line-height:1;margin-bottom:5px}
+.strip-l{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+
+/* SECTION BASE */
+.section{padding:100px 52px}
+.section.dark{background:var(--bg3);color:var(--cream)}
+.section.mid{background:var(--bg2)}
+.s-eyebrow{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--nude);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.s-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
+.s-title{font-size:clamp(36px,4.5vw,60px);font-weight:600;line-height:1.04;letter-spacing:-.025em}
+.s-title em{font-style:italic;color:var(--nude)}
+.dark .s-title{color:var(--cream)}
+.s-body{font-size:16px;color:var(--muted);line-height:1.85;max-width:520px;margin-top:18px}
+.dark .s-body{color:rgba(251,246,239,.38)}
+
+/* FEATURED TREATMENT */
+.tcard-featured{display:grid;grid-template-columns:1fr 1fr;background:var(--cream);border-radius:4px;overflow:hidden;margin-top:56px;cursor:pointer;transition:box-shadow .35s}
+.tcard-featured:hover{box-shadow:0 24px 72px rgba(35,26,18,.13)}
+.tcard-feat-img{overflow:hidden;height:400px}
+.tcard-feat-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s}
+.tcard-featured:hover .tcard-feat-img img{transform:scale(1.04);filter:saturate(1)}
+.tcard-feat-body{display:flex;flex-direction:column;justify-content:center;padding:52px 48px}
+.tcard-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--nude);border:1px solid var(--nude);border-radius:2px;padding:4px 10px;width:fit-content;margin-bottom:20px}
+.tcard-feat-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.8vw,48px);font-weight:600;line-height:1.1;margin-bottom:16px}
+.tcard-feat-desc{font-size:14px;color:var(--muted);line-height:1.82;margin-bottom:28px}
+.tcard-feat-row{display:flex;align-items:center;justify-content:space-between}
+.tcard-feat-price{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--nude)}
+.tcard-feat-cta{font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--nude);display:flex;align-items:center;gap:6px;transition:gap .2s}
+.tcard-featured:hover .tcard-feat-cta{gap:12px}
+
+/* TREATMENT GRID */
+.tcard-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:1px}
+.tcard{background:var(--cream);cursor:pointer;transition:background .25s}
+.tcard:hover{background:var(--nude-lt)}
+.tcard-img{height:240px;overflow:hidden;position:relative}
+.tcard-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .6s,filter .4s}
+.tcard:hover .tcard-img img{transform:scale(1.05);filter:saturate(1)}
+.tcard-tag{position:absolute;bottom:0;left:0;right:0;padding:10px 20px;background:linear-gradient(transparent,rgba(35,26,18,.72));font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(251,246,239,.9)}
+.tcard-body{padding:24px 22px 28px}
+.tcard-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:8px}
+.tcard-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.tcard-row{display:flex;align-items:center;justify-content:space-between}
+.tcard-price{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--nude)}
+.tcard-cta{font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--nude);display:flex;align-items:center;gap:4px;transition:gap .2s}
+.tcard:hover .tcard-cta{gap:8px}
+
+/* SECONDARY */
+.outros-wrap{margin-top:52px}
+.outros-head{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:4px}
+.outros-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+.outros-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:4px;overflow:hidden}
+.oitem{background:var(--cream);padding:24px 20px;transition:background .2s}
+.oitem:hover{background:var(--nude-lt)}
+.oitem-num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--nude);opacity:.4;line-height:1;margin-bottom:10px}
+.oitem-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;margin-bottom:5px}
+.oitem-desc{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-img-wrap{position:relative}
+.about-frame{position:absolute;top:-14px;left:-14px;right:14px;bottom:14px;border:1px solid rgba(184,137,111,.35);border-radius:4px;z-index:0}
+.about-photo{position:relative;z-index:1;border-radius:4px;overflow:hidden;height:560px}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.85)}
+.about-badge{position:absolute;bottom:28px;right:-20px;z-index:2;background:var(--cream);border-radius:12px;padding:18px 22px;box-shadow:0 12px 40px rgba(35,26,18,.16);text-align:center}
+.about-badge-n{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:var(--nude);line-height:1}
+.about-badge-l{font-size:10px;color:var(--muted);font-weight:500;margin-top:3px}
+.about-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.8vw,36px);font-weight:400;font-style:italic;line-height:1.38;margin-bottom:24px}
+.about-text{font-size:15px;color:var(--muted);line-height:1.92;margin-bottom:28px}
+.about-certs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.cert-pill{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);border-radius:30px;color:var(--muted)}
+.about-sig-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:3px}
+.about-sig-role{font-size:11px;color:var(--nude);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+/* PROCESS */
+.processo-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.pstep{display:flex;gap:24px;padding:28px 0;border-bottom:1px solid var(--border)}
+.pstep:first-child{padding-top:0}
+.pstep:last-child{border-bottom:0;padding-bottom:0}
+.pstep-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:var(--nude);opacity:.2;flex-shrink:0;line-height:1;width:36px}
+.pstep-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:6px}
+.pstep-desc{font-size:13px;color:var(--muted);line-height:1.78}
+.processo-img{border-radius:4px;overflow:hidden;height:520px}
+.processo-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+
+/* GALLERY */
+.gallery-scroll{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:0 52px 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-top:44px}
+.gallery-scroll::-webkit-scrollbar{display:none}
+.gallery-item{flex-shrink:0;width:300px;height:380px;border-radius:6px;overflow:hidden}
+.gallery-item img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .5s,filter .3s}
+.gallery-item:hover img{transform:scale(1.04);filter:saturate(1)}
+.gallery-hint{padding:0 52px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+.gallery-arrow{display:inline-block;animation:drift 2s ease-in-out infinite;color:var(--nude)}
+@keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+
+/* MANIFESTO */
+.manifesto{padding:116px 52px;text-align:center;background:var(--bg3)}
+.manifesto blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.6vw,64px);font-weight:300;font-style:italic;line-height:1.2;letter-spacing:-.01em;max-width:900px;margin:24px auto 0;color:var(--cream)}
+.manifesto blockquote em{color:var(--nude)}
+.manifesto-author{margin-top:40px;font-size:11px;color:rgba(251,246,239,.22);letter-spacing:.1em}
+
+/* TESTIMONIALS */
+.depos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:52px}
+.depo{padding:36px 28px;background:var(--cream)}
+.depo-stars{color:var(--nude);font-size:13px;letter-spacing:2px;margin-bottom:16px}
+.depo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;line-height:1.78;color:var(--ink);margin-bottom:24px}
+.depo-footer{display:flex;align-items:center;gap:12px}
+.depo-avatar{width:38px;height:38px;border-radius:50%;background:var(--nude-lt);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--nude);flex-shrink:0}
+.depo-author{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.depo-service{font-size:11px;color:var(--nude);margin-top:2px}
+
+/* GUARANTEE */
+.guarantee{padding:80px 52px;display:flex;align-items:center;justify-content:center;gap:52px;background:var(--bg2)}
+.guarantee-icon{width:84px;height:84px;border-radius:50%;border:1.5px solid var(--nude);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.guarantee-icon svg{width:38px;height:38px;stroke:var(--nude);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.guarantee-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin-bottom:10px}
+.guarantee-text{font-size:15px;color:var(--muted);line-height:1.85;max-width:500px}
+
+/* FAQ */
+.faq-wrap{max-width:720px;margin:52px auto 0}
+.faq-item{border-bottom:1px solid rgba(251,246,239,.1)}
+.faq-q{width:100%;background:none;border:none;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;font-weight:400;text-align:left;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;transition:color .2s}
+.faq-q:hover{color:var(--nude)}
+.faq-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1px solid rgba(251,246,239,.12);display:flex;align-items:center;justify-content:center;transition:all .25s}
+.faq-icon svg{width:12px;height:12px;stroke:rgba(251,246,239,.3);fill:none;stroke-width:2;stroke-linecap:round;transition:stroke .2s,transform .3s}
+.faq-item.open .faq-icon{background:rgba(184,137,111,.15);border-color:rgba(184,137,111,.4)}
+.faq-item.open .faq-icon svg{stroke:var(--nude);transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.faq-a p{font-size:14px;color:rgba(251,246,239,.38);line-height:1.9;padding-bottom:22px}
+.faq-item.open .faq-a{max-height:300px}
+
+/* CTA */
+.cta-section{padding:128px 52px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(184,137,111,.06) 0%,transparent 70%);pointer-events:none}
+.cta-note{margin-top:18px;font-size:11px;color:var(--muted);letter-spacing:.06em}
+
+/* FOOTER */
+footer{padding:44px 52px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;background:var(--bg)}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.foot-logo em{font-style:normal;color:var(--nude)}
+footer p{font-size:11px;color:var(--muted);text-align:center}
+.foot-links{display:flex;justify-content:flex-end;align-items:center;gap:20px}
+.foot-links a{font-size:11px;color:var(--muted);letter-spacing:.04em;transition:color .2s}
+.foot-links a:hover{color:var(--nude)}
 
 /* MODAL */
-.modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0);display:flex;align-items:flex-end;justify-content:center;pointer-events:none;transition:background .35s ease}
-.modal-overlay.open{background:rgba(0,0,0,.94);pointer-events:all}
-.modal-box{width:100%;max-width:420px;height:92vh;background:var(--bg2);border:1px solid var(--border);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(105%);transition:transform .5s cubic-bezier(.16,1,.3,1);overflow:hidden;position:relative}
+.modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(35,26,18,0);display:flex;align-items:flex-end;justify-content:center;pointer-events:none;transition:background .35s}
+.modal-overlay.open{background:rgba(35,26,18,.85);pointer-events:all}
+.modal-box{width:100%;max-width:480px;background:var(--cream);border-radius:20px 20px 0 0;padding:32px 28px 48px;transform:translateY(105%);transition:transform .5s cubic-bezier(.16,1,.3,1);position:relative}
 .modal-overlay.open .modal-box{transform:translateY(0)}
-.modal-video-wrap{position:relative;height:48%;flex-shrink:0;overflow:hidden;background:#000}
-.modal-video{width:100%;height:100%;object-fit:cover;display:block}
-.modal-vid-grad{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,var(--bg2) 100%);pointer-events:none}
-.modal-video-wrap::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,transparent,rgba(201,160,168,.03),transparent);animation:shimmer 2s infinite}
-@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.modal-close{position:absolute;top:14px;right:14px;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(8,7,9,.75);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--pearl);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s}
-.modal-close:hover{background:rgba(201,160,168,.55)}
-.modal-handle{width:40px;height:4px;background:rgba(242,237,233,.1);border-radius:2px;margin:12px auto 0}
-.modal-copy{padding:20px 24px 36px;overflow-y:auto;flex:1;display:flex;flex-direction:column}
-.modal-badge{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blush);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.modal-badge::before{content:"";display:block;width:18px;height:1px;background:var(--blush)}
-.modal-name{font-family:'Playfair Display',serif;font-size:clamp(26px,6vw,34px);font-weight:900;letter-spacing:-.025em;line-height:1.02;margin-bottom:10px}
-.modal-headline{font-size:14px;font-weight:600;color:var(--pearl);line-height:1.5;margin-bottom:14px}
-.modal-desc{font-size:14px;color:var(--muted);line-height:1.82;margin-bottom:18px;flex:1}
-.modal-proof{font-size:12px;color:var(--pearl);font-weight:500;padding:11px 14px;margin-bottom:20px;background:rgba(201,160,168,.06);border-left:2px solid var(--blush);border-radius:0 4px 4px 0}
-.modal-cta-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:56px;background:var(--blush);color:#080709;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;border:none;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 28px rgba(201,160,168,.26);flex-shrink:0}
-.modal-cta-btn:hover{transform:scale(1.02);box-shadow:0 10px 40px rgba(201,160,168,.44)}
-.modal-guarantee{font-size:10px;color:rgba(242,237,233,.2);text-align:center;margin-top:10px;letter-spacing:.05em}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 28px}
+.modal-eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--nude);margin-bottom:10px}
+.modal-name-m{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,38px);font-weight:600;margin-bottom:14px}
+.modal-desc-m{font-size:15px;color:var(--muted);line-height:1.82;margin-bottom:22px}
+.modal-price-m{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--nude);margin-bottom:24px}
+.modal-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;background:var(--nude);color:#fff;border:none;border-radius:2px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .2s}
+.modal-btn:hover{background:var(--nude-dk)}
+.modal-close{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:50%;background:var(--bg2);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px;transition:background .2s}
+.modal-close:hover{background:var(--border)}
 @media(min-width:768px){
   .modal-overlay{align-items:center}
-  .modal-box{flex-direction:row;border-radius:16px;max-width:900px;height:78vh;max-height:640px}
-  .modal-video-wrap{width:50%;height:100%;border-radius:16px 0 0 16px;flex-shrink:0}
-  .modal-vid-grad{background:linear-gradient(to right,transparent 60%,var(--bg2) 100%)}
+  .modal-box{border-radius:12px;max-width:540px;padding:44px}
   .modal-handle{display:none}
-  .modal-copy{padding:36px 40px;overflow-y:auto}
-  .modal-close{top:16px;right:16px}
 }
 
 /* RESPONSIVE */
-@media(max-width:1100px){.steps{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:960px){
-  .trat-grid,.outros-grid{grid-template-columns:1fr}
-  .manifesto{flex-direction:column;gap:44px}
-  .manifesto-aside{flex:none;border-left:0;border-top:1px solid var(--border);padding-left:0;padding-top:36px}
+@media(max-width:1024px){
+  nav{padding:0 24px}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-right{height:65vw;max-height:520px}
+  .hero-left{padding:100px 32px 56px}
+  .hero-left::after{display:none}
+  .hero-card{display:none}
+  .tcard-featured{grid-template-columns:1fr}
+  .tcard-feat-img{height:300px}
+  .tcard-feat-body{padding:32px 28px}
+  .outros-grid{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .about-frame{display:none}
+  .about-badge{right:16px}
+  .processo-grid{grid-template-columns:1fr;gap:48px}
+  .processo-img{height:360px}
+  .guarantee{flex-direction:column;text-align:center;gap:28px;padding:60px 24px}
+  .gallery-scroll{padding:0 24px 24px}
+  .gallery-hint{padding:0 24px}
+  footer{grid-template-columns:1fr;gap:14px;text-align:center}
+  .foot-links{justify-content:center}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;height:60px}
+  .nav-links a:not(.nav-cta){display:none}
+  .section{padding:64px 20px}
+  .manifesto{padding:80px 20px}
+  .cta-section{padding:80px 20px}
+  .strip{flex-wrap:wrap}
+  .strip-item{min-width:50%;border-bottom:1px solid rgba(255,255,255,.06)}
+  .strip-item:nth-child(even){border-right:0}
+  .tcard-grid{grid-template-columns:1fr}
+  .outros-grid{grid-template-columns:1fr 1fr}
   .depos-grid{grid-template-columns:1fr}
-  .diff{flex-wrap:wrap}
-  .diff-item{min-width:50%;border-bottom:1px solid var(--border)}
-  .diff-item:nth-child(even){border-right:0}
-  .diff-item:nth-last-child(-n+2){border-bottom:0}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .gallery-item{width:240px;height:300px}
+  footer{padding:32px 20px}
 }
-@media(max-width:640px){
-  header{padding:0 20px;height:60px}
-  .hero{padding:0 20px 72px}
-  .diff-item{padding:22px 16px}
-  .tratamentos,.outros,.processo,.manifesto,.faq,.depos,.cta-hm,.garantia{padding-left:20px;padding-right:20px}
-  .tratamentos,.processo{padding-top:72px;padding-bottom:72px}
-  .outros{padding-bottom:72px}
-  .manifesto{padding-top:72px;padding-bottom:72px}
-  .section-hd{flex-direction:column;gap:8px;padding-bottom:36px;margin-bottom:36px}
-  .tcard-img{height:220px}
-  .steps{grid-template-columns:1fr}
-  .step{padding:28px 24px}
-  .hero-cta-wrap{flex-direction:column;align-items:flex-start}
-  footer{padding:28px 20px;flex-direction:column;gap:8px;text-align:center}
-  .nav-cta-hm{display:none}
-  .depos-grid{gap:12px}
-  .outros-grid{gap:2px}
-}
+@media(max-width:480px){.outros-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<header id="hdr">
-  <div class="logo-hm">HARMONIA<span>.</span></div>
-  <a href="#agendar" class="nav-cta-hm">Agendar avalia&#231;&#227;o</a>
-</header>
+<nav id="nav">
+  <div class="logo">STUDIO<em>.</em>[Nome]</div>
+  <div class="nav-links">
+    <a href="#tratamentos">Tratamentos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#resultados">Resultados</a>
+    <a href="#agendar" class="nav-cta">Agendar</a>
+  </div>
+</nav>
 
-<!-- HERO -->
+<a class="wa-fab" href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20minha%20avaliação%20gratuita." aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.528 5.857L0 24l6.313-1.507A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.893 0-3.67-.5-5.214-1.377l-.374-.213-3.875.924.965-3.782-.232-.39A9.955 9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" fill-rule="evenodd"/></svg>
+</a>
+
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-label" id="hlabel">Harmoniza&#231;&#227;o Facial &bull; Est&#233;tica Premium</div>
-    <h1>
-      <span class="word"><span class="word-inner" data-d="0">Harmoniza&#231;&#227;o</span></span><br>
-      <span class="word"><span class="word-inner" data-d="140">que</span></span>&#160;
-      <span class="word"><span class="word-inner" data-d="220">real&#231;a</span></span><br>
-      <em id="hero-em">quem voc&#234; j&#225; &#233;.</em>
-    </h1>
-    <p class="hero-sub" id="hsub">
-      N&#227;o mudamos rostos. Revelamos a vers&#227;o mais harm&#244;nica de quem voc&#234; j&#225; &#233;.<br>
-      T&#233;cnica precisa. Resultado natural. Uma profissional que entende que beleza n&#227;o &#233; padr&#227;o — &#233; equil&#237;brio.
-    </p>
-    <div class="hero-cta-wrap" id="hcta">
-      <a href="#agendar" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        Quero minha avalia&#231;&#227;o
-      </a>
-      <a href="#tratamentos" class="btn-ghost">Ver os tratamentos</a>
+  <div class="hero-left">
+    <div class="hero-tag">Studio de Estética Avançada</div>
+    <h1>Beleza que<br>nasce do <em>cuidado.</em></h1>
+    <p class="hero-sub">Tratamentos personalizados que respeitam a singularidade da sua pele e revelam o melhor de você — sem exageros.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20minha%20avaliação%20gratuita." class="btn-main">Agendar avaliação</a>
+      <a href="#tratamentos" class="btn-ghost">Conheça os tratamentos</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-n">8+</div><div class="hero-stat-l">Anos de experiência</div></div>
+      <div><div class="hero-stat-n">1.800</div><div class="hero-stat-l">Clientes atendidas</div></div>
+      <div><div class="hero-stat-n">4.9★</div><div class="hero-stat-l">Avaliação média</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1000&q=85" alt="Tratamento estético facial">
+    <div class="hero-card">
+      <div class="hero-card-label">Próximos horários</div>
+      <div class="hero-card-slot">
+        <div class="hero-card-dot"></div>
+        <div><div class="hero-card-time">09:30</div><div class="hero-card-name">Limpeza de Pele</div></div>
+      </div>
+      <div class="hero-card-slot">
+        <div class="hero-card-dot"></div>
+        <div><div class="hero-card-time">11:00</div><div class="hero-card-name">Microagulhamento</div></div>
+      </div>
+      <div class="hero-card-slot">
+        <div class="hero-card-dot"></div>
+        <div><div class="hero-card-time">14:30</div><div class="hero-card-name">Peeling Químico</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STRIP -->
-<div class="diff">
-  <div class="diff-item"><div class="diff-n">8</div><div class="diff-l">Anos de experi&#234;ncia</div></div>
-  <div class="diff-item"><div class="diff-n">100%</div><div class="diff-l">Resultado natural</div></div>
-  <div class="diff-item"><div class="diff-n">+2.000</div><div class="diff-l">Clientes atendidas</div></div>
-  <div class="diff-item"><div class="diff-n">0</div><div class="diff-l">Efeito exagerado</div></div>
+<div class="strip">
+  <div class="strip-item"><div class="strip-n">100%</div><div class="strip-l">Natural</div></div>
+  <div class="strip-item"><div class="strip-n">+30</div><div class="strip-l">Protocolos</div></div>
+  <div class="strip-item"><div class="strip-n">Anvisa</div><div class="strip-l">Certificado</div></div>
+  <div class="strip-item"><div class="strip-n">0</div><div class="strip-l">Exageros</div></div>
 </div>
 
-<!-- TRATAMENTOS PRINCIPAIS -->
-<section class="tratamentos" id="tratamentos">
-  <div class="section-hd">
-    <h2 class="section-title reveal">Harmoniza&#231;&#227;o <em>facial</em></h2>
-    <span class="section-sub reveal reveal-d2">Clique para entender cada tratamento</span>
-  </div>
-  <div class="trat-grid">
+<section class="section" id="tratamentos">
+  <div class="s-eyebrow reveal">Nossos tratamentos</div>
+  <h2 class="s-title reveal">Cuidado que <em>transforma.</em></h2>
+  <p class="s-body reveal">Cada protocolo é desenvolvido de forma individualizada. Clique para saber mais e agendar.</p>
 
-    <a class="tcard reveal" data-id="preenchimento" href="javascript:;" onclick="openModal('preenchimento');return false;">
+  <div class="tcard-featured reveal" onclick="openModal('micro')">
+    <div class="tcard-feat-img">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=85" alt="Microagulhamento">
+    </div>
+    <div class="tcard-feat-body">
+      <div class="tcard-badge">Mais procurado</div>
+      <h3 class="tcard-feat-name">Microagulhamento com Bioestimulador</h3>
+      <p class="tcard-feat-desc">Técnica que induz produção natural de colágeno através de micropunturas controladas. Eficaz para cicatrizes de acne, linhas de expressão, poros dilatados e flacidez. Resultado visível já na primeira sessão.</p>
+      <div class="tcard-feat-row">
+        <div class="tcard-feat-price">A partir de R$350</div>
+        <span class="tcard-feat-cta">Saiba mais →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tcard-grid">
+    <div class="tcard reveal" onclick="openModal('limpeza')">
       <div class="tcard-img">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Preenchimento" loading="lazy">
-        <div class="tcard-badge">&#9889; Mais Pedido</div>
+        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=80" alt="Limpeza de pele">
+        <div class="tcard-tag">Purificação profunda</div>
       </div>
       <div class="tcard-body">
-        <div class="tcard-name">Preenchimento</div>
-        <p class="tcard-desc">L&#225;bios, ma&#231;&#227; do rosto, olheiras, nasogenianas. O detalhe que muda como o mundo inteiro te enxerga — sem que ningu&#233;m saiba o que mudou.</p>
-        <div class="tcard-price">A partir de R$&nbsp;899 <span>por &#225;rea</span></div>
-        <div class="tcard-trigger">Entender o tratamento <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        <h3 class="tcard-name">Limpeza de Pele</h3>
+        <p class="tcard-desc">Remove impurezas, cravos e células mortas com técnica manual e aparelhos de alta performance. Resultado imediato.</p>
+        <div class="tcard-row">
+          <div class="tcard-price">A partir de R$180</div>
+          <span class="tcard-cta">Ver mais →</span>
+        </div>
       </div>
-    </a>
-
-    <a class="tcard reveal reveal-d1" data-id="botox" href="javascript:;" onclick="openModal('botox');return false;">
+    </div>
+    <div class="tcard reveal d1" onclick="openModal('peeling')">
       <div class="tcard-img">
-        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80" alt="Toxina Botulínica" loading="lazy">
-        <div class="tcard-badge" style="color:var(--pearl);border-color:rgba(242,237,233,.18)">Preventivo &amp; Curat.</div>
+        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=700&q=80" alt="Peeling químico">
+        <div class="tcard-tag">Renovação celular</div>
       </div>
       <div class="tcard-body">
-        <div class="tcard-name">Toxina Botul&#237;nica</div>
-        <p class="tcard-desc">Rugas de express&#227;o, levantamento de sobrancelha, canto de boca, bund&#225;. N&#227;o apaga express&#227;o — apaga o peso que o tempo e o estresse deixaram no rosto.</p>
-        <div class="tcard-price">A partir de R$&nbsp;799 <span>por &#225;rea</span></div>
-        <div class="tcard-trigger">Entender o tratamento <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        <h3 class="tcard-name">Peeling Químico</h3>
+        <p class="tcard-desc">Aplicação controlada de ácidos para renovação em profundidade. Trata manchas, melasma e textura irregular.</p>
+        <div class="tcard-row">
+          <div class="tcard-price">A partir de R$280</div>
+          <span class="tcard-cta">Ver mais →</span>
+        </div>
       </div>
-    </a>
-
-    <a class="tcard reveal reveal-d2" data-id="biostim" href="javascript:;" onclick="openModal('biostim');return false;">
-      <div class="tcard-img">
-        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80" alt="Bioestimulador" loading="lazy">
-        <div class="tcard-badge" style="background:rgba(201,160,168,.14);border-color:rgba(201,160,168,.38);color:var(--blush)">Longevidade</div>
-      </div>
-      <div class="tcard-body">
-        <div class="tcard-name">Bioestimulador</div>
-        <p class="tcard-desc">Col&#225;geno, firmeza, textura, qualidade de pele. Para quem pensa longo prazo. A pele que voc&#234; vai ter daqui a 5 anos — antecipada para agora.</p>
-        <div class="tcard-price">A partir de R$&nbsp;1.299 <span>por sess&#227;o</span></div>
-        <div class="tcard-trigger">Entender o tratamento <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
-      </div>
-    </a>
-
+    </div>
   </div>
-</section>
 
-<!-- OUTROS TRATAMENTOS -->
-<section class="outros">
-  <div class="outros-intro reveal">
-    <h3>Tamb&#233;m cuidamos de voc&#234;</h3>
-    <p>Tratamentos complementares para uma pele cada vez mais saud&#225;vel e radiante.</p>
-  </div>
-  <div class="outros-grid">
-    <div class="outro-card reveal">
-      <div class="outro-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="outro-name">Limpeza de Pele</div>
-      <p class="outro-desc">Desobstru&#231;&#227;o profunda dos poros, extra&#231;&#227;o, esfoliação e hidratação intensiva.</p>
-      <div class="outro-price">A partir de R$&nbsp;180</div>
-    </div>
-    <div class="outro-card reveal reveal-d1">
-      <div class="outro-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
-      <div class="outro-name">Peeling Qu&#237;mico</div>
-      <p class="outro-desc">Renova&#231;&#227;o celular, manchas, poros dilatados, oleosidade. Pele nova em camadas progressivas.</p>
-      <div class="outro-price">A partir de R$&nbsp;250</div>
-    </div>
-    <div class="outro-card reveal reveal-d2">
-      <div class="outro-icon"><svg viewBox="0 0 24 24"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 7.7 7 5.3c-.29 2.4-1.72 3.54-2.29 4.76-.57 1.22-.71 2.32-.71 3.19C4 16.1 4.8 16.3 7 16.3z"/><path d="M12.56 6.6A10.97 10.97 0 0014 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 01-11.91 4.97"/></svg></div>
-      <div class="outro-name">Hydrafacial</div>
-      <p class="outro-desc">Hidrata&#231;&#227;o profunda, limpeza e antioxidantes em um &#250;nico protocolo. Resultado imediato.</p>
-      <div class="outro-price">A partir de R$&nbsp;320</div>
-    </div>
-    <div class="outro-card reveal">
-      <div class="outro-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg></div>
-      <div class="outro-name">Microagulhamento</div>
-      <p class="outro-desc">Estimula&#231;&#227;o natural de col&#225;geno. Cicatrizes de acne, poros, firmeza e textura da pele.</p>
-      <div class="outro-price">A partir de R$&nbsp;280</div>
-    </div>
-    <div class="outro-card reveal reveal-d1">
-      <div class="outro-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-      <div class="outro-name">Skinbooster</div>
-      <p class="outro-desc">&#193;cido hialur&#244;nico intradermal para hidrata&#231;&#227;o profunda, brilho e viço duradouros.</p>
-      <div class="outro-price">A partir de R$&nbsp;699</div>
-    </div>
-    <div class="outro-card reveal reveal-d2">
-      <div class="outro-icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg></div>
-      <div class="outro-name">Protocolo Anti-Aging</div>
-      <p class="outro-desc">Combina&#231;&#227;o personalizada de tratamentos para resultados anti-envelhecimento acelerados.</p>
-      <div class="outro-price">A partir de R$&nbsp;450</div>
+  <div class="outros-wrap reveal">
+    <h3 class="outros-head">E também oferecemos</h3>
+    <p class="outros-sub">Tratamentos complementares para um cuidado completo.</p>
+    <div class="outros-grid">
+      <div class="oitem"><div class="oitem-num">01</div><div class="oitem-name">Radiofrequência Facial</div><p class="oitem-desc">Firmeza e lifting não-invasivo para combater a flacidez.</p></div>
+      <div class="oitem"><div class="oitem-num">02</div><div class="oitem-name">Drenagem Linfática Facial</div><p class="oitem-desc">Reduz inchaço e melhora a circulação para um rosto mais descansado.</p></div>
+      <div class="oitem"><div class="oitem-num">03</div><div class="oitem-name">Hidratação Profunda</div><p class="oitem-desc">Nutrição intensiva para peles ressecadas, opacas ou cansadas.</p></div>
+      <div class="oitem"><div class="oitem-num">04</div><div class="oitem-name">Tratamento para Acne</div><p class="oitem-desc">Protocolo específico para controle de acne ativa e cicatrizes.</p></div>
     </div>
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
-<section class="processo">
-  <div class="processo-intro">
-    <h2 class="reveal">Como &#233; <em>uma consulta</em> aqui</h2>
-    <p class="reveal reveal-d1">Do primeiro contato ao resultado no espelho — cada etapa pensada para que você se sinta segura, ouvida e completamente à vontade.</p>
-  </div>
-  <div class="steps">
-    <div class="step reveal">
-      <div class="step-num">01</div>
-      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-      <div class="step-title">Avalia&#231;&#227;o gratuita</div>
-      <p class="step-desc">30 minutos entendendo sua pele, seus objetivos e o que você quer ver no espelho. Sem compromisso, sem pressão.</p>
+<section class="section mid" id="sobre">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <div class="about-frame"></div>
+      <div class="about-photo">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&q=85" alt="Profissional">
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-n">8+</div>
+        <div class="about-badge-l">Anos de prática</div>
+      </div>
     </div>
-    <div class="step reveal reveal-d1">
-      <div class="step-num">02</div>
-      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg></div>
-      <div class="step-title">Protocolo personalizado</div>
-      <p class="step-desc">Criamos juntas o plano ideal para o seu rosto, seu ritmo e seu orçamento. Nada genérico, nada padrão.</p>
-    </div>
-    <div class="step reveal reveal-d2">
-      <div class="step-num">03</div>
-      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="step-title">Procedimento seguro</div>
-      <p class="step-desc">Produtos de referência internacional, técnica conservadora. Você sai daqui parecendo você — só mais descansada, mais harmônica.</p>
-    </div>
-    <div class="step reveal reveal-d3">
-      <div class="step-num">04</div>
-      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78a5.5 5.5 0 000-7.78z"/></svg></div>
-      <div class="step-title">Acompanhamento</div>
-      <p class="step-desc">Retorno incluso para avaliar o resultado. Você não é atendida e esquecida — é acompanhada em cada etapa.</p>
+    <div>
+      <div class="s-eyebrow reveal">Quem cuida de você</div>
+      <p class="about-quote reveal">"Cada pele tem uma história. Meu trabalho é entender essa história e cuidar dela com técnica e respeito."</p>
+      <p class="about-text reveal">Com mais de 8 anos de atuação em estética avançada, me especializei em tratamentos faciais que unem ciência e sensibilidade. Acredito que o cuidado genuíno começa na escuta — por isso cada cliente recebe atenção total, desde a avaliação até o acompanhamento dos resultados.</p>
+      <div class="about-certs reveal">
+        <span class="cert-pill">CBVE Certificada</span>
+        <span class="cert-pill">Anvisa</span>
+        <span class="cert-pill">SENAC</span>
+        <span class="cert-pill">ABRAVITA</span>
+      </div>
+      <div class="reveal">
+        <div class="about-sig-name">[Nome da Profissional]</div>
+        <div class="about-sig-role">Esteticista & Especialista em Pele</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MANIFESTO -->
+<section class="section" id="processo">
+  <div class="processo-grid">
+    <div>
+      <div class="s-eyebrow reveal">Como funciona</div>
+      <h2 class="s-title reveal">Do primeiro contato <em>ao resultado.</em></h2>
+      <div style="margin-top:40px">
+        <div class="pstep reveal"><div class="pstep-num">1</div><div><h4 class="pstep-title">Avaliação gratuita</h4><p class="pstep-desc">Analisamos sua pele e entendemos seus objetivos sem nenhum compromisso. Você sai com um plano claro.</p></div></div>
+        <div class="pstep reveal d1"><div class="pstep-num">2</div><div><h4 class="pstep-title">Protocolo personalizado</h4><p class="pstep-desc">Montamos o tratamento ideal para o seu tipo de pele, rotina e os resultados que você quer ver.</p></div></div>
+        <div class="pstep reveal d2"><div class="pstep-num">3</div><div><h4 class="pstep-title">Sessões com atenção total</h4><p class="pstep-desc">Cada sessão é conduzida com cuidado real, produtos certificados e técnica que respeita a sua pele.</p></div></div>
+        <div class="pstep reveal d3"><div class="pstep-num">4</div><div><h4 class="pstep-title">Acompanhamento contínuo</h4><p class="pstep-desc">Monitoramos os resultados e ajustamos o protocolo sempre que necessário.</p></div></div>
+      </div>
+    </div>
+    <div class="processo-img reveal">
+      <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=85" alt="Processo de tratamento">
+    </div>
+  </div>
+</section>
+
+<section class="section mid" id="resultados" style="padding-left:0;padding-right:0;padding-bottom:0">
+  <div style="padding:0 52px 40px">
+    <div class="s-eyebrow reveal">Resultados</div>
+    <h2 class="s-title reveal">O que a <em>pele revela.</em></h2>
+  </div>
+  <div class="gallery-scroll">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt=""></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80" alt=""></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=600&q=80" alt=""></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=80" alt=""></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt=""></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80" alt=""></div>
+  </div>
+  <div class="gallery-hint" style="padding-bottom:40px"><span class="gallery-arrow">→</span> deslize para ver mais</div>
+</section>
+
 <section class="manifesto">
-  <div class="manifesto-text">
-    <h2 class="reveal">N&#227;o acreditamos<br>em padr&#227;o<br>de beleza.<br><em>Acreditamos<br>em equil&#237;brio.</em></h2>
-  </div>
-  <div class="manifesto-aside">
-    <p class="reveal reveal-d2">
-      O rosto ideal n&#227;o &#233; o que voc&#234; v&#234; nas redes sociais. &#201; aquele em que os tra&#231;os que sempre foram seus est&#227;o no lugar que sempre deveriam estar.
-      <br><br>
-      <strong>Harmoniza&#231;&#227;o n&#227;o muda quem voc&#234; &#233;. Revela quem voc&#234; sempre foi.</strong>
-    </p>
-  </div>
+  <div class="s-eyebrow reveal" style="justify-content:center;color:rgba(184,137,111,.5)">Nossa filosofia</div>
+  <blockquote class="reveal">"Não existe beleza padrão. Existe <em>equilíbrio</em> — e esse equilíbrio é único em cada pessoa."</blockquote>
+  <p class="manifesto-author reveal">Studio [Nome] · Est. 2018</p>
 </section>
 
-<!-- FAQ -->
-<section class="faq">
-  <h2 class="faq-title reveal">D&#250;vidas <em>que toda cliente tem</em></h2>
-  <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Vou ficar com cara de "feita"? <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
-      </button>
-      <div class="faq-a"><p>Não se for bem-feito. O objetivo aqui nunca é o exagero — é o equilíbrio. A maioria das nossas clientes recebe elogios vagos: "você está diferente", "parece mais descansada", "ficou mais bonita". Ninguém consegue apontar o que mudou. Esse é o resultado que buscamos.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Doi? Fico com marca? <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
-      </button>
-      <div class="faq-a"><p>A sensação é de um beliscão leve. Aplicamos anestesia tópica antes. Pode haver um pequeno inchaço ou equimose em alguns pontos — nada que não passe em 48h. A maioria das clientes volta ao trabalho no dia seguinte sem nenhuma marca visível.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Quanto tempo dura o resultado? <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
-      </button>
-      <div class="faq-a"><p>Depende do tratamento: a toxina dura de 4 a 6 meses. O preenchimento de 12 a 18 meses. O bioestimulador de 18 a 24 meses. Com manutenção regular, os resultados são progressivos e cada vez mais duradouros.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Posso fazer mais de um procedimento na mesma sess&#227;o? <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
-      </button>
-      <div class="faq-a"><p>Sim, em muitos casos. Toxina + preenchimento é uma combinação comum e muito eficiente. Avaliamos juntas durante a consulta o que faz mais sentido para o seu rosto e seu objetivo no momento.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Qual a idade certa para come&#231;ar? <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
-      </button>
-      <div class="faq-a"><p>Não existe uma idade certa — existe o momento certo para você. Atendemos clientes de 25 a 65 anos com objetivos completamente diferentes. Algumas vêm pela prevenção, outras pela correção. Na avaliação, entendemos o que faz sentido agora para o seu rosto.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        E se eu n&#227;o gostar do resultado? <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
-      </button>
-      <div class="faq-a"><p>Retorno de avaliação incluso em todos os procedimentos. Se houver alguma assimetria ou resultado diferente do planejado, corrigimos sem custo adicional. Você não sai daqui sem amar o que vê no espelho.</p></div>
-    </div>
+<section class="section" id="depoimentos">
+  <div style="text-align:center">
+    <div class="s-eyebrow reveal" style="justify-content:center">Resultados reais</div>
+    <h2 class="s-title reveal">O que nossas <em>clientes dizem.</em></h2>
   </div>
-</section>
-
-<!-- DEPOIMENTOS -->
-<section class="depos">
-  <h2 class="depos-title reveal">O que dizem <em>nossas clientes</em></h2>
   <div class="depos-grid">
-    <div class="depo-card reveal">
+    <div class="depo reveal">
       <div class="depo-stars">★★★★★</div>
-      <p class="depo-text">"Tinha medo de ficar com cara de plástico. Saí daqui e meu marido disse que eu estava mais bonita — sem saber o que tinha mudado. É exatamente isso que eu queria."</p>
-      <div class="depo-author">Fernanda C.</div>
-      <div class="depo-service">Toxina + Preenchimento &bull; Cliente h&#225; 3 anos</div>
+      <p class="depo-text">"Fiz a limpeza de pele e saí com a pele completamente renovada. Ambiente aconchegante, atendimento impecável e resultado imediato."</p>
+      <div class="depo-footer"><div class="depo-avatar">M</div><div><div class="depo-author">Mariana T.</div><div class="depo-service">Limpeza de Pele Profunda</div></div></div>
     </div>
-    <div class="depo-card reveal reveal-d1">
+    <div class="depo reveal d1">
       <div class="depo-stars">★★★★★</div>
-      <p class="depo-text">"Fiz o bioestimulador e as pessoas começaram a me perguntar o que eu estava fazendo diferente. Minha pele mudou uma textura completa em 3 meses. Sensacional."</p>
-      <div class="depo-author">Carla M.</div>
-      <div class="depo-service">Bioestimulador &bull; Protocolo completo</div>
+      <p class="depo-text">"O microagulhamento foi transformador. Marcas de acne que eu tinha há anos foram praticamente eliminadas. Me sinto completamente diferente."</p>
+      <div class="depo-footer"><div class="depo-avatar">J</div><div><div class="depo-author">Juliana R.</div><div class="depo-service">Microagulhamento</div></div></div>
     </div>
-    <div class="depo-card reveal reveal-d2">
+    <div class="depo reveal d2">
       <div class="depo-stars">★★★★★</div>
-      <p class="depo-text">"Minha chefe me perguntou se eu estava dormindo melhor. Era o preenchimento de olheiras. Ninguém soube. Só eu sabia que finalmente estava parecendo como me sinto por dentro."</p>
-      <div class="depo-author">Beatriz A.</div>
-      <div class="depo-service">Preenchimento &bull; Olheiras &amp; l&#225;bios</div>
+      <p class="depo-text">"Muito profissional e cuidadosa. O peeling tirou manchas que eu achei que nunca iam sair. Recomendo sem hesitar para qualquer pessoa."</p>
+      <div class="depo-footer"><div class="depo-avatar">C</div><div><div class="depo-author">Camila F.</div><div class="depo-service">Peeling Químico</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- GARANTIA -->
-<div class="garantia">
-  <div class="garantia-icon">🌸</div>
-  <h3 class="reveal">Se n&#227;o amar o resultado,<br><em>ajustamos gratuitamente.</em></h3>
-  <p class="reveal reveal-d1">Retorno de avalia&#231;&#227;o incluso em todos os procedimentos. Qualquer assimetria, qualquer resultado diferente do planejado — corrigimos sem custo. Voc&#234; s&#243; paga quando o espelho confirma.</p>
+<div class="guarantee reveal">
+  <div class="guarantee-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  </div>
+  <div>
+    <h3 class="guarantee-title">Avaliação 100% gratuita</h3>
+    <p class="guarantee-text">Venha conhecer o studio, conversar sobre sua pele e entender quais tratamentos fazem sentido para você — sem pressão e sem compromisso. Se não fizer sentido, tudo bem.</p>
+  </div>
 </div>
 
-<!-- CTA -->
-<section class="cta-hm" id="agendar">
-  <div class="cta-eyebrow reveal">Seu primeiro passo</div>
-  <h2 class="reveal reveal-d1">
-    A avalia&#231;&#227;o &#233; gratuita.<br>
-    <em>O espelho n&#227;o mente.</em>
-  </h2>
-  <p class="cta-sub reveal reveal-d2">Sem compromisso. Sem press&#227;o. S&#243; uma conversa honesta sobre o que &#233; melhor para o seu rosto.</p>
-  <a href="https://wa.me/5511999999999" class="btn-primary reveal reveal-d2" style="font-size:14px;height:62px;padding:0 52px">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    Agendar avalia&#231;&#227;o gratuita
-  </a>
-  <p class="cta-note reveal reveal-d3">100% gratuita &bull; Sem obriga&#231;&#227;o de fechar &bull; Resposta em minutos</p>
+<section class="section dark">
+  <div style="text-align:center">
+    <div class="s-eyebrow reveal" style="justify-content:center;color:rgba(184,137,111,.5)">Dúvidas</div>
+    <h2 class="s-title reveal">Perguntas <em>frequentes</em></h2>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">A avaliação inicial é realmente gratuita?<span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="faq-a"><p>Sim, totalmente gratuita e sem compromisso. É o momento em que analisamos sua pele com cuidado, entendemos seus objetivos e indicamos o melhor protocolo para você.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Quantas sessões preciso para ver resultado?<span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="faq-a"><p>Depende do tratamento e do objetivo. Muitos resultados aparecem já na primeira sessão. Protocolos completos costumam ter entre 4 e 8 sessões para efeito duradouro — tudo discutido na avaliação.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Atendem pele sensível ou com condições específicas?<span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="faq-a"><p>Sim. Todos os produtos são certificados e testados dermatologicamente. A avaliação mapeia qualquer sensibilidade para que o protocolo seja adaptado com segurança.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Quais formas de pagamento são aceitas?<span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="faq-a"><p>Aceitamos PIX, débito e crédito em até 6x. Para protocolos completos, oferecemos condições especiais de pacote com melhor custo-benefício por sessão.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="agendar">
+  <div class="s-eyebrow reveal" style="justify-content:center">Agende agora</div>
+  <h2 class="s-title reveal" style="margin-top:8px;max-width:620px">Dê o primeiro passo para a <em>pele que você merece.</em></h2>
+  <p class="s-body reveal" style="text-align:center;margin:18px auto 52px">Avaliação gratuita, sem compromisso e com resposta rápida. A sua pele agradece quando o cuidado começa cedo.</p>
+  <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20minha%20avaliação%20gratuita." class="btn-main reveal">Agendar pelo WhatsApp</a>
+  <p class="cta-note reveal">Resposta em até 30 minutos · Atendimento personalizado · Sem compromisso</p>
 </section>
 
 <footer>
-  <div class="foot-logo">HARMONIA<span>.</span></div>
-  <p>&#169; 2026 Harmonia. &mdash; Todos os direitos reservados</p>
+  <div class="foot-logo">STUDIO<em>.</em>[Nome]</div>
+  <p>© 2026 · Todos os direitos reservados</p>
+  <div class="foot-links">
+    <a href="#">Instagram</a>
+    <a href="#">WhatsApp</a>
+    <a href="#">Localização</a>
+  </div>
 </footer>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+<div class="modal-overlay" id="modal" onclick="closeModalOut(event)">
   <div class="modal-box">
-    <button class="modal-close" id="modalClose" aria-label="Fechar">&#10005;</button>
-    <div class="modal-video-wrap">
-      <video class="modal-video" id="modalVid" autoplay muted loop playsinline></video>
-      <div class="modal-vid-grad"></div>
-    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-handle"></div>
-    <div class="modal-copy">
-      <div class="modal-badge" id="modalBadge"></div>
-      <div class="modal-name" id="modalName"></div>
-      <div class="modal-headline" id="modalHeadline"></div>
-      <p class="modal-desc" id="modalDesc"></p>
-      <div class="modal-proof" id="modalProof"></div>
-      <a href="https://wa.me/5511999999999" class="modal-cta-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        <span id="modalCtaText">Agendar avalia&#231;&#227;o</span>
-      </a>
-      <p class="modal-guarantee">Avalia&#231;&#227;o gratuita &bull; Retorno incluso em todos os procedimentos</p>
-    </div>
+    <div id="modal-badge" class="modal-eyebrow"></div>
+    <h3 id="modal-name" class="modal-name-m"></h3>
+    <p id="modal-desc" class="modal-desc-m"></p>
+    <div id="modal-price" class="modal-price-m"></div>
+    <a id="modal-btn" href="#" class="modal-btn">Agendar esse tratamento</a>
   </div>
 </div>
 
 <script>
-window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('solid',scrollY>60);},{passive:true});
-
-window.addEventListener('load',()=>{
-  setTimeout(()=>document.getElementById('hlabel').classList.add('in'),100);
-  document.querySelectorAll('.word-inner').forEach(el=>{
-    setTimeout(()=>el.classList.add('in'),300+parseInt(el.dataset.d||0));
-  });
-  setTimeout(()=>document.getElementById('hero-em').classList.add('in'),680);
-  setTimeout(()=>document.getElementById('hsub').classList.add('in'),900);
-  setTimeout(()=>document.getElementById('hcta').classList.add('in'),1180);
-});
-
-const io = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+const T={
+  micro:{badge:'Mais procurado',name:'Microagulhamento com Bioestimulador',desc:'Técnica que induz produção natural de colágeno através de micropunturas controladas. Eficaz para cicatrizes de acne, linhas de expressão, poros dilatados e flacidez. Resultado visível já na primeira sessão, com efeito que melhora progressivamente nas semanas seguintes.',price:'A partir de R$350'},
+  limpeza:{badge:'Clássico essencial',name:'Limpeza de Pele Profunda',desc:'Remove cravos, impurezas e células mortas com técnica manual combinada a aparelhos de alta performance. Indicada para qualquer tipo de pele — resultado imediato: pele limpa, uniforme e visivelmente mais saudável.',price:'A partir de R$180'},
+  peeling:{badge:'Renovador',name:'Peeling Químico',desc:'Aplicação controlada de ácidos que promovem renovação celular em profundidade. Trata manchas, melasma, textura irregular e envelhecimento precoce. Resultado progressivo que melhora ao longo das sessões.',price:'A partir de R$280'}
+};
+function openModal(id){
+  const t=T[id];if(!t)return;
+  document.getElementById('modal-badge').textContent=t.badge;
+  document.getElementById('modal-name').textContent=t.name;
+  document.getElementById('modal-desc').textContent=t.desc;
+  document.getElementById('modal-price').textContent=t.price;
+  document.getElementById('modal-btn').href='https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20'+encodeURIComponent(t.name);
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function closeModalOut(e){if(e.target===document.getElementById('modal'))closeModal();}
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);});
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
 function toggleFaq(btn){
-  const item=btn.closest('.faq-item');
+  const item=btn.parentElement;
   const isOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
   if(!isOpen)item.classList.add('open');
 }
-
-const TRATAMENTOS = {
-  preenchimento:{
-    vid:'https://assets.mixkit.co/videos/51177/51177-360.mp4',
-    badge:'⚡ Mais Pedido',
-    name:'Preenchimento',
-    headline:'O detalhe que muda como o mundo inteiro te enxerga — sem que ninguém saiba o que mudou.',
-    desc:'Lábios que dizem algo antes de você falar. Maçãs que sustentam o olhar. Olheiras que não revelam o quanto você trabalhou. O preenchimento bem-feito não é visível — é sentido. Ninguém sabe que você fez. Só sabem que você está diferente. Mais jovem. Mais descansada. Mais você. Com ácido hialurônico de última geração e técnica ultra-conservadora, o resultado dura de 12 a 18 meses.',
-    proof:'"Minha chefe me perguntou se eu estava dormindo melhor. Era o preenchimento de olheiras. Ninguém soube. Só eu sabia." — Beatriz A., advogada',
-    cta:'Agendar Preenchimento'
-  },
-  botox:{
-    vid:'https://assets.mixkit.co/videos/52159/52159-360.mp4',
-    badge:'Preventivo & Corretivo',
-    name:'Toxina Botulínica',
-    headline:'Não congela o rosto. Liberta ele das marcas que o estresse e o tempo deixaram.',
-    desc:'A toxina aplicada com critério não apaga expressão — apaga o peso que acumulou no rosto. Rugas de expressão excessivas, sobrancelha que caiu, canto de boca que pesou. Com a dose certa, no lugar certo, você mantém toda a expressividade — só sem a tensão que ficou. O resultado aparece em 7 dias e dura de 4 a 6 meses. Quem faz uma vez, raramente quer parar.',
-    proof:'"Tinha medo de ficar com cara congelada. Fiz e meu marido nem percebeu. Só disse que eu estava mais bonita." — Fernanda C., professora',
-    cta:'Agendar Toxina'
-  },
-  biostim:{
-    vid:'https://assets.mixkit.co/videos/33201/33201-360.mp4',
-    badge:'Longevidade',
-    name:'Bioestimulador',
-    headline:'A pele que você vai ter daqui a 5 anos — antecipada para agora.',
-    desc:'O bioestimulador de colágeno não é resultado imediato — é investimento progressivo. Nas primeiras semanas a pele fica mais firme. Nos primeiros meses, a textura muda. Em 6 meses, o espelho mostra uma pele que parece ter regredido anos. Sem que ninguém consiga colocar o dedo no que mudou. É o tratamento de quem pensa longo prazo. Resultado dura de 18 a 24 meses.',
-    proof:'"Comecei aos 38. Hoje tenho 42 e as pessoas perguntam minha idade com surpresa. É o bioestimulador." — Carla M., empresária',
-    cta:'Agendar Bioestimulador'
-  }
-};
-
-const overlay=document.getElementById('modal');
-const vid=document.getElementById('modalVid');
-const elBadge=document.getElementById('modalBadge');
-const elName=document.getElementById('modalName');
-const elHead=document.getElementById('modalHeadline');
-const elDesc=document.getElementById('modalDesc');
-const elProof=document.getElementById('modalProof');
-const elCtaTxt=document.getElementById('modalCtaText');
-
-window.openModal=function(id){
-  const t=TRATAMENTOS[id];if(!t)return;
-  elBadge.textContent=t.badge;elName.textContent=t.name;
-  elHead.textContent=t.headline;elDesc.textContent=t.desc;
-  elProof.textContent=t.proof;elCtaTxt.textContent=t.cta;
-  vid.src=t.vid;vid.load();vid.play().catch(()=>{});
-  overlay.classList.add('open');document.body.style.overflow='hidden';
-};
-function closeModal(){
-  overlay.classList.remove('open');document.body.style.overflow='';
-  setTimeout(()=>{vid.pause();vid.src='';},500);
-}
-document.getElementById('modalClose').addEventListener('click',closeModal);
-overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
-let ty=0;
-overlay.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;},{passive:true});
-overlay.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-ty>70)closeModal();},{passive:true});
 </script>
 </body>
 </html>
